@@ -1,0 +1,4 @@
+FROM alinea/api:local
+
+USER alinea
+CMD ["python", "-m", "app.worker"]

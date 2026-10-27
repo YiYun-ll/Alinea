@@ -1,0 +1,15 @@
+{
+  "status": "LOCAL_MVP_VERIFIED_WITH_LIMITS",
+  "backend_tests": {"passed": 207, "skipped": 1},
+  "frontend_unit_tests": {"passed": 6},
+  "playwright": {"passed": 1, "duration_seconds": 20.6, "console_errors": 0},
+  "golden": {"samples": 30, "demo_targets": 10, "tp": 36, "fp": 0, "fn": 0, "precision": 1.0, "recall": 1.0, "unknown": 2},
+  "protection": {"high_risk_blocked": 6, "high_risk_total": 6, "external_renderer_blocked": true},
+  "render": {"pages": 10, "cold_seconds": 57.938, "cached_seconds": 4.015, "located": 9, "total_targets": 10, "accuracy": 1.0, "coverage": 0.9},
+  "repair": {"selected": 2, "resolved": 2, "verification": "PASS", "before_violations": 20, "after_violations": 18, "jobs": 1, "published_revisions": 1, "text_and_media_identical": true, "gates": {"G0": "WARN", "G1": "PASS", "G2": "PASS", "G3": "PASS", "G4": "PASS", "G5": "PASS"}},
+  "downloads": {"docx_bytes": 39468, "json_bytes": 5523, "markdown_bytes": 1631, "video_bytes": 1591930},
+  "agent": {"natural_language_rules": 3, "pdf_rules": 32, "pdf_direct_duration_ms": 119079, "retry_count": 0, "sources_verified": true, "timeout_seconds": 180},
+  "responsive": {"viewport_width": 390, "root_width": 390, "body_width": 390, "overflow_elements": 0},
+  "sbom": {"python_packages": 89, "javascript_packages": 378, "libreoffice": "26.8.1.1"},
+  "unverified_or_remaining": ["Docker image build and digest", "public deployment", "full mypy remediation", "manual Microsoft Word visual verification", "30-page P95 and production concurrency testing", "legal/font/container license review"]
+}

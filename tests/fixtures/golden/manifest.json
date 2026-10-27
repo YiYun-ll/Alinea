@@ -1,0 +1,2301 @@
+{
+  "category_names_zh": {
+    "high_risk": "高风险",
+    "multi_property_error": "多属性错误",
+    "normal": "正常",
+    "single_property_error": "单属性错误",
+    "structural_edge": "结构边缘"
+  },
+  "deterministic_metadata_timestamp": "2024-01-01T00:00:00Z",
+  "expectation_scope": "All listed properties are asserted; unlisted properties are not golden detection targets.",
+  "expected_category_counts": {
+    "high_risk": 6,
+    "multi_property_error": 5,
+    "normal": 5,
+    "single_property_error": 8,
+    "structural_edge": 6
+  },
+  "generator": "tests/fixtures/generate_fixtures.py",
+  "generator_version": "1.0",
+  "location_policy": "locatable describes text-anchor eligibility only. No page index or rectangle is ground truth until rendering.",
+  "manual_microsoft_word_verified": false,
+  "rule_baseline": {
+    "body": {
+      "font.ascii": "Times New Roman",
+      "font.bold": false,
+      "font.eastAsia": "SimSun",
+      "font.size_pt": 12.0,
+      "paragraph.alignment": "both",
+      "paragraph.first_line_indent_chars": 2.0,
+      "paragraph.line_spacing": 1.5,
+      "paragraph.space_after_pt": 0.0,
+      "paragraph.space_before_pt": 0.0
+    },
+    "caption": {
+      "font.ascii": "Times New Roman",
+      "font.bold": false,
+      "font.eastAsia": "SimSun",
+      "font.size_pt": 10.5,
+      "paragraph.alignment": "center",
+      "paragraph.first_line_indent_chars": 0.0,
+      "paragraph.line_spacing": 1.0,
+      "paragraph.space_after_pt": 6.0,
+      "paragraph.space_before_pt": 6.0
+    },
+    "heading_1": {
+      "font.ascii": "Arial",
+      "font.bold": true,
+      "font.eastAsia": "SimHei",
+      "font.size_pt": 16.0,
+      "paragraph.alignment": "left",
+      "paragraph.first_line_indent_chars": 0.0,
+      "paragraph.line_spacing": 1.5,
+      "paragraph.space_after_pt": 6.0,
+      "paragraph.space_before_pt": 12.0
+    },
+    "section": {
+      "section.margin_bottom_mm": 25.4,
+      "section.margin_left_mm": 25.4,
+      "section.margin_right_mm": 25.4,
+      "section.margin_top_mm": 25.4,
+      "section.page_height_mm": 297.0,
+      "section.page_width_mm": 210.0
+    },
+    "table_text": {
+      "font.ascii": "Times New Roman",
+      "font.bold": false,
+      "font.eastAsia": "SimSun",
+      "font.size_pt": 10.5,
+      "paragraph.alignment": "left",
+      "paragraph.first_line_indent_chars": 0.0,
+      "paragraph.line_spacing": 1.0,
+      "paragraph.space_after_pt": 0.0,
+      "paragraph.space_before_pt": 0.0
+    }
+  },
+  "rule_set_id": "alinea-imaginary-fixture-rules-v1",
+  "sample_count": 30,
+  "samples": [
+    {
+      "category": "normal",
+      "category_zh": "正常",
+      "description": "中文正文与标题，全部满足假想规范。",
+      "expectations": [
+        {
+          "actual": "SimSun",
+          "allowed_xml_changes": [],
+          "expected": "SimSun",
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N01 正常中文正文：公开假想数据用于核对宋体、字号与行距。",
+          "property": "font.eastAsia",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N01-C1"
+        },
+        {
+          "actual": 12.0,
+          "allowed_xml_changes": [],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N01 正常中文正文：公开假想数据用于核对宋体、字号与行距。",
+          "property": "font.size_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N01-C2"
+        },
+        {
+          "actual": 1.5,
+          "allowed_xml_changes": [],
+          "expected": 1.5,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N01 正常中文正文：公开假想数据用于核对宋体、字号与行距。",
+          "property": "paragraph.line_spacing",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": null,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N01-C3"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.eastAsia",
+        "font.size_pt",
+        "paragraph.line_spacing"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/normal/n01-zh-body.docx",
+      "file_sha256": "880f287b08ef7c3de1280657f72165be617344942537b835b63379956ccfa30e",
+      "file_size_bytes": 34796,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "N01 正常中文正文：公开假想数据用于核对宋体、字号与行距。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "N01",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "normal",
+      "category_zh": "正常",
+      "description": "英文正文，覆盖 Latin 字体与首行缩进。",
+      "expectations": [
+        {
+          "actual": "Times New Roman",
+          "allowed_xml_changes": [],
+          "expected": "Times New Roman",
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N02 English body: synthetic public notes use deterministic Latin formatting.",
+          "property": "font.ascii",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N02-C1"
+        },
+        {
+          "actual": false,
+          "allowed_xml_changes": [],
+          "expected": false,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N02 English body: synthetic public notes use deterministic Latin formatting.",
+          "property": "font.bold",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N02-C2"
+        },
+        {
+          "actual": 2.0,
+          "allowed_xml_changes": [],
+          "expected": 2.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N02 English body: synthetic public notes use deterministic Latin formatting.",
+          "property": "paragraph.first_line_indent_chars",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": null,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N02-C3"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.ascii",
+        "font.bold",
+        "paragraph.first_line_indent_chars"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/normal/n02-en-body.docx",
+      "file_sha256": "6246415121f9ec6844ed5de6da80a97eba01603ca834cb77147b526ba9d8b91a",
+      "file_size_bytes": 34731,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "N02 English body: synthetic public notes use deterministic Latin formatting.",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "N02",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "normal",
+      "category_zh": "正常",
+      "description": "Normal <- Alinea Base <- Alinea Body <- Alinea Derived 的多级继承。",
+      "expectations": [
+        {
+          "actual": "SimSun",
+          "allowed_xml_changes": [],
+          "expected": "SimSun",
+          "expected_origin": "DOC_DEFAULT",
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N03 样式继承锚点：docDefaults、三级 basedOn 与有效字号均符合规范。",
+          "property": "font.eastAsia",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N03-C1"
+        },
+        {
+          "actual": 12.0,
+          "allowed_xml_changes": [],
+          "expected": 12.0,
+          "expected_origin": "BASED_ON",
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N03 样式继承锚点：docDefaults、三级 basedOn 与有效字号均符合规范。",
+          "property": "font.size_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N03-C2"
+        },
+        {
+          "actual": 1.5,
+          "allowed_xml_changes": [],
+          "expected": 1.5,
+          "expected_origin": "BASED_ON",
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N03 样式继承锚点：docDefaults、三级 basedOn 与有效字号均符合规范。",
+          "property": "paragraph.line_spacing",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": null,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N03-C3"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.eastAsia",
+        "font.size_pt",
+        "paragraph.line_spacing"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/normal/n03-docdefaults-basedon.docx",
+      "file_sha256": "1c96d4a62e291a1fef98dbf5eef37e9ff5dc7a4b2e116b604207baf58330a775",
+      "file_size_bytes": 34851,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "N03 样式继承锚点：docDefaults、三级 basedOn 与有效字号均符合规范。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "N03",
+      "structural_facts": {
+        "based_on_chain": [
+          "Normal",
+          "AlineaBase",
+          "AlineaBody",
+          "AlineaDerived"
+        ],
+        "doc_defaults": true
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "normal",
+      "category_zh": "正常",
+      "description": "简单表格、内嵌 PNG 与外部超链接的合规媒体保真样本。",
+      "expectations": [
+        {
+          "actual": 12.0,
+          "allowed_xml_changes": [],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N04 媒体保真正文锚点：图片、简单表格和超链接均不改变正文规则。",
+          "property": "font.size_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N04-C1"
+        },
+        {
+          "actual": 10.5,
+          "allowed_xml_changes": [],
+          "expected": 10.5,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N04 表格唯一单元格",
+          "property": "font.size_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "table_text",
+          "status": "COMPLIANT",
+          "target_id": "N04-C2"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.size_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/normal/n04-table-image-link.docx",
+      "file_sha256": "105fcb390d6e9695743921470f87f0e2d58cc5578a3156469c67b1e4cf28e098",
+      "file_size_bytes": 36458,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "N04 媒体保真正文锚点：图片、简单表格和超链接均不改变正文规则。",
+          "selector": "body",
+          "unique": true
+        },
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "N04 表格唯一单元格",
+          "selector": "table_text",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "N04",
+      "structural_facts": {
+        "embedded_images": 1,
+        "hyperlinks": 1,
+        "tables": 1
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "normal",
+      "category_zh": "正常",
+      "description": "两节、独立页眉页脚，节属性满足规范。",
+      "expectations": [
+        {
+          "actual": 25.4,
+          "allowed_xml_changes": [],
+          "expected": 25.4,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N05 第二节正文锚点：多节页眉页脚与统一页边距。",
+          "property": "section.margin_top_mm",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": null,
+          "selector": "section",
+          "status": "COMPLIANT",
+          "target_id": "N05-C1"
+        },
+        {
+          "actual": 0.0,
+          "allowed_xml_changes": [],
+          "expected": 0.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "N05 第二节正文锚点：多节页眉页脚与统一页边距。",
+          "property": "paragraph.space_after_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": null,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "N05-C2"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "paragraph.space_after_pt",
+        "section.margin_top_mm"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/normal/n05-sections-headers.docx",
+      "file_sha256": "7c9df9e4ea3f7726fed12124db6bc2d2102bb75661e6ac6efd3a7c768817a24a",
+      "file_size_bytes": 37394,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "N05 第二节正文锚点：多节页眉页脚与统一页边距。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "N05",
+      "structural_facts": {
+        "footers": 2,
+        "headers": 2,
+        "sections": 2
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "single_property_error",
+      "category_zh": "单属性错误",
+      "description": "直接 run 覆盖继承字号。",
+      "expectations": [
+        {
+          "actual": 10.5,
+          "allowed_xml_changes": [
+            "w:rPr/w:sz/@w:val",
+            "w:rPr/w:szCs/@w:val"
+          ],
+          "expected": 12.0,
+          "expected_origin": "DIRECT",
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "DIRECT_SIZE_OVERRIDE",
+          "property": "font.size_pt",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 1,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "S01-T1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.size_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/single_property_error/s01-size.docx",
+      "file_sha256": "63a80358edf6e960deb98bdc48490d1a7752aded77a75041e2fc1691490c486c",
+      "file_size_bytes": 34903,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "S01 唯一正文锚点：直接 run 覆盖继承字号。",
+          "selector": "body",
+          "unique": true
+        },
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "DIRECT_SIZE_OVERRIDE",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "S01",
+      "structural_facts": {
+        "direct_run_override": true,
+        "inherited_size_pt": 12.0
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "single_property_error",
+      "category_zh": "单属性错误",
+      "description": "仅中文字体错误，Latin 字体保持不变。",
+      "expectations": [
+        {
+          "actual": "SimHei",
+          "allowed_xml_changes": [
+            "w:rPr/w:rFonts/@w:eastAsia"
+          ],
+          "expected": "SimSun",
+          "expected_origin": "DIRECT",
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "S02 唯一正文锚点：仅中文字体错误，Latin 字体保持不变。",
+          "property": "font.eastAsia",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 0,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "S02-T1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.eastAsia"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/single_property_error/s02-eastAsia.docx",
+      "file_sha256": "df02ec6244f88872d6a336990fd2760d9bb6df18af199ab4c22256681938d33d",
+      "file_size_bytes": 34786,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "S02 唯一正文锚点：仅中文字体错误，Latin 字体保持不变。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "S02",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "single_property_error",
+      "category_zh": "单属性错误",
+      "description": "仅粗体错误。",
+      "expectations": [
+        {
+          "actual": true,
+          "allowed_xml_changes": [
+            "w:rPr/w:b/@w:val",
+            "w:rPr/w:bCs/@w:val"
+          ],
+          "expected": false,
+          "expected_origin": "DIRECT",
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "S03 唯一正文锚点：仅粗体错误。",
+          "property": "font.bold",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 0,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "S03-T1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.bold"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/single_property_error/s03-bold.docx",
+      "file_sha256": "23345bf6262ed9110688b28a751c59e9c858aedccbdbaab65d8f832f2984c371",
+      "file_size_bytes": 34753,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "S03 唯一正文锚点：仅粗体错误。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "S03",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "single_property_error",
+      "category_zh": "单属性错误",
+      "description": "仅对齐方式错误。",
+      "expectations": [
+        {
+          "actual": "center",
+          "allowed_xml_changes": [
+            "w:pPr/w:jc/@w:val"
+          ],
+          "expected": "both",
+          "expected_origin": "DIRECT",
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "S04 唯一正文锚点：仅对齐方式错误。",
+          "property": "paragraph.alignment",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "S04-T1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "paragraph.alignment"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/single_property_error/s04-alignment.docx",
+      "file_sha256": "e5ce5b6d1b4079636ff71586f3d7b6db347495ac76c830c653ced624562e3e74",
+      "file_size_bytes": 34768,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "S04 唯一正文锚点：仅对齐方式错误。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "S04",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "single_property_error",
+      "category_zh": "单属性错误",
+      "description": "仅行距错误。",
+      "expectations": [
+        {
+          "actual": 1.0,
+          "allowed_xml_changes": [
+            "w:pPr/w:spacing/@w:line",
+            "w:pPr/w:spacing/@w:lineRule"
+          ],
+          "expected": 1.5,
+          "expected_origin": "DIRECT",
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "S05 唯一正文锚点：仅行距错误。",
+          "property": "paragraph.line_spacing",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "S05-T1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "paragraph.line_spacing"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/single_property_error/s05-line.docx",
+      "file_sha256": "aff9a4bbbb42383f1f57a87313c48a6bf074e333c6152ff133762029471a876a",
+      "file_size_bytes": 34765,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "S05 唯一正文锚点：仅行距错误。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "S05",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "single_property_error",
+      "category_zh": "单属性错误",
+      "description": "仅首行缩进字符数错误。",
+      "expectations": [
+        {
+          "actual": 0.0,
+          "allowed_xml_changes": [
+            "w:pPr/w:ind/@w:firstLineChars"
+          ],
+          "expected": 2.0,
+          "expected_origin": "DIRECT",
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "S06 唯一正文锚点：仅首行缩进字符数错误。",
+          "property": "paragraph.first_line_indent_chars",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "S06-T1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "paragraph.first_line_indent_chars"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/single_property_error/s06-indent.docx",
+      "file_sha256": "8880409cdbb7abf6af84a3d04b73fd99d40a8f34d3709e2d50186cae465dd930",
+      "file_size_bytes": 34777,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "S06 唯一正文锚点：仅首行缩进字符数错误。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "S06",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "single_property_error",
+      "category_zh": "单属性错误",
+      "description": "仅段前距错误。",
+      "expectations": [
+        {
+          "actual": 12.0,
+          "allowed_xml_changes": [
+            "w:pPr/w:spacing/@w:before"
+          ],
+          "expected": 0.0,
+          "expected_origin": "DIRECT",
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "S07 唯一正文锚点：仅段前距错误。",
+          "property": "paragraph.space_before_pt",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "S07-T1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "paragraph.space_before_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/single_property_error/s07-before.docx",
+      "file_sha256": "2ea665b255b86de76e570f82363e480ae3df6a6a0d0107976cc40f85d07fc82f",
+      "file_size_bytes": 34763,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "S07 唯一正文锚点：仅段前距错误。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "S07",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "single_property_error",
+      "category_zh": "单属性错误",
+      "description": "仅节上边距错误。",
+      "expectations": [
+        {
+          "actual": 20.0,
+          "allowed_xml_changes": [
+            "w:sectPr/w:pgMar/@w:top"
+          ],
+          "expected": 25.4,
+          "expected_origin": "DIRECT",
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "S08 唯一正文锚点：仅节上边距错误。",
+          "property": "section.margin_top_mm",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "section",
+          "status": "VIOLATION",
+          "target_id": "S08-T1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "section.margin_top_mm"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/single_property_error/s08-top.docx",
+      "file_sha256": "041109e27ce3e03599b4b5aa89c043397fed804f4e35727bdb8893883706688e",
+      "file_size_bytes": 34771,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "S08 唯一正文锚点：仅节上边距错误。",
+          "selector": "section",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "S08",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "multi_property_error",
+      "category_zh": "多属性错误",
+      "description": "同段落不同 run 的三项错误，可分批审批修复。",
+      "expectations": [
+        {
+          "actual": "SimHei",
+          "allowed_xml_changes": [
+            "w:rPr/w:rFonts/@w:eastAsia"
+          ],
+          "expected": "SimSun",
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M01 同段落不同 run：",
+          "property": "font.eastAsia",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 1,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M01-T1"
+        },
+        {
+          "actual": "Arial",
+          "allowed_xml_changes": [
+            "w:rPr/w:rFonts/@w:ascii"
+          ],
+          "expected": "Times New Roman",
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M01 同段落不同 run：",
+          "property": "font.ascii",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 2,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M01-T2"
+        },
+        {
+          "actual": 10.5,
+          "allowed_xml_changes": [
+            "w:rPr/w:sz/@w:val",
+            "w:rPr/w:szCs/@w:val"
+          ],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M01 同段落不同 run：",
+          "property": "font.size_pt",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 2,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M01-T3"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 3,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.ascii",
+        "font.eastAsia",
+        "font.size_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/multi_property_error/m01-different-runs.docx",
+      "file_sha256": "da6b7976324398ce2ee920c89061d178d4588529dcd10204cc27b2e1994c96b8",
+      "file_size_bytes": 34814,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "M01 同段落不同 run：",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "M01",
+      "structural_facts": {
+        "target_run_indices": [
+          1,
+          2
+        ]
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "multi_property_error",
+      "category_zh": "多属性错误",
+      "description": "多级样式之上的直接 run 与段落覆盖。",
+      "expectations": [
+        {
+          "actual": 14.0,
+          "allowed_xml_changes": [
+            "w:rPr/w:sz/@w:val",
+            "w:rPr/w:szCs/@w:val"
+          ],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M02 直接覆盖锚点：字号、粗体与对齐同时偏离规范。",
+          "property": "font.size_pt",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 0,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M02-T1"
+        },
+        {
+          "actual": true,
+          "allowed_xml_changes": [
+            "w:rPr/w:b/@w:val",
+            "w:rPr/w:bCs/@w:val"
+          ],
+          "expected": false,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M02 直接覆盖锚点：字号、粗体与对齐同时偏离规范。",
+          "property": "font.bold",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 0,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M02-T2"
+        },
+        {
+          "actual": "right",
+          "allowed_xml_changes": [
+            "w:pPr/w:jc/@w:val"
+          ],
+          "expected": "both",
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M02 直接覆盖锚点：字号、粗体与对齐同时偏离规范。",
+          "property": "paragraph.alignment",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M02-T3"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 3,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.bold",
+        "font.size_pt",
+        "paragraph.alignment"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/multi_property_error/m02-style-direct-multi.docx",
+      "file_sha256": "cf04d306654bf4938938f324a113ee5131dc58c49b9dfa7c35a979d23ca10617",
+      "file_size_bytes": 34896,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "M02 直接覆盖锚点：字号、粗体与对齐同时偏离规范。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "M02",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "multi_property_error",
+      "category_zh": "多属性错误",
+      "description": "行距、缩进和段前段后组合修复。",
+      "expectations": [
+        {
+          "actual": 2.0,
+          "allowed_xml_changes": [
+            "w:pPr/w:spacing/@w:line",
+            "w:pPr/w:spacing/@w:lineRule"
+          ],
+          "expected": 1.5,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M03 段落属性锚点：行距、首行缩进、段前与段后四项错误。",
+          "property": "paragraph.line_spacing",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M03-T1"
+        },
+        {
+          "actual": 1.0,
+          "allowed_xml_changes": [
+            "w:pPr/w:ind/@w:firstLineChars"
+          ],
+          "expected": 2.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M03 段落属性锚点：行距、首行缩进、段前与段后四项错误。",
+          "property": "paragraph.first_line_indent_chars",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M03-T2"
+        },
+        {
+          "actual": 18.0,
+          "allowed_xml_changes": [
+            "w:pPr/w:spacing/@w:before"
+          ],
+          "expected": 0.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M03 段落属性锚点：行距、首行缩进、段前与段后四项错误。",
+          "property": "paragraph.space_before_pt",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M03-T3"
+        },
+        {
+          "actual": 9.0,
+          "allowed_xml_changes": [
+            "w:pPr/w:spacing/@w:after"
+          ],
+          "expected": 0.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M03 段落属性锚点：行距、首行缩进、段前与段后四项错误。",
+          "property": "paragraph.space_after_pt",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "body",
+          "status": "VIOLATION",
+          "target_id": "M03-T4"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 4,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "paragraph.first_line_indent_chars",
+        "paragraph.line_spacing",
+        "paragraph.space_after_pt",
+        "paragraph.space_before_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/multi_property_error/m03-paragraph-spacing.docx",
+      "file_sha256": "2681f4dcd363608ee0812c529b48c58d6739c4747cdeb677666e8364cc47d350",
+      "file_size_bytes": 34806,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "M03 段落属性锚点：行距、首行缩进、段前与段后四项错误。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "M03",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "multi_property_error",
+      "category_zh": "多属性错误",
+      "description": "同一节的四项页边距错误。",
+      "expectations": [
+        {
+          "actual": 18.0,
+          "allowed_xml_changes": [
+            "w:sectPr/w:pgMar/@w:top"
+          ],
+          "expected": 25.4,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M04 节边距锚点：上、下、左、右四项边距错误。",
+          "property": "section.margin_top_mm",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "section",
+          "status": "VIOLATION",
+          "target_id": "M04-T1"
+        },
+        {
+          "actual": 19.0,
+          "allowed_xml_changes": [
+            "w:sectPr/w:pgMar/@w:bottom"
+          ],
+          "expected": 25.4,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M04 节边距锚点：上、下、左、右四项边距错误。",
+          "property": "section.margin_bottom_mm",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "section",
+          "status": "VIOLATION",
+          "target_id": "M04-T2"
+        },
+        {
+          "actual": 20.0,
+          "allowed_xml_changes": [
+            "w:sectPr/w:pgMar/@w:left"
+          ],
+          "expected": 25.4,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M04 节边距锚点：上、下、左、右四项边距错误。",
+          "property": "section.margin_left_mm",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "section",
+          "status": "VIOLATION",
+          "target_id": "M04-T3"
+        },
+        {
+          "actual": 21.0,
+          "allowed_xml_changes": [
+            "w:sectPr/w:pgMar/@w:right"
+          ],
+          "expected": 25.4,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M04 节边距锚点：上、下、左、右四项边距错误。",
+          "property": "section.margin_right_mm",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "section",
+          "status": "VIOLATION",
+          "target_id": "M04-T4"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 4,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "section.margin_bottom_mm",
+        "section.margin_left_mm",
+        "section.margin_right_mm",
+        "section.margin_top_mm"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/multi_property_error/m04-section-margins.docx",
+      "file_sha256": "574d0b6fd8cb2289d934da0938722c03e1e5b1541f8549cc63b95041f4791769",
+      "file_size_bytes": 34783,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "M04 节边距锚点：上、下、左、右四项边距错误。",
+          "selector": "section",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "M04",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "multi_property_error",
+      "category_zh": "多属性错误",
+      "description": "图题与表格内文字的多目标批量修复。",
+      "expectations": [
+        {
+          "actual": 12.0,
+          "allowed_xml_changes": [
+            "w:rPr/w:sz/@w:val",
+            "w:rPr/w:szCs/@w:val"
+          ],
+          "expected": 10.5,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M05 图题：字号与对齐错误",
+          "property": "font.size_pt",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 0,
+          "selector": "caption",
+          "status": "VIOLATION",
+          "target_id": "M05-T1"
+        },
+        {
+          "actual": "right",
+          "allowed_xml_changes": [
+            "w:pPr/w:jc/@w:val"
+          ],
+          "expected": "center",
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M05 图题：字号与对齐错误",
+          "property": "paragraph.alignment",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": null,
+          "selector": "caption",
+          "status": "VIOLATION",
+          "target_id": "M05-T2"
+        },
+        {
+          "actual": "SimHei",
+          "allowed_xml_changes": [
+            "w:rPr/w:rFonts/@w:eastAsia"
+          ],
+          "expected": "SimSun",
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M05 表格文字：字体与粗体错误",
+          "property": "font.eastAsia",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 0,
+          "selector": "table_text",
+          "status": "VIOLATION",
+          "target_id": "M05-T3"
+        },
+        {
+          "actual": true,
+          "allowed_xml_changes": [
+            "w:rPr/w:b/@w:val",
+            "w:rPr/w:bCs/@w:val"
+          ],
+          "expected": false,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": true,
+          "locatable": true,
+          "paragraph_text_anchor": "M05 表格文字：字体与粗体错误",
+          "property": "font.bold",
+          "repair_disposition": "AUTO_WITH_APPROVAL",
+          "run_index": 0,
+          "selector": "table_text",
+          "status": "VIOLATION",
+          "target_id": "M05-T4"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 4,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.bold",
+        "font.eastAsia",
+        "font.size_pt",
+        "paragraph.alignment"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/multi_property_error/m05-caption-table.docx",
+      "file_sha256": "1a2f076ab9ea6e0ea6860d9223b7fa46c269625a2e63f5f61885855ddb7077be",
+      "file_size_bytes": 35041,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "M05 图题：字号与对齐错误",
+          "selector": "caption",
+          "unique": true
+        },
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "M05 表格文字：字体与粗体错误",
+          "selector": "table_text",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "M05",
+      "structural_facts": {},
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "structural_edge",
+      "category_zh": "结构边缘",
+      "description": "CJK/Latin 混排，主题引用存在但字体不在受支持字体清单。",
+      "expectations": [
+        {
+          "actual": {
+            "theme": "majorEastAsia",
+            "typeface": "Alinea Fixture Unknown"
+          },
+          "allowed_xml_changes": [],
+          "expected": "SimSun",
+          "expected_origin": null,
+          "expected_skip_reason": "THEME_FONT_UNRESOLVED",
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "E01 THEME_UNKNOWN_ANCHOR 主题字体未知",
+          "property": "font.eastAsia",
+          "repair_disposition": "MANUAL_REVIEW",
+          "run_index": 0,
+          "selector": "body",
+          "status": "UNVERIFIABLE",
+          "target_id": "E01-U1"
+        },
+        {
+          "actual": {
+            "theme": "majorHAnsi",
+            "typeface": "Alinea Fixture Unknown"
+          },
+          "allowed_xml_changes": [],
+          "expected": "Times New Roman",
+          "expected_origin": null,
+          "expected_skip_reason": "THEME_FONT_UNRESOLVED",
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "E01 THEME_UNKNOWN_ANCHOR 主题字体未知",
+          "property": "font.ascii",
+          "repair_disposition": "MANUAL_REVIEW",
+          "run_index": 0,
+          "selector": "body",
+          "status": "UNVERIFIABLE",
+          "target_id": "E01-U2"
+        }
+      ],
+      "expected_degradations": [
+        {
+          "action": "MARK_UNVERIFIABLE_NO_AUTO_FIX",
+          "code": "THEME_FONT_UNRESOLVED",
+          "stage": "STYLE_RESOLUTION"
+        }
+      ],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "THEME_FONT_UNRESOLVED"
+      ],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.ascii",
+        "font.eastAsia"
+      ],
+      "expected_unverifiable_count": 2,
+      "file": "data/structural_edge/e01-mixed-theme-unknown.docx",
+      "file_sha256": "5837e3722b439e4d21ad9d77cb59079c46c68b1061f18eab5ce0192ca2259d0e",
+      "file_size_bytes": 34865,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "E01 中英混排 ordinary Latin text：普通 run 可有效解析。",
+          "selector": "body",
+          "unique": true
+        },
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "E01 THEME_UNKNOWN_ANCHOR 主题字体未知",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "E01",
+      "structural_facts": {
+        "font_availability_requires_renderer": true,
+        "theme_typeface": "Alinea Fixture Unknown"
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "structural_edge",
+      "category_zh": "结构边缘",
+      "description": "三个“第一章”和两个“继续”必须降级为定位歧义。",
+      "expectations": [
+        {
+          "actual": 16.0,
+          "allowed_xml_changes": [],
+          "expected": 16.0,
+          "expected_origin": null,
+          "expected_skip_reason": "AMBIGUOUS_REPEATED_TEXT",
+          "fixable": false,
+          "locatable": false,
+          "paragraph_text_anchor": "第一章",
+          "property": "font.size_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "heading_1",
+          "status": "COMPLIANT",
+          "target_id": "E02-C1",
+          "unique": false
+        }
+      ],
+      "expected_degradations": [
+        {
+          "action": "DO_NOT_DRAW_UNIQUE_RECT",
+          "code": "LOCATION_AMBIGUOUS",
+          "stage": "LOCATION_MAPPING"
+        }
+      ],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "AMBIGUOUS_REPEATED_TEXT",
+        "LOCATION_AMBIGUOUS"
+      ],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.size_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/structural_edge/e02-repeated-short-text.docx",
+      "file_sha256": "59aebe86a0c840bda9c004b87fbb54cfd685b586bf0027c486d9f2fbf127c078",
+      "file_size_bytes": 34851,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "第一章",
+          "selector": "heading_1",
+          "unique": false
+        },
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "继续",
+          "selector": "body",
+          "unique": false
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "E02",
+      "structural_facts": {
+        "anchor_occurrences": {
+          "第一章": 3,
+          "继续": 2
+        }
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "structural_edge",
+      "category_zh": "结构边缘",
+      "description": "单个长段落自然跨页；页数与多矩形必须渲染后测量。",
+      "expectations": [
+        {
+          "actual": 1.5,
+          "allowed_xml_changes": [],
+          "expected": 1.5,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "E03 LONG_CROSS_PAGE_ANCHOR ",
+          "property": "paragraph.line_spacing",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": null,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "E03-C1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "paragraph.line_spacing"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/structural_edge/e03-long-cross-page.docx",
+      "file_sha256": "aee213777ec41a2503dd817b639556f81eeda5cb41f98862847aa844abb60a20",
+      "file_size_bytes": 35431,
+      "paragraph_anchors": [
+        {
+          "match": "prefix",
+          "paragraph_text_anchor": "E03 LONG_CROSS_PAGE_ANCHOR ",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Long paragraph may span pages; derive page count and fragments from a renderer.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "E03",
+      "structural_facts": {
+        "explicit_page_breaks": 0,
+        "paragraph_character_count": 15477
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "structural_edge",
+      "category_zh": "结构边缘",
+      "description": "媒体对象与文本锚点组合，供内容/媒体哈希 Gate 使用。",
+      "expectations": [
+        {
+          "actual": "left",
+          "allowed_xml_changes": [],
+          "expected": "left",
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "E04 表格定位文本",
+          "property": "paragraph.alignment",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": null,
+          "selector": "table_text",
+          "status": "COMPLIANT",
+          "target_id": "E04-C1"
+        },
+        {
+          "actual": 10.5,
+          "allowed_xml_changes": [],
+          "expected": 10.5,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "E04 图题：网格仅由几何图形组成",
+          "property": "font.size_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "caption",
+          "status": "COMPLIANT",
+          "target_id": "E04-C2"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.size_pt",
+        "paragraph.alignment"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/structural_edge/e04-table-image-hyperlink.docx",
+      "file_sha256": "5c1ce0d7a91c7039ce17e01239e1690028fba6a94a2665ef36cea6e0f11f3ec6",
+      "file_size_bytes": 36479,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "E04 结构媒体锚点：表格、图片、图题和超链接共同出现。",
+          "selector": "body",
+          "unique": true
+        },
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "E04 表格定位文本",
+          "selector": "table_text",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "E04",
+      "structural_facts": {
+        "embedded_images": 1,
+        "hyperlinks": 1,
+        "tables": 1
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "structural_edge",
+      "category_zh": "结构边缘",
+      "description": "三节及独立页眉页脚，验证节范围而非虚构页码。",
+      "expectations": [
+        {
+          "actual": 25.4,
+          "allowed_xml_changes": [],
+          "expected": 25.4,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "E05 第三节唯一正文锚点。",
+          "property": "section.margin_left_mm",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": null,
+          "selector": "section",
+          "status": "COMPLIANT",
+          "target_id": "E05-C1"
+        }
+      ],
+      "expected_degradations": [],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "section.margin_left_mm"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/structural_edge/e05-three-sections.docx",
+      "file_sha256": "eac7fdb0f1576cc6ef6ebb270e0758cb3809257b09695029237a2a91c679563f",
+      "file_size_bytes": 38506,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "E05 第一节唯一正文锚点。",
+          "selector": "body",
+          "unique": true
+        },
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "E05 第二节唯一正文锚点。",
+          "selector": "body",
+          "unique": true
+        },
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "E05 第三节唯一正文锚点。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "E05",
+      "structural_facts": {
+        "footers": 3,
+        "headers": 3,
+        "sections": 3
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "structural_edge",
+      "category_zh": "结构边缘",
+      "description": "含无敏感信息的自定义未知 part，不参与格式解析但必须保真。",
+      "expectations": [
+        {
+          "actual": 12.0,
+          "allowed_xml_changes": [],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "E06 未知部件锚点：检查器忽略未知 part，修复时必须保留。",
+          "property": "font.size_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "E06-C1"
+        }
+      ],
+      "expected_degradations": [
+        {
+          "action": "PRESERVE_ON_REPAIR",
+          "code": "UNKNOWN_PART_IGNORED_FOR_INSPECTION",
+          "stage": "PACKAGE_PARSE"
+        }
+      ],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "UNKNOWN_PART_IGNORED_FOR_INSPECTION"
+      ],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.size_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/structural_edge/e06-unknown-part.docx",
+      "file_sha256": "910985ff1360a8529206a5e149aa9773fe9d0be7f639daa9dae9673d5d770dcd",
+      "file_size_bytes": 35082,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "E06 未知部件锚点：检查器忽略未知 part，修复时必须保留。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "E06",
+      "structural_facts": {
+        "unknown_part_uri": "/word/alineaUnknown.xml"
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "high_risk",
+      "category_zh": "高风险",
+      "description": "含 w:ins/w:del 的修订文档，已知偏差不得危险自动修改。",
+      "expectations": [
+        {
+          "actual": 10.5,
+          "allowed_xml_changes": [],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": "TRACK_CHANGES_MANUAL_REVIEW",
+          "fixable": false,
+          "locatable": false,
+          "paragraph_text_anchor": "H01 TRACK_CHANGE_ANCHOR 修订段落",
+          "property": "font.size_pt",
+          "repair_disposition": "MANUAL_REVIEW",
+          "run_index": null,
+          "selector": "body",
+          "status": "SKIPPED",
+          "target_id": "H01-S1"
+        }
+      ],
+      "expected_degradations": [
+        {
+          "action": "SKIP_REVISION_RUNS_AND_REJECT_AUTO_FIX",
+          "code": "TRACK_CHANGES_MANUAL_REVIEW",
+          "stage": "INSPECTION_REPAIR"
+        }
+      ],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "TRACK_CHANGES_MANUAL_REVIEW"
+      ],
+      "expected_skipped_count": 1,
+      "expected_supported_properties": [
+        "font.size_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/high_risk/h01-track-changes.docx",
+      "file_sha256": "5e229b3a5a1dc23ac275507e8a9675666be6cfcfda99e5eaa33bef352570e5d9",
+      "file_size_bytes": 34930,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "H01 TRACK_CHANGE_ANCHOR 修订段落",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "H01",
+      "structural_facts": {
+        "deletions": 1,
+        "insertions": 1
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "high_risk",
+      "category_zh": "高风险",
+      "description": "锁定 TOC 复杂域和原生 OMML 公式，禁止自动更新或改写。",
+      "expectations": [
+        {
+          "actual": 10.5,
+          "allowed_xml_changes": [],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": "COMPLEX_FIELD_MANUAL_REVIEW",
+          "fixable": false,
+          "locatable": false,
+          "paragraph_text_anchor": "H02 COMPLEX_FIELD_ANCHOR ",
+          "property": "font.size_pt",
+          "repair_disposition": "MANUAL_REVIEW",
+          "run_index": 4,
+          "selector": "body",
+          "status": "SKIPPED",
+          "target_id": "H02-S1"
+        },
+        {
+          "actual": "OMML_NOT_SUPPORTED",
+          "allowed_xml_changes": [],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": "UNSUPPORTED_EQUATION",
+          "fixable": false,
+          "locatable": false,
+          "paragraph_text_anchor": "H02 EQUATION_ANCHOR",
+          "property": "font.size_pt",
+          "repair_disposition": "MANUAL_REVIEW",
+          "run_index": null,
+          "selector": "body",
+          "status": "SKIPPED",
+          "target_id": "H02-S2"
+        }
+      ],
+      "expected_degradations": [
+        {
+          "action": "DO_NOT_UPDATE_OR_AUTO_FIX_FIELD",
+          "code": "COMPLEX_FIELD_MANUAL_REVIEW",
+          "stage": "INSPECTION_REPAIR"
+        },
+        {
+          "action": "PRESERVE_OMML_AND_SKIP",
+          "code": "UNSUPPORTED_EQUATION",
+          "stage": "INSPECTION_REPAIR"
+        }
+      ],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "COMPLEX_FIELD_MANUAL_REVIEW",
+        "UNSUPPORTED_EQUATION"
+      ],
+      "expected_skipped_count": 2,
+      "expected_supported_properties": [
+        "font.size_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/high_risk/h02-complex-field-equation.docx",
+      "file_sha256": "4de699284e3565e884695a6d1841f29a3588738e2c10d9782dfebe8bca4d4667",
+      "file_size_bytes": 34900,
+      "paragraph_anchors": [
+        {
+          "match": "prefix",
+          "paragraph_text_anchor": "H02 COMPLEX_FIELD_ANCHOR ",
+          "selector": "body",
+          "unique": true
+        },
+        {
+          "match": "prefix",
+          "paragraph_text_anchor": "H02 EQUATION_ANCHOR",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "H02",
+      "structural_facts": {
+        "complex_fields": 1,
+        "equations": 1,
+        "field_locked": true
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "high_risk",
+      "category_zh": "高风险",
+      "description": "外部图片关系使用保留无效域名，不含真实远程负载且不得联网。",
+      "expectations": [
+        {
+          "actual": 12.0,
+          "allowed_xml_changes": [],
+          "expected": 12.0,
+          "expected_origin": null,
+          "expected_skip_reason": null,
+          "fixable": false,
+          "locatable": true,
+          "paragraph_text_anchor": "H03 外部图片关系锚点：禁止联网获取 example.invalid 资源。",
+          "property": "font.size_pt",
+          "repair_disposition": "NOT_REQUIRED",
+          "run_index": 0,
+          "selector": "body",
+          "status": "COMPLIANT",
+          "target_id": "H03-S1"
+        }
+      ],
+      "expected_degradations": [
+        {
+          "action": "DO_NOT_FETCH_MARK_MANUAL_REVIEW",
+          "code": "EXTERNAL_IMAGE_RELATIONSHIP",
+          "stage": "PACKAGE_RENDER_REPAIR"
+        }
+      ],
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "EXTERNAL_IMAGE_RELATIONSHIP"
+      ],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [
+        "font.size_pt"
+      ],
+      "expected_unverifiable_count": 0,
+      "file": "data/high_risk/h03-external-image.docx",
+      "file_sha256": "c30bec5de61c396c497861c8a4786f9ef3c58101a589a993f1884d6aacd29c6c",
+      "file_size_bytes": 36153,
+      "paragraph_anchors": [
+        {
+          "match": "substring",
+          "paragraph_text_anchor": "H03 外部图片关系锚点：禁止联网获取 example.invalid 资源。",
+          "selector": "body",
+          "unique": true
+        }
+      ],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_OK",
+      "sample_id": "H03",
+      "structural_facts": {
+        "embedded_media_retained": 1,
+        "external_image_target": "https://example.invalid/alinea-safe-external-image.png"
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "high_risk",
+      "category_zh": "高风险",
+      "description": "截断 ZIP 签名，不含可执行或恶意内容。",
+      "expectations": [],
+      "expected_degradations": [
+        {
+          "action": "KEEP_ORIGINAL_DOWNLOADABLE",
+          "code": "REJECT_BEFORE_PARSE",
+          "stage": "PACKAGE_VALIDATION"
+        }
+      ],
+      "expected_errors": [
+        {
+          "code": "INVALID_DOCX",
+          "reason_code": "CORRUPT_ZIP",
+          "stage": "PACKAGE_VALIDATION"
+        }
+      ],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "CORRUPT_ZIP",
+        "REJECT_BEFORE_PARSE"
+      ],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [],
+      "expected_unverifiable_count": 0,
+      "file": "data/high_risk/h04-corrupt-zip.docx",
+      "file_sha256": "23de4398dfb218b71b170f5c8bfbf3236c1f0339af470dab8d908ba6948ab14d",
+      "file_size_bytes": 40,
+      "paragraph_anchors": [],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_ERROR",
+      "sample_id": "H04",
+      "structural_facts": {
+        "safe_boundary_only": true
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "high_risk",
+      "category_zh": "高风险",
+      "description": "ZIP 结构完整但 word/document.xml 未闭合。",
+      "expectations": [],
+      "expected_degradations": [
+        {
+          "action": "KEEP_ORIGINAL_DOWNLOADABLE",
+          "code": "REJECT_BEFORE_INSPECTION",
+          "stage": "XML_PARSE"
+        }
+      ],
+      "expected_errors": [
+        {
+          "code": "INVALID_DOCX",
+          "reason_code": "INVALID_XML",
+          "stage": "XML_PARSE"
+        }
+      ],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "INVALID_XML",
+        "REJECT_BEFORE_INSPECTION"
+      ],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [],
+      "expected_unverifiable_count": 0,
+      "file": "data/high_risk/h05-invalid-xml.docx",
+      "file_sha256": "5b289835cc0596c1be4470f895e0482ad1b61c09a6cdeee90e5f52adc29075b5",
+      "file_size_bytes": 34064,
+      "paragraph_anchors": [],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "REOPEN_ERROR",
+      "sample_id": "H05",
+      "structural_facts": {
+        "malformed_part": "/word/document.xml",
+        "safe_boundary_only": true
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    },
+    {
+      "category": "high_risk",
+      "category_zh": "高风险",
+      "description": "同一小型 ZIP 含路径穿越名称与高压缩比文本；仅安全边界元数据。",
+      "expectations": [],
+      "expected_degradations": [
+        {
+          "action": "DO_NOT_EXTRACT_DO_NOT_RENDER",
+          "code": "REJECT_BEFORE_EXTRACTION_OR_PARSE",
+          "stage": "PACKAGE_VALIDATION"
+        }
+      ],
+      "expected_errors": [
+        {
+          "code": "INVALID_DOCX",
+          "reason_code": "UNSAFE_ZIP_PATH",
+          "stage": "PACKAGE_VALIDATION"
+        },
+        {
+          "code": "INVALID_DOCX",
+          "reason_code": "COMPRESSION_RATIO_EXCEEDED",
+          "stage": "PACKAGE_VALIDATION"
+        }
+      ],
+      "expected_issue_count": 0,
+      "expected_skip_reasons": [
+        "COMPRESSION_RATIO_EXCEEDED",
+        "REJECT_BEFORE_EXTRACTION_OR_PARSE",
+        "UNSAFE_ZIP_PATH"
+      ],
+      "expected_skipped_count": 0,
+      "expected_supported_properties": [],
+      "expected_unverifiable_count": 0,
+      "file": "data/high_risk/h06-zip-boundary-metadata.docx",
+      "file_sha256": "5ce246d5586e73c7ecc7e46b6b00c24afb2df9bd6f982eadb3b458f7d5b5e479",
+      "file_size_bytes": 35110,
+      "paragraph_anchors": [],
+      "rendering": {
+        "locations": [],
+        "note": "Render separately; no page count or rectangle is asserted.",
+        "page_count": null,
+        "status": "NOT_RENDERED"
+      },
+      "reopen_expectation": "SECURITY_REJECT_BEFORE_REOPEN",
+      "sample_id": "H06",
+      "structural_facts": {
+        "compression_ratio": 829.57,
+        "compression_ratio_compressed_bytes": 79,
+        "compression_ratio_entry": "word/alinea-compression-ratio.txt",
+        "compression_ratio_uncompressed_bytes": 65536,
+        "expected_error_match": "ALL_REASON_CODES_UNORDERED",
+        "expected_minimum_detection_ratio": 100.0,
+        "path_traversal_entry": "../alinea-safe-boundary-marker.txt",
+        "path_traversal_uncompressed_bytes": 35,
+        "safe_boundary_only": true
+      },
+      "truth_source": "KNOWN_GENERATOR_INPUT"
+    }
+  ],
+  "schema_version": "1.0",
+  "security_error_policy": "Top-level API error is INVALID_DOCX; reason_code distinguishes deterministic validation failures. H06 may report reason codes in any order.",
+  "truth_source": "KNOWN_GENERATOR_INPUT_NO_MANUAL_WORD_VERIFICATION",
+  "unit_serialization_policy": "actual/expected are generator inputs in property units. Section lengths are stored as twips; compare raw XML or allow 0.01 mm round-trip quantization.",
+  "zip_timestamp_policy": "Fixed to 2024-01-01 00:00:00; entries sorted by part name."
+}

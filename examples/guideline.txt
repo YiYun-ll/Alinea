@@ -1,0 +1,29 @@
+ALINEA IMAGINARY FORMAT GUIDELINE - SYNTHETIC E2E DATA ONLY
+
+This is an imaginary guideline created only for software testing.
+It is not a university, publisher, employer, or government requirement.
+All expected values originate in tests/fixtures/generate_fixtures.py.
+
+BODY: East Asian font SimSun; Latin font Times New Roman; 12 pt; not bold.
+BODY: justified alignment; first-line indent 2.0 characters; 1.5 line spacing.
+BODY: space before 0 pt; space after 0 pt.
+HEADING 1: East Asian font SimHei; Latin font Arial; 16 pt; bold.
+HEADING 1: left aligned; first-line indent 0; 1.5 line spacing.
+HEADING 1: space before 12 pt; space after 6 pt.
+CAPTION: SimSun / Times New Roman; 10.5 pt; centered; single spacing.
+TABLE TEXT: SimSun / Times New Roman; 10.5 pt; left aligned; single spacing.
+SECTION: A4; top, bottom, left, and right margins all 25.4 mm.
+
+The ten deliberate demo deviations are D01 through D10:
+D01 body East Asian font SimHei instead of SimSun.
+D02 heading 1 size 18 pt instead of 16 pt.
+D03 body size 10.5 pt instead of 12 pt.
+D04 body bold true instead of false.
+D05 body centered instead of justified.
+D06 body single spacing instead of 1.5 spacing.
+D07 body first-line indent 0 instead of 2 characters.
+D08 body space before 12 pt instead of 0 pt.
+D09 body space after 12 pt instead of 0 pt.
+D10 section top margin 20 mm instead of 25.4 mm.
+
+No rendered page index, bounding box, or manual Word verification is implied.

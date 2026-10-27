@@ -1,0 +1,778 @@
+{
+  "generated_at": "2026-10-25T02:20:02.268700+00:00",
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.2",
+    "libreoffice": "LibreOffice 26.8.1.1 bf6ef2662401c7d6dce671ab4deb26ee0af3a7c1"
+  },
+  "sample_count": 30,
+  "truth_scope": "KNOWN_GENERATOR_INPUT; no manual Microsoft Word verification",
+  "metrics": {
+    "tp": 36,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "high_risk_blocked": 6,
+    "high_risk_total": 6,
+    "external_renderer_blocked": true,
+    "unknown_count": 2
+  },
+  "render": {
+    "page_count": 10,
+    "render_elapsed_seconds": 4.015,
+    "render_profile_id": "local-lo",
+    "preview_pdf_sha256": "d3f3f960ae86e2ca71395a5437469e23e13e840242af8465925c9b8152010c5d",
+    "violation_count": 10,
+    "located_count": 9,
+    "location_accuracy": 1.0,
+    "location_coverage": 0.9,
+    "verified_location_count": 9,
+    "locations": [
+      {
+        "issue_id": "iss_33d46e5203a914648acb37c4",
+        "property": "font.bold",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          3
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_d2610746f10683e564a70f02",
+        "property": "font.eastAsia",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          0
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_87f19096b05063f89bbf62ff",
+        "property": "font.size_pt",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          2
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_fe2c0d36a94d7d6a22698cf7",
+        "property": "paragraph.alignment",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          4
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_c2a23471c4b1f480077a97ff",
+        "property": "paragraph.first_line_indent_chars",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          6
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_3910249f35ca2e7fb3cdb6d4",
+        "property": "paragraph.line_spacing",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          5
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_bc269d63c563a91c4d0476e0",
+        "property": "paragraph.space_after_pt",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          8
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_acdff003a45d9a929abd790b",
+        "property": "paragraph.space_before_pt",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          7
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_e281a7d36110f671cf101c7f",
+        "property": "font.size_pt",
+        "status": "LOCATED",
+        "score": 1.0,
+        "page_indices": [
+          1
+        ],
+        "text_anchor_verified": true
+      },
+      {
+        "issue_id": "iss_3b94b57969d2a255ea87ca2f",
+        "property": "section.margin_top_mm",
+        "status": "UNLOCATED",
+        "score": 0.0,
+        "page_indices": [],
+        "text_anchor_verified": false
+      }
+    ],
+    "warnings": [
+      "Preview rendered by LibreOffice; Microsoft Word may paginate differently.",
+      "Render environment: {\"export_config\":{\"filter\":\"writer_pdf_Export\",\"filter_options\":{},\"format\":\"pdf\"},\"exporter_config_digest\":\"fa0ca4e35789524e48efcf2f15462d9c2cbc091d8f1849d788ebea272f0441ac\",\"font_environment_sha256\":\"013a760fe5c155b669bc88daa3cbbb8db609378a0fca707480aa8cc02abc9ca8\",\"locale\":\"cp936\",\"profile_id\":\"local-lo\",\"renderer_version\":\"LibreOffice 26.8.1.1 bf6ef2662401c7d6dce671ab4deb26ee0af3a7c1\"}"
+    ]
+  },
+  "samples": [
+    {
+      "sample_id": "N01",
+      "category": "normal",
+      "file": "data/normal/n01-zh-body.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 375.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "N02",
+      "category": "normal",
+      "file": "data/normal/n02-en-body.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "N03",
+      "category": "normal",
+      "file": "data/normal/n03-docdefaults-basedon.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 63.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "N04",
+      "category": "normal",
+      "file": "data/normal/n04-table-image-link.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 94.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "N05",
+      "category": "normal",
+      "file": "data/normal/n05-sections-headers.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 93.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 12
+    },
+    {
+      "sample_id": "S01",
+      "category": "single_property_error",
+      "file": "data/single_property_error/s01-size.docx",
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 63.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [
+        "S01-T1"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 1
+    },
+    {
+      "sample_id": "S02",
+      "category": "single_property_error",
+      "file": "data/single_property_error/s02-eastAsia.docx",
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 109.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [
+        "S02-T1"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 1
+    },
+    {
+      "sample_id": "S03",
+      "category": "single_property_error",
+      "file": "data/single_property_error/s03-bold.docx",
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 63.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [
+        "S03-T1"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 1
+    },
+    {
+      "sample_id": "S04",
+      "category": "single_property_error",
+      "file": "data/single_property_error/s04-alignment.docx",
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 62.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [
+        "S04-T1"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 1
+    },
+    {
+      "sample_id": "S05",
+      "category": "single_property_error",
+      "file": "data/single_property_error/s05-line.docx",
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [
+        "S05-T1"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 1
+    },
+    {
+      "sample_id": "S06",
+      "category": "single_property_error",
+      "file": "data/single_property_error/s06-indent.docx",
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 63.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [
+        "S06-T1"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "S07",
+      "category": "single_property_error",
+      "file": "data/single_property_error/s07-before.docx",
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 62.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [
+        "S07-T1"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 1
+    },
+    {
+      "sample_id": "S08",
+      "category": "single_property_error",
+      "file": "data/single_property_error/s08-top.docx",
+      "expected_errors": [],
+      "expected_issue_count": 1,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 94.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [
+        "S08-T1"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 1
+    },
+    {
+      "sample_id": "M01",
+      "category": "multi_property_error",
+      "file": "data/multi_property_error/m01-different-runs.docx",
+      "expected_errors": [],
+      "expected_issue_count": 3,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 63.0,
+      "confirmed_count": 3,
+      "unknown_count": 0,
+      "matched_targets": [
+        "M01-T1",
+        "M01-T2",
+        "M01-T3"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 3
+    },
+    {
+      "sample_id": "M02",
+      "category": "multi_property_error",
+      "file": "data/multi_property_error/m02-style-direct-multi.docx",
+      "expected_errors": [],
+      "expected_issue_count": 3,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 3,
+      "unknown_count": 0,
+      "matched_targets": [
+        "M02-T1",
+        "M02-T2",
+        "M02-T3"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 3
+    },
+    {
+      "sample_id": "M03",
+      "category": "multi_property_error",
+      "file": "data/multi_property_error/m03-paragraph-spacing.docx",
+      "expected_errors": [],
+      "expected_issue_count": 4,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 4,
+      "unknown_count": 0,
+      "matched_targets": [
+        "M03-T1",
+        "M03-T2",
+        "M03-T3",
+        "M03-T4"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 3
+    },
+    {
+      "sample_id": "M04",
+      "category": "multi_property_error",
+      "file": "data/multi_property_error/m04-section-margins.docx",
+      "expected_errors": [],
+      "expected_issue_count": 4,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 62.0,
+      "confirmed_count": 4,
+      "unknown_count": 0,
+      "matched_targets": [
+        "M04-T1",
+        "M04-T2",
+        "M04-T3",
+        "M04-T4"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 4
+    },
+    {
+      "sample_id": "M05",
+      "category": "multi_property_error",
+      "file": "data/multi_property_error/m05-caption-table.docx",
+      "expected_errors": [],
+      "expected_issue_count": 4,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 63.0,
+      "confirmed_count": 4,
+      "unknown_count": 0,
+      "matched_targets": [
+        "M05-T1",
+        "M05-T2",
+        "M05-T3",
+        "M05-T4"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 4
+    },
+    {
+      "sample_id": "E01",
+      "category": "structural_edge",
+      "file": "data/structural_edge/e01-mixed-theme-unknown.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 2,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 0,
+      "unknown_count": 2,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "E02",
+      "category": "structural_edge",
+      "file": "data/structural_edge/e02-repeated-short-text.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "E03",
+      "category": "structural_edge",
+      "file": "data/structural_edge/e03-long-cross-page.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 63.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "E04",
+      "category": "structural_edge",
+      "file": "data/structural_edge/e04-table-image-hyperlink.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "E05",
+      "category": "structural_edge",
+      "file": "data/structural_edge/e05-three-sections.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 94.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 18
+    },
+    {
+      "sample_id": "E06",
+      "category": "structural_edge",
+      "file": "data/structural_edge/e06-unknown-part.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 62.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "H01",
+      "category": "high_risk",
+      "file": "data/high_risk/h01-track-changes.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 63.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [
+        "iss_b0d55c583e4a6880886171c8"
+      ],
+      "automatic_repair_allowed": false,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "H02",
+      "category": "high_risk",
+      "file": "data/high_risk/h02-complex-field-equation.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 1,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [
+        "iss_8ec9907b052904314374f4d2"
+      ],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "H03",
+      "category": "high_risk",
+      "file": "data/high_risk/h03-external-image.docx",
+      "expected_errors": [],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 78.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 0
+    },
+    {
+      "sample_id": "H04",
+      "category": "high_risk",
+      "file": "data/high_risk/h04-corrupt-zip.docx",
+      "expected_errors": [
+        {
+          "code": "INVALID_DOCX",
+          "reason_code": "CORRUPT_ZIP",
+          "stage": "PACKAGE_VALIDATION"
+        }
+      ],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": true,
+      "error_code": "DOCX_INVALID_ZIP",
+      "error_details": {},
+      "elapsed_ms": 0.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": false
+    },
+    {
+      "sample_id": "H05",
+      "category": "high_risk",
+      "file": "data/high_risk/h05-invalid-xml.docx",
+      "expected_errors": [
+        {
+          "code": "INVALID_DOCX",
+          "reason_code": "INVALID_XML",
+          "stage": "XML_PARSE"
+        }
+      ],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": true,
+      "error_code": "DOCX_INVALID_XML",
+      "error_details": {
+        "part_uri": "/word/document.xml",
+        "parser_error": "Premature end of data in tag p line 1, line 1, column 135 (<string>, line 1)"
+      },
+      "elapsed_ms": 0.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": false
+    },
+    {
+      "sample_id": "H06",
+      "category": "high_risk",
+      "file": "data/high_risk/h06-zip-boundary-metadata.docx",
+      "expected_errors": [
+        {
+          "code": "INVALID_DOCX",
+          "reason_code": "UNSAFE_ZIP_PATH",
+          "stage": "PACKAGE_VALIDATION"
+        },
+        {
+          "code": "INVALID_DOCX",
+          "reason_code": "COMPRESSION_RATIO_EXCEEDED",
+          "stage": "PACKAGE_VALIDATION"
+        }
+      ],
+      "expected_issue_count": 0,
+      "expected_unverifiable_count": 0,
+      "blocked": true,
+      "error_code": "DOCX_PATH_TRAVERSAL",
+      "error_details": {
+        "part_name": "../alinea-safe-boundary-marker.txt"
+      },
+      "elapsed_ms": 15.0,
+      "confirmed_count": 0,
+      "unknown_count": 0,
+      "matched_targets": [],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": false
+    },
+    {
+      "sample_id": "DEMO",
+      "category": "golden_demo",
+      "file": "../../examples/alinea-demo.docx",
+      "expected_errors": [],
+      "expected_issue_count": 10,
+      "expected_unverifiable_count": 0,
+      "blocked": false,
+      "error_code": null,
+      "elapsed_ms": 141.0,
+      "confirmed_count": 10,
+      "unknown_count": 0,
+      "matched_targets": [
+        "D01",
+        "D02",
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08",
+        "D09",
+        "D10"
+      ],
+      "missed_targets": [],
+      "false_positive_issue_ids": [],
+      "automatic_repair_allowed": true,
+      "safe_repair_issue_count": 9
+    }
+  ]
+}

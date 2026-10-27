@@ -1,0 +1,258 @@
+{
+  "rule_set_id": "general_report",
+  "project_id": "preset",
+  "version": 1,
+  "name": "Alinea 假想通用报告格式演示（非官方）",
+  "status": "APPROVED",
+  "digest": "46451d762d6725993452062034d556539a4ab48ca7692a06f57d3066af4eb56a",
+  "guideline_id": "imaginary_general_report_non_official",
+  "rules": [
+    {
+      "rule_id": "report_body_east_asia",
+      "name": "正文中文字体",
+      "selector": "body",
+      "property": "font.east_asia",
+      "operator": "eq",
+      "expected": "等线",
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文中文使用等线；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_ascii",
+      "name": "正文西文字体",
+      "selector": "body",
+      "property": "font.latin",
+      "operator": "eq",
+      "expected": "Arial",
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文西文使用 Arial；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_size",
+      "name": "正文字号",
+      "selector": "body",
+      "property": "font.size_pt",
+      "operator": "eq",
+      "expected": 11,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文字号为 11 pt；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_bold",
+      "name": "正文粗体",
+      "selector": "body",
+      "property": "font.bold",
+      "operator": "eq",
+      "expected": false,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文默认不加粗；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_alignment",
+      "name": "正文对齐",
+      "selector": "body",
+      "property": "paragraph.alignment",
+      "operator": "in",
+      "expected": ["left", "justify"],
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文可左对齐或两端对齐；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_first_line_mm",
+      "name": "正文首行缩进毫米",
+      "selector": "body",
+      "property": "paragraph.first_line_indent_mm",
+      "operator": "between",
+      "expected": {"min": 0, "max": 8.5, "unit": "mm"},
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告首行固定缩进为 0 至 8.5 mm；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_left_indent",
+      "name": "正文左缩进",
+      "selector": "body",
+      "property": "paragraph.left_indent_mm",
+      "operator": "eq",
+      "expected": 0,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文左缩进为 0 mm；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_right_indent",
+      "name": "正文右缩进",
+      "selector": "body",
+      "property": "paragraph.right_indent_mm",
+      "operator": "eq",
+      "expected": 0,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文右缩进为 0 mm；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_line_spacing",
+      "name": "正文最小行距",
+      "selector": "body",
+      "property": "paragraph.line_spacing",
+      "operator": "eq",
+      "expected": {"kind": "at_least_pt", "value": 18, "unit": "pt"},
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文使用最小 18 pt 行距；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_space_before",
+      "name": "正文段前距",
+      "selector": "body",
+      "property": "paragraph.space_before_pt",
+      "operator": "eq",
+      "expected": 0,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文段前距为 0 pt；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_body_space_after",
+      "name": "正文段后距",
+      "selector": "body",
+      "property": "paragraph.space_after_pt",
+      "operator": "eq",
+      "expected": 6,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), body",
+        "quote": "假想规范：通用报告正文段后距为 6 pt；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_heading_bold",
+      "name": "一级标题粗体",
+      "selector": "heading_1",
+      "property": "font.bold",
+      "operator": "eq",
+      "expected": true,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), heading 1",
+        "quote": "假想规范：通用报告一级标题加粗；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_heading_line_spacing",
+      "name": "一级标题固定行距",
+      "selector": "heading_1",
+      "property": "paragraph.line_spacing",
+      "operator": "eq",
+      "expected": {"type": "EXACT", "value": 24, "unit": "pt"},
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), heading 1",
+        "quote": "假想规范：通用报告一级标题使用固定 24 pt 行距；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_margin_top",
+      "name": "上边距",
+      "selector": "section",
+      "property": "section.margin_top_mm",
+      "operator": "eq",
+      "expected": 20,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), page setup",
+        "quote": "假想规范：通用报告上边距为 20 mm；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_margin_bottom",
+      "name": "下边距",
+      "selector": "section",
+      "property": "section.margin_bottom_mm",
+      "operator": "eq",
+      "expected": 20,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), page setup",
+        "quote": "假想规范：通用报告下边距为 20 mm；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_margin_left",
+      "name": "左边距",
+      "selector": "section",
+      "property": "section.margin_left_mm",
+      "operator": "eq",
+      "expected": 25,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), page setup",
+        "quote": "假想规范：通用报告左边距为 25 mm；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_margin_right",
+      "name": "右边距",
+      "selector": "section",
+      "property": "section.margin_right_mm",
+      "operator": "eq",
+      "expected": 25,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), page setup",
+        "quote": "假想规范：通用报告右边距为 25 mm；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_page_width",
+      "name": "页面宽度",
+      "selector": "section",
+      "property": "section.page_width_mm",
+      "operator": "eq",
+      "expected": 210,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), page setup",
+        "quote": "假想规范：通用报告演示页面宽度为 210 mm；这不是官方格式标准。"
+      }
+    },
+    {
+      "rule_id": "report_page_height",
+      "name": "页面高度",
+      "selector": "section",
+      "property": "section.page_height_mm",
+      "operator": "eq",
+      "expected": 297,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary general report guideline v1 (non-official), page setup",
+        "quote": "假想规范：通用报告演示页面高度为 297 mm；这不是官方格式标准。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "base_revision_id": "5d476275-dc82-4b1c-ab6f-d25bda1cb1ae",
+  "before_inspection_id": "28b5a31d-8ccf-4b55-a85f-960465d8115c",
+  "gates": [
+    {
+      "details": {
+        "errors": [],
+        "scanned_part_count": 18,
+        "warnings": [
+          {
+            "code": "EXTERNAL_HYPERLINK",
+            "detail": "https://example.com/alinea-demo",
+            "part": "word/_rels/document.xml.rels"
+          }
+        ]
+      },
+      "gate": "G0",
+      "status": "WARN"
+    },
+    {
+      "details": {
+        "errors": [],
+        "part_count": 18,
+        "reopened": true
+      },
+      "gate": "G1",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "compared_part_count": 13,
+        "errors": [],
+        "mismatches": []
+      },
+      "gate": "G2",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "added": [],
+        "changed": [],
+        "missing": [],
+        "resource_count": 4
+      },
+      "gate": "G3",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "authorized_parts": [
+          "word/document.xml"
+        ],
+        "difference_count": 0,
+        "differences": [],
+        "operation_count": 2
+      },
+      "gate": "G4",
+      "status": "PASS"
+    },
+    {
+      "details": {
+        "after_inspection_id": "176e751f-8dcc-477c-ace8-99e3484380b9",
+        "introduced_violations": 0,
+        "rendered": true,
+        "selected_unresolved": 0
+      },
+      "gate": "G5",
+      "status": "PASS"
+    }
+  ],
+  "generated_at": "2026-10-25T02:26:20.638907Z",
+  "inspection_id": "176e751f-8dcc-477c-ace8-99e3484380b9",
+  "operations": [
+    {
+      "allowed_xml_changes": [
+        "w:pPr/w:jc/@w:val"
+      ],
+      "base_revision_sha256": "0a77ffc978543c0be08146fc227fe373ae4bb5b4f3423bd3e36ba7e0b474a0ef",
+      "desired_after": "justify",
+      "expected_before": "center",
+      "impact_scope": "EXACT_SELECTED_PARAGRAPH",
+      "issue_id": "iss_d0a0fa73f2f87dea2535862a",
+      "operation_id": "op_iss_d0a0fa73f2f87dea2535862a",
+      "property": "paragraph.alignment",
+      "risk": "low",
+      "rule_set_digest": "390692adac5f9794fe16053704dd6b80d51b8e474842b9f1c9e8134fb2a364a9",
+      "strategy": "DIRECT_PARAGRAPH_PROPERTY",
+      "target": {
+        "anchor_schema_version": "1.0",
+        "container_path": [
+          "body"
+        ],
+        "context_after_sha256": "sha256:01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "context_before_sha256": "sha256:62cf0d204c9d81cebe6ca5ae3190be3b328fcb1b82dc212ca1a201b3db3335ef",
+        "kind": "paragraph",
+        "para_id": null,
+        "paragraph_ordinal": 14,
+        "part_uri": "/word/document.xml",
+        "revision_id": "5d476275-dc82-4b1c-ab6f-d25bda1cb1ae",
+        "run_range": {
+          "end": 1,
+          "start": 0
+        },
+        "section_ordinal": null,
+        "text_excerpt": "DEMO_PAGE_05_ALIGNMENT 对齐目标：用于核对两端对齐规则。",
+        "text_sha256": "sha256:b432336250be0efe9c879b6661c84281f0bde74abb9107096ab2456887becce8",
+        "xml_path": "/w:document/w:body[1]/w:p[15]"
+      }
+    },
+    {
+      "allowed_xml_changes": [
+        "w:rPr/w:rFonts/@w:eastAsia"
+      ],
+      "base_revision_sha256": "0a77ffc978543c0be08146fc227fe373ae4bb5b4f3423bd3e36ba7e0b474a0ef",
+      "desired_after": "宋体",
+      "expected_before": "SimHei",
+      "impact_scope": "EXACT_SELECTED_RUNS",
+      "issue_id": "iss_8cdb74dde8115990e1abc41c",
+      "operation_id": "op_iss_8cdb74dde8115990e1abc41c",
+      "property": "font.eastAsia",
+      "risk": "low",
+      "rule_set_digest": "390692adac5f9794fe16053704dd6b80d51b8e474842b9f1c9e8134fb2a364a9",
+      "strategy": "DIRECT_RUN_PROPERTY",
+      "target": {
+        "anchor_schema_version": "1.0",
+        "container_path": [
+          "body"
+        ],
+        "context_after_sha256": "sha256:61ca68602dff925f2e86ecea5ecc96b9827e5d5966f0f02d246941aeeee981cb",
+        "context_before_sha256": "sha256:7a3d3e41645104268865216d5449eb31c18907a6327137d396a16c3a6a798c91",
+        "kind": "paragraph",
+        "para_id": null,
+        "paragraph_ordinal": 1,
+        "part_uri": "/word/document.xml",
+        "revision_id": "5d476275-dc82-4b1c-ab6f-d25bda1cb1ae",
+        "run_range": {
+          "end": 1,
+          "start": 0
+        },
+        "section_ordinal": null,
+        "text_excerpt": "DEMO_PAGE_01_FONT_EASTASIA 中文字体目标：这是第一页的公开假想正文。",
+        "text_sha256": "sha256:d7df4b137cc479f8aa149df3c9283b2b16b5fb9b87109f54043fbb778914feb1",
+        "xml_path": "/w:document/w:body[1]/w:p[2]"
+      }
+    }
+  ],
+  "original_sha256": "0a77ffc978543c0be08146fc227fe373ae4bb5b4f3423bd3e36ba7e0b474a0ef",
+  "remaining_count": 0,
+  "renderer_profile_id": "local-lo",
+  "resolved_count": 2,
+  "revision_id": "5e22eec8-658a-410d-8907-824d50c869e5",
+  "revision_sha256": "fd5b9dd9389a4b5eb8268c2a1369b765ad970f2bfe9fa834159df21b22edb590",
+  "selected_count": 2,
+  "status": "PASS",
+  "warnings": [
+    "Preview rendered by LibreOffice; Microsoft Word may paginate differently.",
+    "Render environment: {\"export_config\":{\"filter\":\"writer_pdf_Export\",\"filter_options\":{},\"format\":\"pdf\"},\"exporter_config_digest\":\"fa0ca4e35789524e48efcf2f15462d9c2cbc091d8f1849d788ebea272f0441ac\",\"font_environment_sha256\":\"013a760fe5c155b669bc88daa3cbbb8db609378a0fca707480aa8cc02abc9ca8\",\"locale\":\"cp936\",\"profile_id\":\"local-lo\",\"renderer_version\":\"LibreOffice 26.8.1.1 bf6ef2662401c7d6dce671ab4deb26ee0af3a7c1\"}"
+  ]
+}

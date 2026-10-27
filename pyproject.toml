@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alinea"
+version = "0.2.0"
+description = "Verifiable DOCX formatting inspection and repair"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic>=2.10,<3",
+  "pydantic-settings>=2.7,<3",
+  "sqlalchemy>=2.0,<3",
+  "alembic>=1.14,<2",
+  "python-multipart>=0.0.20,<1",
+  "python-docx>=1.1,<2",
+  "lxml>=5.3,<7",
+  "pdfplumber>=0.11,<1",
+  "fonttools>=4.55,<5",
+  "httpx>=0.27,<1",
+  "openai>=1.59,<3",
+  "openai-agents>=0.2,<2",
+  "redis>=5,<7",
+  "rq>=2,<3",
+  "psycopg[binary]>=3.2,<4",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3,<10",
+  "pytest-asyncio>=0.25,<2",
+  "pytest-cov>=6,<8",
+  "ruff>=0.9,<1",
+  "mypy>=1.14,<2",
+  "pip-licenses>=5,<6",
+  "reportlab>=4,<5",
+  "pillow>=10,<13",
+]
+
+[tool.setuptools.packages.find]
+where = ["packages", "apps/api"]
+include = ["alinea_*", "app*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["packages", "apps/api", "."]
+testpaths = ["tests/unit", "tests/integration"]
+asyncio_mode = "auto"
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+exclude = [".venv", ".tools", "node_modules", "tests/fixtures"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101"]
+
+[tool.mypy]
+python_version = "3.12"
+explicit_package_bases = true
+mypy_path = "."
+ignore_missing_imports = true
+check_untyped_defs = true
+warn_unused_ignores = true
+exclude = ["tests/fixtures", ".venv", ".tools"]

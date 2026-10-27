@@ -1,0 +1,220 @@
+:root {
+  interpolate-size: allow-keywords;
+  --motion-fast: 140ms;
+  --motion-base: 220ms;
+  --motion-slow: 420ms;
+  --motion-ease-out: cubic-bezier(.22, 1, .36, 1);
+  --motion-ease-standard: cubic-bezier(.4, 0, .2, 1);
+  --motion-ease-spring: cubic-bezier(.34, 1.25, .64, 1);
+  --shadow-lifted: 0 14px 36px rgba(39, 52, 73, .09), 0 2px 8px rgba(39, 52, 73, .05);
+}
+
+@keyframes motion-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes motion-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes motion-pulse {
+  0%, 100% { opacity: .55; transform: scale(.96); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes motion-shimmer {
+  from { background-position: 160% 0; }
+  to { background-position: -60% 0; }
+}
+
+@keyframes progress-slide {
+  from, to { inline-size: 30%; margin-right: auto; }
+  from { translate: -100%; }
+  to { translate: 100cqi; }
+}
+
+.motion-page { animation: motion-fade-up var(--motion-slow) var(--motion-ease-out) both; }
+.motion-stagger > * { animation: motion-fade-up var(--motion-slow) var(--motion-ease-out) both; }
+.motion-stagger > *:nth-child(2) { animation-delay: 45ms; }
+.motion-stagger > *:nth-child(3) { animation-delay: 90ms; }
+.motion-stagger > *:nth-child(4) { animation-delay: 135ms; }
+.motion-stagger > *:nth-child(5) { animation-delay: 180ms; }
+.motion-stagger > *:nth-child(6) { animation-delay: 225ms; }
+.motion-stagger > *:nth-child(7) { animation-delay: 270ms; }
+.motion-stagger > *:nth-child(8) { animation-delay: 315ms; }
+.motion-stagger > *:nth-child(9) { animation-delay: 360ms; }
+.motion-stagger > *:nth-child(10) { animation-delay: 405ms; }
+.motion-fade { animation: motion-fade-in var(--motion-base) ease-out both; }
+.motion-pulse { animation: motion-pulse 2.8s ease-in-out infinite; }
+
+.motion-card {
+  transition: transform var(--motion-base) var(--motion-ease-out), box-shadow var(--motion-base) var(--motion-ease-out), border-color var(--motion-base) var(--motion-ease-standard);
+}
+.motion-card:hover, .motion-card:focus-within {
+  transform: translateY(-2px);
+  border-color: #9cadc6;
+  box-shadow: var(--shadow-lifted);
+}
+.motion-button {
+  transition: transform var(--motion-fast) var(--motion-ease-out), background-color var(--motion-fast) ease, border-color var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
+}
+.motion-button:active { transform: scale(.975); }
+.motion-button:focus-visible { position: relative; z-index: 1; }
+.route-enter-active, .route-leave-active { transition: opacity var(--motion-base) var(--motion-ease-out), transform var(--motion-base) var(--motion-ease-out); }
+.route-enter-from { opacity: 0; transform: translateY(8px); }
+.route-leave-to { opacity: 0; transform: translateY(-6px); }
+
+.disclosure-region { block-size: auto; }
+.fold-enter-active, .fold-leave-active {
+  overflow: hidden;
+  transition: block-size var(--motion-base) var(--motion-ease-out), opacity var(--motion-fast) ease, translate var(--motion-base) var(--motion-ease-out);
+}
+.fold-enter-from, .fold-leave-to { block-size: 0; opacity: 0; translate: 0 -8px; }
+.fold-enter-to, .fold-leave-from { block-size: auto; opacity: 1; translate: 0 0; }
+@starting-style {
+  .fold-enter-active { block-size: 0; opacity: 0; translate: 0 -8px; }
+}
+.view-panel-enter-active, .view-panel-leave-active { transition: opacity var(--motion-base) var(--motion-ease-out), translate var(--motion-base) var(--motion-ease-out); }
+.view-panel-enter-from { opacity: 0; translate: 0 12px; }
+.view-panel-leave-to { opacity: 0; translate: 0 -8px; }
+
+.toast-viewport {
+  position: fixed;
+  inset-block-start: 84px;
+  inset-inline-end: 20px;
+  z-index: 2000;
+  width: min(380px, calc(100% - 32px));
+  pointer-events: none;
+}
+.toast-list { display: grid; gap: 10px; }
+.toast {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+  padding: 14px 14px 14px 16px;
+  color: #273449;
+  background: rgba(252, 253, 254, .98);
+  border: 1px solid #cfd7e2;
+  border-inline-start: 3px solid #5675a8;
+  border-radius: 10px;
+  box-shadow: 0 16px 44px rgba(39, 52, 73, .15);
+  pointer-events: auto;
+}
+.toast-content { min-width: 0; }
+.toast-content strong { display: block; margin-bottom: 3px; font-size: .85rem; }
+.toast-content p { margin: 0; color: #5e6979; font-size: .76rem; line-height: 1.6; }
+.toast-success { border-inline-start-color: #278267; }
+.toast-success > svg { color: #278267; }
+.toast-warning { border-inline-start-color: #d98b27; }
+.toast-warning > svg { color: #a56616; }
+.toast-error { border-inline-start-color: #c14f4f; }
+.toast-error > svg { color: #c14f4f; }
+.toast-close { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; color: #6b7482; background: transparent; border: 0; border-radius: 5px; }
+.toast-close:hover { color: #273449; background: #edf0f4; }
+.toast-list-enter-active { transition: opacity var(--motion-base) var(--motion-ease-out), transform var(--motion-base) var(--motion-ease-spring); }
+.toast-list-leave-active { transition: opacity var(--motion-fast) ease, transform var(--motion-fast) ease; }
+.toast-list-enter-from { opacity: 0; transform: translate(24px, -8px) scale(.97); }
+.toast-list-leave-to { opacity: 0; transform: translate(12px, -4px) scale(.98); }
+.toast-list-move { transition: transform var(--motion-base) var(--motion-ease-out); }
+
+.job-progress { display: grid; gap: 7px; inline-size: 100%; }
+.job-progress-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #536174; font-size: .75rem; }
+.job-progress-value { color: #405f92; font-family: 'Noto Serif SC', serif; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.job-progress-message { color: #6b7482; font-size: .72rem; line-height: 1.55; }
+.job-progress progress {
+  --progress-animation: none;
+  --progress-duration: 1.6s;
+  display: block;
+  inline-size: 100%;
+  block-size: 7px;
+  appearance: none;
+  border: 0 solid;
+  border-radius: 999px;
+  overflow: clip;
+  background: #e4eaf1;
+  container-type: inline-size;
+  box-shadow: inset 0 1px 2px rgba(39, 52, 73, .08);
+}
+.job-progress progress:indeterminate { --progress-animation: progress-slide var(--progress-duration) linear infinite; }
+.job-progress progress::-webkit-progress-bar { background: transparent; }
+.job-progress progress::-webkit-progress-value {
+  background: #5675a8;
+  border-radius: 999px;
+  transition: inline-size var(--motion-base) var(--motion-ease-out);
+  animation: var(--progress-animation);
+}
+.job-progress progress::-moz-progress-bar {
+  background: #5675a8;
+  border-radius: 999px;
+  transition: inline-size var(--motion-base) var(--motion-ease-out);
+  animation: var(--progress-animation);
+}
+.job-progress-compact .job-progress-message { display: none; }
+
+.skeleton {
+  color: transparent !important;
+  background: linear-gradient(100deg, #edf0f4 24%, #f8fafc 42%, #edf0f4 66%);
+  background-size: 220% 100%;
+  border-radius: 6px;
+  animation: motion-shimmer 1.8s ease-in-out infinite;
+}
+
+.native-dialog {
+  opacity: 0;
+  translate: 0 14px;
+  scale: .98;
+  transition-property: opacity, translate, scale, display, overlay;
+  transition-duration: var(--motion-base);
+  transition-timing-function: var(--motion-ease-out);
+  transition-behavior: allow-discrete;
+}
+.native-dialog[data-closing] { pointer-events: none; }
+.native-dialog[open]:not([data-closing]) {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+@starting-style {
+  .native-dialog[open]:not([data-closing]) {
+    opacity: 0;
+    translate: 0 14px;
+    scale: .98;
+  }
+}
+.native-dialog::backdrop {
+  background: rgba(39, 52, 73, 0);
+  transition-property: background-color, display, overlay;
+  transition-duration: var(--motion-base);
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+.native-dialog[open]:not([data-closing])::backdrop {
+  background: rgba(39, 52, 73, .55);
+}
+@starting-style {
+  .native-dialog[open]:not([data-closing])::backdrop { background: rgba(39, 52, 73, 0); }
+}
+
+@media (max-width: 640px) {
+  .toast-viewport { inset-inline: 12px; inset-block-start: 68px; width: auto; }
+  .toast { padding: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-fast: 0ms; --motion-base: 0ms; --motion-slow: 0ms; }
+  .motion-page, .motion-stagger > *, .motion-fade, .motion-pulse,
+  .motion-card, .motion-button, .route-enter-active, .route-leave-active,
+  .fold-enter-active, .fold-leave-active, .view-panel-enter-active, .view-panel-leave-active,
+  .toast, .toast-list-enter-active, .toast-list-leave-active, .toast-list-move,
+  .native-dialog, .native-dialog::backdrop, .skeleton {
+    animation: none !important;
+    transition: none !important;
+  }
+  .motion-card:hover, .motion-card:focus-within, .motion-button:active { transform: none; }
+  .workflow-step:hover, .preset-option:hover { translate: 0 0; }
+  .job-progress progress { --progress-duration: 10s; }
+}
+

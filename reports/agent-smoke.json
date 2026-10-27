@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-25",
+  "model": "kimi-for-coding",
+  "configured_base_url": "https://api.kimi.com/coding/",
+  "effective_openai_compatible_url": "https://api.kimi.com/coding/v1/",
+  "agents_sdk_smoke": {
+    "status": "passed",
+    "structured_output": true,
+    "tracing_disabled": true
+  },
+  "full_chinese_guideline_smoke": {
+    "status": "passed",
+    "atomic_rule_count": 6,
+    "retry_count": 0,
+    "duration_ms": 14094,
+    "input_tokens": 1109,
+    "output_tokens": 1499,
+    "evidence_validation": "all six rules retained exact source evidence and passed Pydantic/property validation"
+  },
+  "credential_handling": "ephemeral process environment only; no API key in this report or project configuration"
+}

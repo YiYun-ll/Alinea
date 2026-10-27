@@ -1,0 +1,298 @@
+{
+  "rule_set_id": "thesis_demo",
+  "project_id": "preset",
+  "version": 1,
+  "name": "Alinea 假想论文格式演示（非官方）",
+  "status": "APPROVED",
+  "digest": "390692adac5f9794fe16053704dd6b80d51b8e474842b9f1c9e8134fb2a364a9",
+  "guideline_id": "imaginary_thesis_demo_non_official",
+  "rules": [
+    {
+      "rule_id": "thesis_body_east_asia",
+      "name": "正文中文字体",
+      "selector": "body",
+      "property": "font.eastAsia",
+      "operator": "eq",
+      "expected": "宋体",
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文中文使用宋体；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_ascii",
+      "name": "正文西文字体",
+      "selector": "body",
+      "property": "font.ascii",
+      "operator": "eq",
+      "expected": "Times New Roman",
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文西文使用 Times New Roman；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_size",
+      "name": "正文字号",
+      "selector": "body",
+      "property": "font.size_pt",
+      "operator": "eq",
+      "expected": 12,
+      "tolerance": 0.1,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文字号为 12 pt；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_alignment",
+      "name": "正文对齐",
+      "selector": "body",
+      "property": "paragraph.alignment",
+      "operator": "eq",
+      "expected": "justify",
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文两端对齐；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_first_line_chars",
+      "name": "正文首行缩进字符",
+      "selector": "body",
+      "property": "paragraph.first_line_indent_chars",
+      "operator": "eq",
+      "expected": 2,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文首行缩进 2 字符；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_left_indent",
+      "name": "正文左缩进",
+      "selector": "body",
+      "property": "paragraph.left_indent_mm",
+      "operator": "eq",
+      "expected": 0,
+      "tolerance": 0.2,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文左缩进为 0 mm；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_right_indent",
+      "name": "正文右缩进",
+      "selector": "body",
+      "property": "paragraph.right_indent_mm",
+      "operator": "eq",
+      "expected": 0,
+      "tolerance": 0.2,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文右缩进为 0 mm；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_line_spacing",
+      "name": "正文行距",
+      "selector": "body",
+      "property": "paragraph.line_spacing",
+      "operator": "eq",
+      "expected": {"type": "MULTIPLE", "value": 1.5},
+      "tolerance": 0.01,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文使用 1.5 倍行距；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_space_before",
+      "name": "正文段前距",
+      "selector": "body",
+      "property": "paragraph.space_before_pt",
+      "operator": "eq",
+      "expected": 0,
+      "tolerance": 0.25,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文段前距为 0 pt；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_body_space_after",
+      "name": "正文段后距",
+      "selector": "body",
+      "property": "paragraph.space_after_pt",
+      "operator": "eq",
+      "expected": 0,
+      "tolerance": 0.25,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), body",
+        "quote": "假想规范：正文段后距为 0 pt；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_heading_east_asia",
+      "name": "一级标题中文字体",
+      "selector": "heading_1",
+      "property": "font.eastAsia",
+      "operator": "eq",
+      "expected": "黑体",
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), heading 1",
+        "quote": "假想规范：一级标题中文使用黑体；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_heading_size",
+      "name": "一级标题字号",
+      "selector": "heading_1",
+      "property": "font.size_pt",
+      "operator": "eq",
+      "expected": 16,
+      "tolerance": 0.1,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), heading 1",
+        "quote": "假想规范：一级标题字号为 16 pt；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_heading_bold",
+      "name": "一级标题粗体",
+      "selector": "heading_1",
+      "property": "font.bold",
+      "operator": "eq",
+      "expected": true,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), heading 1",
+        "quote": "假想规范：一级标题加粗；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_heading_alignment",
+      "name": "一级标题对齐",
+      "selector": "heading_1",
+      "property": "paragraph.alignment",
+      "operator": "eq",
+      "expected": "center",
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), heading 1",
+        "quote": "假想规范：一级标题居中；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_caption_size",
+      "name": "图题字号",
+      "selector": "caption",
+      "property": "font.size_pt",
+      "operator": "eq",
+      "expected": 10.5,
+      "tolerance": 0.1,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), captions",
+        "quote": "假想规范：图题字号为 10.5 pt；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_margin_top",
+      "name": "上边距",
+      "selector": "section",
+      "property": "section.margin_top_mm",
+      "operator": "eq",
+      "expected": 25,
+      "tolerance": 0.5,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), page setup",
+        "quote": "假想规范：上边距为 25 mm；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_margin_bottom",
+      "name": "下边距",
+      "selector": "section",
+      "property": "section.margin_bottom_mm",
+      "operator": "eq",
+      "expected": 25,
+      "tolerance": 0.5,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), page setup",
+        "quote": "假想规范：下边距为 25 mm；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_margin_left",
+      "name": "左边距",
+      "selector": "section",
+      "property": "section.margin_left_mm",
+      "operator": "eq",
+      "expected": 30,
+      "tolerance": 0.5,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), page setup",
+        "quote": "假想规范：左边距为 30 mm；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_margin_right",
+      "name": "右边距",
+      "selector": "section",
+      "property": "section.margin_right_mm",
+      "operator": "eq",
+      "expected": 25,
+      "tolerance": 0.5,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), page setup",
+        "quote": "假想规范：右边距为 25 mm；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_page_width",
+      "name": "页面宽度",
+      "selector": "section",
+      "property": "section.page_width_mm",
+      "operator": "eq",
+      "expected": 210,
+      "tolerance": 0.5,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), page setup",
+        "quote": "假想规范：演示页面宽度为 210 mm；这不是任何学校的官方要求。"
+      }
+    },
+    {
+      "rule_id": "thesis_page_height",
+      "name": "页面高度",
+      "selector": "section",
+      "property": "section.page_height_mm",
+      "operator": "eq",
+      "expected": 297,
+      "tolerance": 0.5,
+      "source": {
+        "source_type": "preset",
+        "reference": "Alinea imaginary thesis guideline v1 (non-official), page setup",
+        "quote": "假想规范：演示页面高度为 297 mm；这不是任何学校的官方要求。"
+      }
+    }
+  ]
+}

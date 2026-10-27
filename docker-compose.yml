@@ -1,0 +1,85 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: alinea
+      POSTGRES_PASSWORD: alinea-local
+      POSTGRES_DB: alinea
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alinea"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.api
+    image: alinea/api:local
+    environment: &alinea-env
+      ALINEA_DATABASE_URL: postgresql+psycopg://alinea:alinea-local@postgres:5432/alinea
+      ALINEA_REDIS_URL: redis://redis:6379/0
+      ALINEA_STORAGE_ROOT: /data/storage
+      ALINEA_SOFFICE_PATH: /usr/bin/soffice
+      ALINEA_RENDER_TIMEOUT_SECONDS: "120"
+      ALINEA_LLM_BASE_URL: ${ALINEA_LLM_BASE_URL:-https://api.kimi.com/coding/}
+      ALINEA_LLM_API_KEY: ${ALINEA_LLM_API_KEY:-}
+      ALINEA_LLM_MODEL: ${ALINEA_LLM_MODEL:-kimi-for-coding}
+      ALINEA_WEB_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+    volumes:
+      - alinea-data:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:size=512m
+    cap_drop: ["ALL"]
+    security_opt:
+      - no-new-privileges:true
+
+  worker:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.worker
+    environment: *alinea-env
+    volumes:
+      - alinea-data:/data
+    depends_on:
+      api:
+        condition: service_started
+    read_only: true
+    tmpfs:
+      - /tmp:size=1024m
+    cap_drop: ["ALL"]
+    security_opt:
+      - no-new-privileges:true
+
+  web:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres-data:
+  redis-data:
+  alinea-data:
