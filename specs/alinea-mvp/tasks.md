@@ -24,3 +24,10 @@
 - [x] 16. Add four-stage workflow navigation, valid default presets, automatic naming and progressive disclosure for advanced settings, evidence and rendering details. _Requirements: 2, 4, 5, 6, 10, 11_
 - [x] 17. Combine rules approval with inspection setup, add read-only refresh and failure recovery, summarize repairs and split results into conclusion/comparison/download views with natural transitions and reduced-motion support. _Requirements: 2, 4, 5, 6, 7, 10, 13_
 - [x] 18. Verify real preset upload, desktop and 390px repair flows, actual downloads, immutable retry evidence and query counts; update API, architecture and `reports/iteration-3.md` with measured results and remaining limitations. _Requirements: 11, 12, 13_
+
+## Iteration 4 — restrained interface and workflow correctness
+
+- [x] 19. Simplify homepage, upload, inspection, evidence, repair and report layouts; retain required approvals and technical evidence on demand. _Requirements: 2, 4, 5, 6, 10_
+- [x] 20. Fix drag submission, upload limit mismatch, selection refresh, filtered selection, project isolation, read recovery and stale polling. _Requirements: 1, 4, 11, 12_
+- [x] 21. Restore repair plans after refresh, preserve typed line spacing, fix PDF focus and scroll positioning, and require integrity evidence for revised downloads. _Requirements: 5, 6, 7, 8, 10_
+- [x] 22. Verify unit regressions, real desktop/mobile browser flows, downloads and narrow layouts; record results and screenshots in `reports/iteration-4.md`. _Requirements: 13_

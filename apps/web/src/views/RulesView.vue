@@ -6,6 +6,7 @@ import { useRulesStore } from '../stores/rules'
 import { useJobStore } from '../stores/job'
 import { errorMessage, formatDate, propertyLabel, roleLabel } from '../lib/format'
 import type { FormatProperty, FormatRule, JsonValue, RuleConflict, Selector } from '../types/contracts'
+import { parseRuleValue, type LineSpacingType } from '../lib/ruleValue'
 import RuleEditorPanel from '../components/RuleEditorPanel.vue'
 import StatusBadge from '../components/StatusBadge.vue'
 import ErrorNotice from '../components/ErrorNotice.vue'
@@ -23,6 +24,8 @@ const manualName = ref('人工格式规则')
 const manualSelector = ref<Selector>('body')
 const manualProperty = ref<FormatProperty>('font.size_pt')
 const manualExpected = ref('12')
+const manualLineType = ref<LineSpacingType>('MULTIPLE')
+const manualError = ref<string | null>(null)
 const manualQuote = ref('')
 const localError = ref<string | null>(null)
 const loadedExtractionJob = ref<string | null>(null)
@@ -39,6 +42,10 @@ const sources = computed(() => {
   })
 })
 const enabledCount = computed(() => rules.draftRules.filter((rule) => rule.enabled).length)
+watch(manualProperty, (property) => {
+  manualError.value = null
+  manualExpected.value = property === 'font.bold' ? 'true' : property === 'paragraph.alignment' ? 'left' : property === 'paragraph.line_spacing' ? '1.5' : property === 'font.size_pt' ? '12' : ''
+})
 
 async function loadRules(): Promise<void> {
   const result = await rules.load(projectId)
@@ -121,17 +128,22 @@ async function approveRules(): Promise<void> {
 function openManualDialog(): void {
   manualQuote.value = ''
   localError.value = null
+  manualError.value = null
   manualDialog.value?.showModal()
 }
 
 function addManualRule(): void {
   if (!manualQuote.value.trim()) {
-    localError.value = '人工规则必须填写规范原句作为证据。'
+    manualError.value = '请填写规范原句。'
     return
   }
-  let expected: JsonValue = manualExpected.value
-  if (['font.size_pt', 'paragraph.line_spacing'].includes(manualProperty.value)) expected = Number(manualExpected.value)
-  if (manualProperty.value === 'font.bold') expected = manualExpected.value === 'true'
+  let expected: JsonValue
+  try {
+    expected = parseRuleValue(manualProperty.value, manualExpected.value, manualLineType.value)
+  } catch (error) {
+    manualError.value = error instanceof Error ? error.message : '预期值无效。'
+    return
+  }
   const id = `manual_${crypto.randomUUID().replaceAll('-', '_')}`
   const rule: FormatRule = {
     rule_id: id, name: manualName.value, selector: manualSelector.value, property: manualProperty.value,
@@ -148,11 +160,11 @@ function addManualRule(): void {
 <template>
   <div class="rules-page motion-page">
     <header class="workspace-heading">
-      <div><p class="eyebrow">Rule review / 02</p><h1>规则审阅与批准</h1><p>每条规则都保留来源、预期值与修复边界。草案保存和批准是不同动作。</p></div>
+      <div><h1>检查规范</h1></div>
       <div class="button-group">
         <button type="button" class="button button-secondary" :disabled="!rules.ruleSet" @click="openManualDialog"><Plus :size="16" aria-hidden="true" /> 人工规则</button>
         <button type="button" class="button button-secondary" :disabled="!rules.ruleSet || rules.saving || !isDirty" @click="saveRules"><Save :size="16" aria-hidden="true" /> {{ rules.saving ? '保存中…' : '保存草案' }}</button>
-        <button type="button" class="button button-primary" :disabled="!rules.ruleSet || rules.approving || !enabledCount" @click="requestApproval"><ShieldCheck :size="16" aria-hidden="true" /> {{ isDirty ? '保存并批准' : '批准当前规则' }}</button>
+        <button type="button" class="button button-primary" :disabled="!rules.ruleSet || rules.approving || !enabledCount || (rules.isApproved && !isDirty)" @click="requestApproval"><ShieldCheck :size="16" aria-hidden="true" /> {{ isDirty ? '保存并批准' : rules.isApproved ? '已批准' : '批准规范' }}</button>
         <RouterLink v-if="rules.isApproved" class="button button-accent" :to="`/projects/${projectId}/inspection`">前往检查 <ArrowRight :size="16" aria-hidden="true" /></RouterLink>
       </div>
     </header>
@@ -169,7 +181,6 @@ function addManualRule(): void {
       <div><span class="muted">规则集</span><strong>{{ rules.ruleSet.name }}</strong></div>
       <div><span class="muted">版本 / 状态</span><strong>v{{ rules.ruleSet.version }} <StatusBadge :status="rules.ruleSet.status" /></strong></div>
       <div><span class="muted">启用 / 总数</span><strong>{{ enabledCount }} / {{ rules.draftRules.length }}</strong></div>
-      <div><span class="muted">digest</span><span class="mono">{{ rules.ruleSet.digest }}</span></div>
     </div>
 
     <div v-if="rules.unresolvedConflicts.length" class="conflict-panel" aria-labelledby="conflict-title">
@@ -178,7 +189,7 @@ function addManualRule(): void {
         <div><strong>{{ conflict.property }}</strong><p>{{ conflict.reason }}</p><span class="mono">{{ conflict.rule_ids.join(' · ') }}</span></div>
         <button type="button" class="button button-secondary button-small" @click="resolveConflict(conflict)">保留当前项并停用其他冲突规则</button>
       </article>
-      <p class="small muted mb-0">停用后仍需保存，由服务端重新计算冲突；不会按隐藏优先级静默覆盖。</p>
+      <p class="small muted mb-0">处理后请保存，再确认规范。</p>
     </div>
 
     <div v-if="rules.ruleSet" class="rules-workspace">
@@ -198,7 +209,7 @@ function addManualRule(): void {
         <h2 id="rules-table-title" class="sr-only">结构化规则表</h2>
         <div class="table-scroll">
           <table class="data-table">
-            <caption>可编辑规则 {{ rules.draftRules.length }} 条；修改后保存并重新批准</caption>
+            <caption>可编辑规则 {{ rules.draftRules.length }} 条</caption>
             <thead><tr><th scope="col">启用</th><th scope="col">规则 / 目标</th><th scope="col">属性 / 预期</th><th scope="col" class="container-optional">来源</th><th scope="col">修复</th></tr></thead>
             <tbody>
               <tr v-for="rule in rules.draftRules" :key="rule.rule_id" :class="{ 'is-selected': selectedRuleId === rule.rule_id }">
@@ -223,17 +234,18 @@ function addManualRule(): void {
       <form @submit.prevent="addManualRule">
         <div class="dialog-header"><h2 :id="manualTitleId">添加人工规则</h2><button type="button" class="button button-ghost icon-button" aria-label="关闭人工规则对话框" @click="manualDialog?.close()"><X :size="18" aria-hidden="true" /></button></div>
         <div class="dialog-body">
+          <ErrorNotice v-if="manualError" :message="manualError" />
           <div class="form-field"><label class="field-label" for="manual-name">规则名称</label><input id="manual-name" v-model="manualName" class="field" required /></div>
           <div class="form-field"><label class="field-label" for="manual-selector">目标角色</label><select id="manual-selector" v-model="manualSelector" class="field"><option value="body">正文</option><option value="heading_1">一级标题</option><option value="heading_2">二级标题</option><option value="heading_3">三级标题</option><option value="caption">图表题</option><option value="table_text">表格文字</option><option value="section">页面节</option></select></div>
           <div class="form-field"><label class="field-label" for="manual-property">属性</label><select id="manual-property" v-model="manualProperty" class="field"><option value="font.size_pt">字号（pt）</option><option value="font.eastAsia">中文字体</option><option value="font.ascii">西文字体</option><option value="font.bold">加粗（true / false）</option><option value="paragraph.line_spacing">行距</option><option value="paragraph.alignment">段落对齐</option></select></div>
-          <div class="form-field"><label class="field-label" for="manual-expected">预期值</label><input id="manual-expected" v-model="manualExpected" class="field" required /></div>
+          <div v-if="manualProperty === 'paragraph.line_spacing'" class="form-field"><label class="field-label" for="manual-line-type">行距类型</label><select id="manual-line-type" v-model="manualLineType" class="field"><option value="MULTIPLE">倍数行距</option><option value="EXACT">固定值（pt）</option><option value="AT_LEAST">最小值（pt）</option></select></div>
+          <div class="form-field"><label class="field-label" for="manual-expected">预期值</label><select v-if="manualProperty === 'font.bold'" id="manual-expected" v-model="manualExpected" class="field"><option value="true">加粗</option><option value="false">不加粗</option></select><select v-else-if="manualProperty === 'paragraph.alignment'" id="manual-expected" v-model="manualExpected" class="field"><option value="left">左对齐</option><option value="center">居中</option><option value="right">右对齐</option><option value="justify">两端对齐</option><option value="distribute">分散对齐</option></select><input v-else id="manual-expected" v-model="manualExpected" class="field" required /></div>
           <div class="form-field"><label class="field-label" for="manual-quote">规范原句</label><textarea id="manual-quote" v-model="manualQuote" class="field" required placeholder="填写可核对的原句，作为此规则的证据" /></div>
         </div>
         <div class="dialog-actions"><button type="button" class="button button-secondary" @click="manualDialog?.close()">取消</button><button type="submit" class="button button-primary">加入草案</button></div>
       </form>
     </dialog>
     <ConfirmDialog ref="approveDialog" title="批准当前规则集？" confirm-label="批准规则集" :busy="rules.approving" description="批准只允许后续检查和创建修复计划，不会直接修改文档。任何规则变化都需要重新检查。" @confirm="approveRules">
-      <p class="small mono">{{ rules.ruleSet?.digest }}</p>
     </ConfirmDialog>
   </div>
 </template>
@@ -242,24 +254,24 @@ function addManualRule(): void {
 .rules-page { padding: 28px clamp(16px, 3vw, 40px); }
 .workspace-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
 .workspace-heading h1 { margin-bottom: 8px; font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.5rem); }
-.workspace-heading p { max-width: 68ch; margin-bottom: 0; color: #5e6979; }
-.rules-meta { display: grid; grid-template-columns: 1.3fr .8fr .6fr 1.4fr; gap: 16px; padding: 14px 18px; margin-bottom: 18px; background: #fff; border: 1px solid #d8dde5; border-radius: 8px; }
+.workspace-heading p { max-width: 68ch; margin-bottom: 0; color: #6b756d; }
+.rules-meta { display: grid; grid-template-columns: 1.3fr .8fr .6fr; gap: 16px; padding: 14px 18px; margin-bottom: 18px; background: #fff; border: 1px solid #dfe3dc; border-radius: 8px; }
 .rules-meta > div { min-width: 0; }
 .rules-meta span, .rules-meta strong { display: block; }
 .rules-meta .muted { margin-bottom: 4px; font-size: .68rem; }
 .rules-meta strong { display: flex; align-items: center; gap: 7px; font-size: .82rem; }
 .rules-meta .mono { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.rules-workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr) 340px; min-height: 620px; background: #fff; border: 1px solid #d8dde5; border-radius: 10px; overflow: hidden; }
-.rule-sources { min-width: 0; border-right: 1px solid #d8dde5; }
+.rules-workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr) 340px; min-height: 620px; background: #fff; border: 1px solid #dfe3dc; border-radius: 10px; overflow: hidden; }
+.rule-sources { min-width: 0; border-right: 1px solid #dfe3dc; }
 .rule-sources ol { max-height: 700px; padding: 0; margin: 0; overflow-y: auto; list-style: none; }
-.rule-sources li { padding: 16px; border-bottom: 1px solid #e1e5eb; }
+.rule-sources li { padding: 16px; border-bottom: 1px solid #e7ebe3; }
 .rule-sources li > strong, .rule-sources li > span { display: block; }
 .rule-sources li > strong { font-size: .8rem; overflow-wrap: anywhere; }
-.rule-sources li > span { margin-top: 3px; color: #6b7482; font-size: .68rem; }
-.rule-sources blockquote { margin: 10px 0 0; color: #536174; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif; font-size: .75rem; line-height: 1.8; }
+.rule-sources li > span { margin-top: 3px; color: #737c73; font-size: .68rem; }
+.rule-sources blockquote { margin: 10px 0 0; color: #667467; font-family: 'Noto Serif SC', 'Source Han Serif SC', serif; font-size: .75rem; line-height: 1.8; }
 .mobile-source-toggle summary { display: none; }
-.rule-table-panel { min-width: 0; border-right: 1px solid #d8dde5; }
-.table-subline { display: block; margin-top: 4px; color: #6b7482; font-size: .68rem; }
+.rule-table-panel { min-width: 0; border-right: 1px solid #dfe3dc; }
+.table-subline { display: block; margin-top: 4px; color: #737c73; font-size: .68rem; }
 .rule-editor-panel { min-width: 0; max-height: 760px; overflow-y: auto; }
 .conflict-panel { padding: 16px 18px; margin-bottom: 18px; color: #76501c; background: #fff9ef; border: 1px solid #e1c08e; border-radius: 8px; }
 .conflict-panel h2 { display: flex; align-items: center; gap: 7px; margin-bottom: 12px; font-family: inherit; font-size: .9rem; }
@@ -267,8 +279,8 @@ function addManualRule(): void {
 .conflict-panel article p { margin: 4px 0; font-size: .8rem; }
 .extraction-state { display: flex; align-items: center; gap: 16px; padding: 24px; margin-bottom: 20px; }
 .extraction-state > div { flex: 1; }
-.extraction-state p { margin: 4px 0 0; color: #5e6979; }
-.rules-footnote { color: #6b7482; font-size: .7rem; text-align: right; }
-@media (max-width: 1200px) { .rules-workspace { grid-template-columns: 230px minmax(0, 1fr); } .rule-editor-panel { grid-column: 1 / -1; max-height: none; border-top: 1px solid #d8dde5; } }
-@media (max-width: 800px) { .workspace-heading { align-items: flex-start; flex-direction: column; } .rules-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); } .rules-workspace { grid-template-columns: 1fr; } .rule-sources { border-right: 0; border-bottom: 1px solid #d8dde5; } .mobile-source-toggle summary { display: block; padding: 12px 16px; cursor: pointer; font-weight: 650; } .rule-sources ol { max-height: 260px; } .rule-table-panel { border-right: 0; } .conflict-panel article { align-items: flex-start; flex-direction: column; } }
+.extraction-state p { margin: 4px 0 0; color: #6b756d; }
+.rules-footnote { color: #737c73; font-size: .7rem; text-align: right; }
+@media (max-width: 1200px) { .rules-workspace { grid-template-columns: 230px minmax(0, 1fr); } .rule-editor-panel { grid-column: 1 / -1; max-height: none; border-top: 1px solid #dfe3dc; } }
+@media (max-width: 800px) { .workspace-heading { align-items: flex-start; flex-direction: column; } .rules-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); } .rules-workspace { grid-template-columns: 1fr; } .rule-sources { border-right: 0; border-bottom: 1px solid #dfe3dc; } .mobile-source-toggle summary { display: block; padding: 12px 16px; cursor: pointer; font-weight: 650; } .rule-sources ol { max-height: 260px; } .rule-table-panel { border-right: 0; } .conflict-panel article { align-items: flex-start; flex-direction: column; } }
 </style>

@@ -28,11 +28,13 @@ const rotation = defineModel<number>('rotation', { default: 0 })
 const scrollContainer = ref<HTMLElement | null>(null)
 const pdfDocument = shallowRef<PDFDocumentProxy | null>(null)
 const pageCount = ref(0)
+const pageSizes = ref<Array<{ width: number; height: number }>>([])
 const loading = ref(false)
 const error = ref<string | null>(null)
 let loadingTask: PDFDocumentLoadingTask | null = null
 let serial = 0
 let scrollFrame = 0
+let updatingFromScroll = false
 const pageNumbers = computed(() => Array.from({ length: pageCount.value }, (_, index) => index + 1))
 const issueNumbers = computed<Record<string, number>>(() => Object.fromEntries(props.issues.map((issue, index) => [issue.issue_id, index + 1])))
 
@@ -49,6 +51,7 @@ async function load(data: ArrayBuffer | null): Promise<void> {
   const generation = ++serial
   error.value = null
   pageCount.value = 0
+  pageSizes.value = []
   if (!data) {
     await destroyDocument()
     loading.value = false
@@ -56,6 +59,7 @@ async function load(data: ArrayBuffer | null): Promise<void> {
   }
   loading.value = true
   await destroyDocument()
+  if (generation !== serial) return
   try {
     const task = getDocument({ data: new Uint8Array(data.slice(0)) })
     loadingTask = task
@@ -64,6 +68,13 @@ async function load(data: ArrayBuffer | null): Promise<void> {
       await document.destroy()
       return
     }
+    const sizes = await Promise.all(Array.from({ length: document.numPages }, async (_, index) => {
+      const pdfPage = await document.getPage(index + 1)
+      const viewport = pdfPage.getViewport({ scale: 1 })
+      return { width: viewport.width, height: viewport.height }
+    }))
+    if (generation !== serial) return
+    pageSizes.value = sizes
     pdfDocument.value = document
     pageCount.value = document.numPages
     page.value = Math.min(Math.max(1, page.value), document.numPages)
@@ -81,15 +92,23 @@ function overlays(pageIndex: number) {
   return overlaysForPage(props.issues, props.revisionId, pageIndex, props.previewSha256 ?? undefined)
 }
 
+function dimensions(pageNumber: number): { width: number; height: number } | undefined {
+  const size = pageSizes.value[pageNumber - 1]
+  if (!size) return undefined
+  const rotated = rotation.value % 180 !== 0
+  return { width: (rotated ? size.height : size.width) * scale.value, height: (rotated ? size.width : size.height) * scale.value }
+}
+
 function goToPage(value: number): void {
-  page.value = Math.min(Math.max(1, value), Math.max(1, pageCount.value))
+  page.value = Math.min(Math.max(1, Number.isFinite(value) ? value : 1), Math.max(1, pageCount.value))
 }
 
 async function scrollToCurrentPage(): Promise<void> {
   await nextTick()
   const target = scrollContainer.value?.querySelector<HTMLElement>(`[data-page-number="${page.value}"]`)
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  target?.scrollIntoView({ block: 'start', behavior: reduced ? 'auto' : 'smooth' })
+  const container = scrollContainer.value
+  if (target && container) container.scrollTo({ top: container.scrollTop + target.getBoundingClientRect().top - container.getBoundingClientRect().top - 16, behavior: reduced ? 'auto' : 'smooth' })
 }
 
 function updateCurrentPage(): void {
@@ -110,7 +129,11 @@ function updateCurrentPage(): void {
         distance = nextDistance
       }
     })
-    if (nearest !== page.value) page.value = nearest
+    if (nearest !== page.value) {
+      updatingFromScroll = true
+      page.value = nearest
+      void nextTick(() => { updatingFromScroll = false })
+    }
   })
 }
 
@@ -119,8 +142,9 @@ function zoom(delta: number): void {
 }
 
 watch(() => props.data, (data) => { void load(data) }, { immediate: true })
-watch(page, () => { void scrollToCurrentPage() })
-watch(() => props.focusedIssueId, (issueId) => {
+watch(page, () => { if (!updatingFromScroll) void scrollToCurrentPage() })
+watch(() => [props.focusedIssueId, pdfDocument.value] as const, ([issueId, document]) => {
+  if (!document) return
   if (!issueId) return
   const issue = props.issues.find((item) => item.issue_id === issueId)
   if (!issue || issue.location.status !== 'LOCATED' || issue.revision_id !== props.revisionId) return
@@ -150,19 +174,19 @@ onBeforeUnmount(() => {
         <button type="button" class="button button-ghost icon-button" aria-label="缩小" :disabled="scale <= .5" @click="zoom(-.25)"><ZoomOut :size="18" aria-hidden="true" /></button>
         <label class="sr-only" :for="`pdf-scale-${revisionId}`">缩放比例</label>
         <select :id="`pdf-scale-${revisionId}`" v-model.number="scale" class="scale-select" :disabled="!pageCount">
-          <option :value=".5">50%</option><option :value=".75">75%</option><option :value="1">100%</option><option :value="1.25">125%</option><option :value="1.5">150%</option><option :value="2">200%</option><option :value="3">300%</option>
+          <option v-for="value in Array.from({ length: 11 }, (_, i) => .5 + i * .25)" :key="value" :value="value">{{ Math.round(value * 100) }}%</option>
         </select>
         <button type="button" class="button button-ghost icon-button" aria-label="放大" :disabled="scale >= 3" @click="zoom(.25)"><ZoomIn :size="18" aria-hidden="true" /></button>
         <button type="button" class="button button-ghost icon-button" aria-label="顺时针旋转 90 度" :disabled="!pageCount" @click="rotation = (rotation + 90) % 360"><RotateCw :size="18" aria-hidden="true" /></button>
       </div>
     </div>
-    <div class="pdf-render-note">只读 PDF 预览 · 浏览器显示可能与 Microsoft Word 略有差异</div>
     <ErrorNotice v-if="error" :message="error" retry-label="重新加载" @retry="load(data)" />
-    <div v-else-if="loading" class="pdf-loading"><LoaderCircle class="spinner" :size="24" aria-hidden="true" /><span>正在解析真实 PDF…</span></div>
+    <div v-else-if="loading" class="pdf-loading"><LoaderCircle class="spinner" :size="24" aria-hidden="true" /><span>正在加载预览…</span></div>
     <EmptyState v-else-if="!data" title="没有可用预览" description="预览可能尚未生成，或此版本的 PDF 渲染失败。结构化问题与摘录仍可查看。" />
     <div v-else ref="scrollContainer" class="pdf-scroll" tabindex="0" aria-label="PDF 分页阅读区" @scroll.passive="updateCurrentPage">
       <PdfPage
         v-for="number in pageNumbers" :key="`${revisionId}-${number}`" :pdf-document="pdfDocument" :page-number="number"
+        :dimensions="dimensions(number)"
         :scale="scale" :rotation="rotation" :overlays="overlays(number - 1)" :issue-numbers="issueNumbers"
         :focused-issue-id="focusedIssueId" @select-issue="emit('selectIssue', $event)"
       />
@@ -171,15 +195,15 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.pdf-viewer { min-width: 0; height: 100%; display: flex; flex-direction: column; background: #e8ebef; }
-.pdf-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 8px 12px; background: #fff; border-bottom: 1px solid #d8dde5; }
-.page-input, .scale-select { min-height: 34px; color: #273449; background: #fff; border: 1px solid #b9c2cf; border-radius: 5px; text-align: center; }
+.pdf-viewer { min-width: 0; height: 100%; display: flex; flex-direction: column; background: #edf0e9; }
+.pdf-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 8px 12px; background: #fff; border-bottom: 1px solid #dfe3dc; }
+.page-input, .scale-select { min-height: 34px; color: #25352e; background: #fff; border: 1px solid #cbd4c8; border-radius: 5px; text-align: center; }
 .page-input { width: 56px; }
 .scale-select { width: 70px; }
-.page-count { min-width: 38px; color: #5e6979; font-size: .8rem; }
-.pdf-render-note { padding: 5px 12px; color: #5e6979; background: #f4f5f7; border-bottom: 1px solid #d8dde5; font-size: .68rem; text-align: center; }
+.page-count { min-width: 38px; color: #6b756d; font-size: .8rem; }
+.pdf-render-note { padding: 5px 12px; color: #6b756d; background: #f4f5f7; border-bottom: 1px solid #dfe3dc; font-size: .68rem; text-align: center; }
 .pdf-scroll { min-height: 0; flex: 1; overflow: auto; padding: 30px clamp(12px, 4vw, 48px) 80px; scroll-behavior: smooth; scrollbar-gutter: stable; }
-.pdf-loading { min-height: 240px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #5e6979; }
+.pdf-loading { min-height: 240px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #6b756d; }
 .compact .pdf-render-note { display: none; }
 .compact .pdf-scroll { padding: 20px 12px 48px; }
 @media (max-width: 600px) { .pdf-toolbar { justify-content: center; } .pdf-scroll { padding-inline: 8px; } }

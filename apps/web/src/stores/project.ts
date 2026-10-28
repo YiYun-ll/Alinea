@@ -6,6 +6,9 @@ import { useToastStore } from './toast'
 import type { Project, ProjectCreated, Revision } from '../types/contracts'
 import { useInspectionStore } from './inspection'
 import { usePreviewStore } from './preview'
+import { useRulesStore } from './rules'
+import { useRepairStore } from './repair'
+import { useJobStore } from './job'
 
 interface RecentProject {
   project_id: string
@@ -27,6 +30,16 @@ interface ProjectState {
 
 const RECENT_KEY = 'alinea:recent-projects'
 let projectLoadSerial = 0
+
+function resetWorkspace(): void {
+  useInspectionStore().reset()
+  useRulesStore().reset()
+  useRepairStore().reset()
+  usePreviewStore().clear()
+  const jobs = useJobStore()
+  jobs.stopAll()
+  jobs.jobs = {}
+}
 
 function readRecent(): RecentProject[] {
   try {
@@ -66,6 +79,7 @@ export const useProjectStore = defineStore('project', {
   actions: {
     acceptCreated(created: ProjectCreated, revisionId?: string): void {
       projectLoadSerial += 1
+      resetWorkspace()
       saveProjectToken(created.project_id, created.token)
       this.projectId = created.project_id
       this.project = created
@@ -95,7 +109,7 @@ export const useProjectStore = defineStore('project', {
         this.acceptCreated(created, created.revision_id)
         this.originalRevisionId = created.revision_id
         this.activeRevisionId = created.revision_id
-        useToastStore().push('success', '演示工作区已就绪', '真实文档与规则已加载，请先审阅规则。')
+        useToastStore().push('success', '演示工作区已就绪')
         return created.project_id
       } catch (error) {
         this.error = errorMessage(error)
@@ -116,7 +130,7 @@ export const useProjectStore = defineStore('project', {
           this.project.revision_id = uploaded.revision_id
           this.recentProjects = remember(this.project, uploaded.revision_id)
         }
-        useToastStore().push('success', 'DOCX 上传完成', '原稿已安全保存，结构解析已就绪。')
+        useToastStore().push('success', '文档已上传')
         return uploaded.revision_id
       } catch (error) {
         this.error = errorMessage(error)
@@ -131,10 +145,13 @@ export const useProjectStore = defineStore('project', {
         const project = await api.getProject(projectId)
         if (serial !== projectLoadSerial) return
         const previousRevision = this.projectId === projectId ? this.activeRevisionId : null
+        const sameProject = this.projectId === projectId
+        if (!sameProject) resetWorkspace()
         this.projectId = projectId
         this.project = project
-        this.originalRevisionId = project.original_revision_id ?? project.revisions?.[0]?.revision_id ?? this.originalRevisionId
-        this.activeRevisionId = revisionFrom(project, previousRevision ?? this.originalRevisionId)
+        this.originalRevisionId = project.original_revision_id ?? project.revisions?.[0]?.revision_id ?? (sameProject ? this.originalRevisionId : null)
+        this.activeRevisionId = previousRevision && project.revisions?.some((revision) => revision.revision_id === previousRevision)
+          ? previousRevision : revisionFrom(project, this.originalRevisionId)
         this.recentProjects = remember(project, this.originalRevisionId)
       } catch (error) {
         if (serial !== projectLoadSerial) return
@@ -172,6 +189,7 @@ export const useProjectStore = defineStore('project', {
         this.project = null
         this.originalRevisionId = null
         this.activeRevisionId = null
+        resetWorkspace()
       } catch (error) {
         this.error = errorMessage(error)
         throw error

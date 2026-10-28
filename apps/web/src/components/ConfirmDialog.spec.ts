@@ -38,4 +38,13 @@ describe('ConfirmDialog', () => {
     expect(dialog.element.open).toBe(false)
     expect(dialog.attributes('data-closing')).toBeUndefined()
   })
+
+  it('does not let Escape dismiss a confirmation while its request is pending', async () => {
+    const wrapper = mount(ConfirmDialog, { props: { title: '批准规则', description: '确认操作', busy: true } })
+    const component = wrapper.vm as unknown as { open: () => void }
+    component.open()
+    await wrapper.get('dialog').trigger('cancel')
+    expect(wrapper.get('dialog').element.open).toBe(true)
+    expect(wrapper.get('button[aria-label="关闭对话框"]').attributes('disabled')).toBeDefined()
+  })
 })

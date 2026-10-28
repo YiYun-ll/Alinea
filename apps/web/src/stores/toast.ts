@@ -22,7 +22,8 @@ export const useToastStore = defineStore('toast', () => {
     items.value = items.value.filter((item) => item.id !== id)
   }
 
-  function push(kind: ToastKind, title: string, message: string, duration = 4800): number {
+  function push(kind: ToastKind, title: string, message = '', duration = 4800): number {
+    if (items.value.length >= 2) dismiss(items.value[0].id)
     const id = ++sequence
     items.value.push({ id, kind, title, message })
     timers.set(id, window.setTimeout(() => dismiss(id), duration))

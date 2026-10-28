@@ -5,6 +5,7 @@ import { useToastStore } from './toast'
 import type { FormatRule, RuleSet } from '../types/contracts'
 
 interface RulesState {
+  requestSerial: number
   ruleSet: RuleSet | null
   draftRules: FormatRule[]
   draftName: string
@@ -27,7 +28,7 @@ function cloneRules(rules: FormatRule[]): FormatRule[] {
 
 export const useRulesStore = defineStore('rules', {
   state: (): RulesState => ({
-    ruleSet: null, draftRules: [], draftName: '', loading: false, saving: false,
+    requestSerial: 0, ruleSet: null, draftRules: [], draftName: '', loading: false, saving: false,
     approving: false, extracting: false, extractionJobId: null, error: null, notice: null,
   }),
   getters: {
@@ -42,33 +43,38 @@ export const useRulesStore = defineStore('rules', {
   },
   actions: {
     async load(projectId: string): Promise<RuleSet | null> {
+      const serial = ++this.requestSerial
       this.loading = true
       this.error = null
       try {
         const ruleSet = await api.getRules(projectId)
+        if (serial !== this.requestSerial) return null
         this.ruleSet = ruleSet
         this.draftRules = cloneRules(ruleSet.rules)
         this.draftName = ruleSet.name
         return ruleSet
       } catch (error) {
+        if (serial !== this.requestSerial) return null
         this.error = errorMessage(error)
         return null
       } finally {
-        this.loading = false
+        if (serial === this.requestSerial) this.loading = false
       }
     },
     async extract(projectId: string, guidelineId: string, presetId?: string): Promise<string> {
+      const serial = this.requestSerial
       this.extracting = true
       this.error = null
       try {
         const response = await api.extractRules(projectId, guidelineId, presetId)
+        if (serial !== this.requestSerial) throw new Error('项目已切换，请在当前项目重试。')
         this.extractionJobId = response.job_id
         return response.job_id
       } catch (error) {
-        this.error = errorMessage(error)
+        if (serial === this.requestSerial) this.error = errorMessage(error)
         throw error
       } finally {
-        this.extracting = false
+        if (serial === this.requestSerial) this.extracting = false
       }
     },
     updateRule(ruleId: string, patch: Partial<FormatRule>): void {
@@ -86,20 +92,22 @@ export const useRulesStore = defineStore('rules', {
     },
     async save(projectId: string): Promise<RuleSet | null> {
       if (!this.ruleSet) return null
+      const serial = this.requestSerial
       this.saving = true
       this.error = null
       try {
         const saved = await api.saveRules(projectId, this.ruleSet, this.draftRules, this.draftName)
+        if (serial !== this.requestSerial) return null
         this.ruleSet = saved
         this.draftRules = cloneRules(saved.rules)
         this.draftName = saved.name
         this.notice = saved.status === 'APPROVED' ? '规则已保存。' : '草案已保存，请复核冲突并批准。'
         return saved
       } catch (error) {
-        this.error = errorMessage(error)
+        if (serial === this.requestSerial) this.error = errorMessage(error)
         return null
       } finally {
-        this.saving = false
+        if (serial === this.requestSerial) this.saving = false
       }
     },
     async approve(projectId: string): Promise<RuleSet> {
@@ -109,23 +117,30 @@ export const useRulesStore = defineStore('rules', {
       const missingEvidence = this.draftRules.find((rule) => rule.enabled && (!rule.source.reference.trim() || (rule.source.source_type !== 'preset' && !rule.source.quote.trim())))
       if (missingEvidence) throw new Error(`规则 ${missingEvidence.rule_id} 缺少来源引用或规范原句，不能批准。`)
       this.approving = true
+      const serial = this.requestSerial
       this.error = null
       try {
         const approved = await api.approveRules(projectId, this.ruleSet.rule_set_id)
+        if (serial !== this.requestSerial) throw new Error('项目已切换，请在当前项目重试。')
         this.ruleSet = approved
         this.draftRules = cloneRules(approved.rules)
         this.draftName = approved.name
         this.notice = `规则集 v${approved.version} 已批准。`
-        useToastStore().push('success', '规则集已批准', `v${approved.version} 已固化，可开始检查。`)
+        useToastStore().push('success', '规则集已批准')
         return approved
       } catch (error) {
-        this.error = errorMessage(error)
+        if (serial === this.requestSerial) this.error = errorMessage(error)
         throw error
       } finally {
-        this.approving = false
+        if (serial === this.requestSerial) this.approving = false
       }
     },
     reset(): void {
+      this.requestSerial += 1
+      this.loading = false
+      this.saving = false
+      this.approving = false
+      this.extracting = false
       this.ruleSet = null
       this.draftRules = []
       this.draftName = ''

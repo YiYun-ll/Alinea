@@ -4,6 +4,7 @@ import { CircleAlert, Save } from 'lucide-vue-next'
 import { useRulesStore } from '../stores/rules'
 import { propertyLabel, roleLabel } from '../lib/format'
 import type { FormatProperty, FormatRule, JsonValue, Selector } from '../types/contracts'
+import { parseRuleValue, type LineSpacingType } from '../lib/ruleValue'
 
 const props = defineProps<{ ruleId: string | null }>()
 const rules = useRulesStore()
@@ -11,6 +12,7 @@ const rule = computed(() => rules.draftRules.find((item) => item.rule_id === pro
 const expectedText = ref('')
 const exclusionsText = ref('')
 const expectedError = ref<string | null>(null)
+const lineSpacingType = ref<LineSpacingType>('MULTIPLE')
 const selectors: Selector[] = ['body', 'heading_1', 'heading_2', 'heading_3', 'caption', 'table_text', 'section']
 const properties = Object.keys({
   'font.eastAsia': 1, 'font.ascii': 1, 'font.size_pt': 1, 'font.bold': 1,
@@ -23,6 +25,10 @@ const properties = Object.keys({
 
 watch(rule, (value) => {
   expectedText.value = value ? typeof value.expected === 'string' ? value.expected : JSON.stringify(value.expected) : ''
+  if (value?.property === 'paragraph.line_spacing' && value.operator === 'eq' && value.expected && typeof value.expected === 'object' && !Array.isArray(value.expected)) {
+    expectedText.value = String(value.expected.value ?? '')
+    lineSpacingType.value = value.expected.type as LineSpacingType
+  }
   exclusionsText.value = value?.exclusions.join('\n') ?? ''
   expectedError.value = null
 }, { immediate: true })
@@ -45,18 +51,13 @@ function applyExpected(): void {
       expectedError.value = current.operator === 'between' ? 'between 需要 JSON 数组，例如 [10.5, 12]。' : 'in 需要 JSON 数组，例如 ["宋体", "黑体"]。'
       return
     }
-  } else if (['font.size_pt', 'paragraph.first_line_indent_chars', 'paragraph.first_line_indent_mm', 'paragraph.left_indent_mm', 'paragraph.right_indent_mm', 'paragraph.line_spacing', 'paragraph.space_before_pt', 'paragraph.space_after_pt', 'section.margin_top_mm', 'section.margin_bottom_mm', 'section.margin_left_mm', 'section.margin_right_mm', 'section.page_width_mm', 'section.page_height_mm'].includes(current.property)) {
-    if (!Number.isFinite(Number(raw))) {
-      expectedError.value = '此属性需要有效数值。'
+  } else {
+    try {
+      value = parseRuleValue(current.property, raw, lineSpacingType.value)
+    } catch (error) {
+      expectedError.value = error instanceof Error ? error.message : '预期值无效。'
       return
     }
-    value = Number(raw)
-  } else if (current.property === 'font.bold') {
-    if (!['true', 'false'].includes(raw)) {
-      expectedError.value = '字重预期值请填写 true 或 false。'
-      return
-    }
-    value = raw === 'true'
   }
   expectedError.value = null
   patch({ expected: value })
@@ -65,7 +66,7 @@ function applyExpected(): void {
 
 <template>
   <div v-if="rule" class="rule-editor">
-    <div class="editor-heading"><div><span class="eyebrow mb-1">Rule evidence</span><h2>编辑规则</h2></div><span class="mono">{{ rule.rule_id }}</span></div>
+    <div class="editor-heading"><h2>编辑规则</h2></div>
     <div class="form-field"><label class="field-label" :for="`rule-name-${rule.rule_id}`">规则名称</label><input :id="`rule-name-${rule.rule_id}`" class="field" :value="rule.name" @change="patch({ name: ($event.target as HTMLInputElement).value })" /></div>
     <div class="editor-two-columns">
       <div class="form-field"><label class="field-label" :for="`rule-selector-${rule.rule_id}`">目标角色</label><select :id="`rule-selector-${rule.rule_id}`" class="field" :value="rule.selector" @change="patch({ selector: ($event.target as HTMLSelectElement).value as Selector })"><option v-for="selector in selectors" :key="selector" :value="selector">{{ roleLabel(selector) }}</option></select></div>
@@ -76,7 +77,8 @@ function applyExpected(): void {
       <div class="form-field"><label class="field-label" :for="`rule-operator-${rule.rule_id}`">比较方式</label><select :id="`rule-operator-${rule.rule_id}`" class="field" :value="rule.operator" @change="patch({ operator: ($event.target as HTMLSelectElement).value as FormatRule['operator'] })"><option value="eq">等于</option><option value="in">属于集合</option><option value="between">位于区间</option></select></div>
       <div class="form-field"><label class="field-label" :for="`rule-tolerance-${rule.rule_id}`">容差</label><input :id="`rule-tolerance-${rule.rule_id}`" class="field" type="number" min="0" step="any" :value="rule.tolerance" @change="patch({ tolerance: Math.max(0, Number(($event.target as HTMLInputElement).value)) })" /></div>
     </div>
-    <div class="form-field"><label class="field-label" :for="`rule-expected-${rule.rule_id}`">预期值</label><input :id="`rule-expected-${rule.rule_id}`" v-model="expectedText" class="field" :aria-describedby="expectedError ? `expected-error-${rule.rule_id}` : undefined" @change="applyExpected" /><span v-if="expectedError" :id="`expected-error-${rule.rule_id}`" class="field-hint text-red-700" role="alert"><CircleAlert :size="13" aria-hidden="true" /> {{ expectedError }}</span></div>
+    <div v-if="rule.property === 'paragraph.line_spacing' && rule.operator === 'eq'" class="form-field"><label class="field-label" :for="`rule-line-type-${rule.rule_id}`">行距类型</label><select :id="`rule-line-type-${rule.rule_id}`" v-model="lineSpacingType" class="field" @change="applyExpected"><option value="MULTIPLE">倍数行距</option><option value="EXACT">固定值（pt）</option><option value="AT_LEAST">最小值（pt）</option></select></div>
+    <div class="form-field"><label class="field-label" :for="`rule-expected-${rule.rule_id}`">预期值</label><input :id="`rule-expected-${rule.rule_id}`" v-model="expectedText" class="field" :aria-invalid="Boolean(expectedError)" :aria-describedby="expectedError ? `expected-error-${rule.rule_id}` : undefined" @change="applyExpected" /><span v-if="expectedError" :id="`expected-error-${rule.rule_id}`" class="field-hint text-red-700" role="alert"><CircleAlert :size="13" aria-hidden="true" /> {{ expectedError }}</span></div>
     <div class="form-field"><label class="field-label" :for="`rule-policy-${rule.rule_id}`">修复策略</label><select :id="`rule-policy-${rule.rule_id}`" class="field" :value="rule.fix_policy" @change="patch({ fix_policy: ($event.target as HTMLSelectElement).value as FormatRule['fix_policy'] })"><option value="AUTO_WITH_APPROVAL">批准后定向修复</option><option value="MANUAL_ONLY">仅人工处理</option><option value="UNSUPPORTED">不支持修复</option></select></div>
     <fieldset class="source-evidence">
       <legend>规范来源与证据</legend>
@@ -98,9 +100,9 @@ function applyExpected(): void {
 .rule-editor { padding: 20px; }
 .editor-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
 .editor-heading h2 { margin: 0; font-size: 1.35rem; }
-.editor-heading > .mono { max-width: 130px; color: #6b7482; font-size: .68rem; }
+.editor-heading > .mono { max-width: 130px; color: #737c73; font-size: .68rem; }
 .editor-two-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.source-evidence { padding: 14px; margin: 4px 0 18px; border: 1px solid #d8dde5; border-radius: 7px; }
+.source-evidence { padding: 14px; margin: 4px 0 18px; border: 1px solid #dfe3dc; border-radius: 7px; }
 .source-evidence legend { padding-inline: 5px; font-size: .8rem; font-weight: 700; }
 .source-evidence textarea { min-height: 100px; }
 .exclusions { min-height: 82px; }

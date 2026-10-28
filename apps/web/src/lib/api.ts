@@ -208,6 +208,9 @@ export const api = {
       method: 'POST', projectId, json: { plan_digest: plan.plan_digest },
     })
   },
+  getRepairPlan(projectId: string, planId: string): Promise<RepairPlan> {
+    return request<RepairPlan>(`/repair-plans/${id(planId)}`, { projectId })
+  },
   executeRepairPlan(projectId: string, planId: string, idempotencyKey: string): Promise<{ job_id: string }> {
     return request<{ job_id: string }>(`/repair-plans/${id(planId)}/execute`, {
       method: 'POST', projectId, headers: { 'Idempotency-Key': idempotencyKey },

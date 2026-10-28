@@ -38,10 +38,18 @@ export function roleLabel(role: SemanticRole | 'section'): string {
 export function formatValue(value: JsonValue, unit?: string | null): string {
   let formatted: string
   if (value === null) formatted = '未提供'
-  else if (typeof value === 'boolean') formatted = value ? '是' : '否'
+  else if (typeof value === 'boolean') formatted = value ? '加粗' : '不加粗'
+  else if (typeof value === 'object' && !Array.isArray(value) && ['MULTIPLE', 'EXACT', 'AT_LEAST'].includes(String(value.type)) && typeof value.value === 'number') {
+    return value.type === 'MULTIPLE' ? `${value.value} 倍` : `${value.type === 'AT_LEAST' ? '最小 ' : '固定 '}${value.value} pt`
+  }
   else if (typeof value === 'object') formatted = JSON.stringify(value)
+  else if (typeof value === 'string' && ['left', 'right', 'center', 'justify', 'distribute'].includes(value)) formatted = ({ left: '左对齐', right: '右对齐', center: '居中', justify: '两端对齐', distribute: '分散对齐' } as Record<string, string>)[value]
   else formatted = String(value)
   return unit && !formatted.endsWith(unit) ? `${formatted} ${unit}` : formatted
+}
+
+export function isRenderInfo(warning: string): boolean {
+  return warning.startsWith('Render environment:') || warning.startsWith('Preview rendered by LibreOffice;')
 }
 
 export function locationLabel(status: LocationStatus): string {

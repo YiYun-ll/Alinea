@@ -11,6 +11,7 @@ interface JobState {
   timers: Map<string, number>
   connectionStatus: 'idle' | 'polling' | 'ready' | 'error'
   lastError: string | null
+  generation: number
 }
 
 function readActive(projectId: string): string[] {
@@ -27,13 +28,15 @@ function writeActive(projectId: string, ids: Set<string>): void {
 }
 
 export const useJobStore = defineStore('job', {
-  state: (): JobState => ({ jobs: {}, timers: new Map<string, number>(), connectionStatus: 'idle', lastError: null }),
+  state: (): JobState => ({ jobs: {}, timers: new Map<string, number>(), connectionStatus: 'idle', lastError: null, generation: 0 }),
   getters: {
     activeJobs: (state) => Object.values(state.jobs).filter((job) => !TERMINAL_STATUSES.has(job.status)),
   },
   actions: {
     async loadProjectJobs(projectId: string): Promise<Job[]> {
+      const generation = this.generation
       const response = await api.getProjectJobs(projectId)
+      if (generation !== this.generation) return []
       response.data.forEach((job) => { this.jobs[job.job_id] = job })
       return response.data
     },
@@ -43,6 +46,7 @@ export const useJobStore = defineStore('job', {
       writeActive(projectId, active)
       const timerKey = `${projectId}:${jobId}`
       if (this.timers.has(timerKey)) return
+      this.timers.set(timerKey, -1)
       this.connectionStatus = 'polling'
       void this.poll(projectId, jobId, 0)
     },
@@ -51,8 +55,10 @@ export const useJobStore = defineStore('job', {
     },
     async poll(projectId: string, jobId: string, failures: number): Promise<void> {
       const timerKey = `${projectId}:${jobId}`
+      const generation = this.generation
       try {
         const job = await api.getJob(projectId, jobId)
+        if (generation !== this.generation) return
         this.jobs[jobId] = job
         this.lastError = null
         this.connectionStatus = 'ready'
@@ -65,6 +71,7 @@ export const useJobStore = defineStore('job', {
         }
         failures = 0
       } catch (error) {
+        if (generation !== this.generation) return
         failures += 1
         this.lastError = errorMessage(error)
         this.connectionStatus = 'error'
@@ -78,12 +85,12 @@ export const useJobStore = defineStore('job', {
       }
       const delay = failures > 0 ? Math.min(30_000, 2_000 * 2 ** Math.min(failures, 4)) : document.hidden ? 5_000 : 1_200
       const timer = window.setTimeout(() => {
-        this.timers.delete(timerKey)
         void this.poll(projectId, jobId, failures)
       }, delay)
       this.timers.set(timerKey, timer)
     },
     stopAll(): void {
+      this.generation += 1
       this.timers.forEach((timer) => window.clearTimeout(timer))
       this.timers.clear()
       this.connectionStatus = 'idle'

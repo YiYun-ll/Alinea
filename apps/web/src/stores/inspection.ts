@@ -108,12 +108,17 @@ export const useInspectionStore = defineStore('inspection', () => {
         loadedIssues.push(...next.data)
         page += 1
       }
+      const sameEvidence = result.value?.inspection_id === id
+        && result.value.revision_id === inspectionResult.revision_id
+        && result.value.rule_set_digest === inspectionResult.rule_set_digest
+      const selected = sameEvidence ? selectedIssueIds.value : []
+      const focused = sameEvidence ? focusedIssueId.value : null
       inspectionId.value = id
       result.value = inspectionResult
       issues.value = loadedIssues
       summary.value = firstPage.summary ?? inspectionResult.summary
-      clearSelection()
-      focusedIssueId.value = loadedIssues[0]?.issue_id ?? null
+      selectedIssueIds.value = selected.filter((selectedId) => loadedIssues.some((issue) => issue.issue_id === selectedId && isRepairable(issue)))
+      focusedIssueId.value = loadedIssues.some((issue) => issue.issue_id === focused) ? focused : loadedIssues[0]?.issue_id ?? null
     } catch (cause) {
       if (serial !== requestSerial) return
       error.value = errorMessage(cause)
@@ -139,7 +144,7 @@ export const useInspectionStore = defineStore('inspection', () => {
   }
 
   function selectAllFixable(): void {
-    selectedIssueIds.value = issues.value.filter(isRepairable).map((issue) => issue.issue_id)
+    selectedIssueIds.value = [...new Set([...selectedIssueIds.value, ...filteredIssues.value.filter(isRepairable).map((issue) => issue.issue_id)])]
   }
 
   function focusIssue(issueId: string): void {
@@ -164,6 +169,11 @@ export const useInspectionStore = defineStore('inspection', () => {
     issues.value = []
     summary.value = null
     jobId.value = null
+    query.value = ''
+    severity.value = 'ALL'
+    category.value = 'all'
+    location.value = 'ALL'
+    repairableOnly.value = false
     clearSelection()
     focusedIssueId.value = null
     error.value = null

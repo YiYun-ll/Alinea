@@ -45,9 +45,14 @@ async function selectTwoIssues(page: Page, mobile = false): Promise<void> {
 }
 
 async function approveAndExecute(page: Page): Promise<void> {
-  await expect(page.locator('.metric').filter({ hasText: '定向格式操作' }).first()).toContainText('2')
+  await expect(page.locator('.operation-list > li')).toHaveCount(2)
+  await page.reload()
+  await expect(page.locator('.operation-list > li')).toHaveCount(2)
   await page.getByRole('button', { name: '批准修复计划' }).click()
   await page.getByRole('button', { name: '批准计划', exact: true }).click()
+  await expect(page.getByRole('button', { name: '执行修复', exact: true })).toBeEnabled()
+  await page.reload()
+  await expect(page.getByRole('button', { name: '执行修复', exact: true })).toBeEnabled()
   await page.getByRole('button', { name: '执行修复' }).click()
   await page.getByRole('button', { name: '提交执行' }).click()
   await expect(page.locator('.execution-progress progress')).toBeVisible()
@@ -83,6 +88,11 @@ test('real demo inspection, approved repair, verification and downloads', async 
   await expect(page.locator('.toast').filter({ hasText: '规则集已批准' })).toBeVisible()
   await expect(page.locator('.metric').filter({ hasText: '明确违规' }).first()).toContainText('20', { timeout: 180_000 })
   await expect(page.locator('.pdf-page')).toHaveCount(10)
+  await expect(page.getByRole('spinbutton', { name: '页码', exact: true })).toHaveValue('5')
+  await expect.poll(() => page.locator('.pdf-scroll').evaluate((container) => {
+    const target = container.querySelector('[data-page-number="5"]')
+    return target ? Math.abs(target.getBoundingClientRect().top - container.getBoundingClientRect().top - 16) : 9999
+  })).toBeLessThan(4)
   await verifyRenderDetails(page)
   await selectTwoIssues(page)
 
@@ -93,14 +103,15 @@ test('real demo inspection, approved repair, verification and downloads', async 
   await page.getByRole('button', { name: '刷新结果' }).click()
   await expect(page.locator('.toast').filter({ hasText: '检查结果已刷新' })).toBeVisible()
   expect(inspectionPosts).toEqual([])
-  await selectTwoIssues(page)
+  await expect(page.getByRole('checkbox', { name: '选择 I-01 纳入修复' })).toBeChecked()
+  await expect(page.getByRole('checkbox', { name: '选择 I-02 纳入修复' })).toBeChecked()
   await page.locator('.selection-toolbar').getByRole('button', { name: '生成修复计划' }).click()
   await approveAndExecute(page)
   await page.getByRole('link', { name: '查看复检与下载' }).click()
   await expect(page.getByRole('heading', { name: '验证通过' })).toBeVisible()
   await verifyRenderDetails(page)
   await expect(page.locator('.metric').filter({ hasText: '复检已解决' }).first()).toContainText('2')
-  await expect(page.locator('.metric').filter({ hasText: '仍需处理' }).first()).toContainText('0')
+  await expect(page.locator('.metric').filter({ hasText: '选中项未解决' }).first()).toContainText('0')
 
   await openResultView(page, '对照')
   await page.getByRole('combobox', { name: '缩放比例' }).first().selectOption('1.25')
@@ -165,9 +176,9 @@ test('mobile workflow remains usable from upload to results', async ({ page }) =
   await expect(page.locator('input[name="preset_choice"][value="general_report"]')).toBeChecked()
   await page.getByLabel('原稿 DOCX 文件').setInputFiles(path.resolve(process.cwd(), '../../examples/alinea-demo.docx'))
   await expect(page.getByLabel('项目名称')).toHaveValue('alinea-demo')
-  await page.getByRole('button', { name: /高级设置/ }).click()
+  await page.getByRole('button', { name: /更多选项/ }).click()
   await expect(page.getByRole('textbox', { name: '服务端预设 ID' })).toHaveValue('general_report')
-  await page.getByRole('button', { name: /高级设置/ }).click()
+  await page.getByRole('button', { name: /更多选项/ }).click()
   await expect(page.getByRole('textbox', { name: '服务端预设 ID' })).toHaveCount(0)
   await expect(page.locator('.motion-page')).toHaveCSS('animation-name', 'none')
   await expectNoOverflow(page)
@@ -178,7 +189,7 @@ test('mobile workflow remains usable from upload to results', async ({ page }) =
   await expect(page.locator('.workflow-rail li')).toHaveCount(4)
   await expect(page.locator('[aria-current="step"]')).toHaveAttribute('aria-label', '检查与选择')
   await page.getByRole('link', { name: '任务记录' }).click()
-  await expect(page.getByRole('heading', { name: '任务执行轨迹' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '任务记录', exact: true })).toBeVisible()
   await expectNoOverflow(page)
   const headerButtons = await page.locator('.header-nav').evaluate((element) =>
     [...element.querySelectorAll('a, button')].map((item) => {
@@ -199,7 +210,7 @@ test('mobile workflow remains usable from upload to results', async ({ page }) =
   await openResultView(page, '对照')
   await expect(page.locator('.compare-card')).toHaveCount(2)
   await openResultView(page, '下载')
-  await expect(page.getByRole('heading', { name: '带走你的文件' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '下载文件', exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: '下载修订版' })).toBeVisible()
   await expectNoOverflow(page)
   expect(consoleErrors).toEqual([])

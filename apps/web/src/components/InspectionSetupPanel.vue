@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import { ArrowRight, BookOpenCheck, CheckCircle2, FileText, ShieldCheck } from 'lucide-vue-next'
+import { ArrowRight, BookOpenCheck, FileText, ShieldCheck } from 'lucide-vue-next'
 import { useProjectStore } from '../stores/project'
 import { useRulesStore } from '../stores/rules'
 import { useInspectionStore } from '../stores/inspection'
@@ -26,10 +26,6 @@ const extractionMessage = computed(() => extractionJob.value?.message
 const preparing = computed(() => !rules.ruleSet && (rules.loading || ['QUEUED', 'RUNNING'].includes(extractionJob.value?.status ?? '')))
 const needsApproval = computed(() => !rules.isApproved || rules.hasUnsavedChanges)
 const enabledCount = computed(() => rules.draftRules.filter((rule) => rule.enabled).length)
-const sourceSummary = computed(() => {
-  const sources = new Set(rules.draftRules.map((rule) => rule.source.reference).filter(Boolean))
-  return sources.size ? `${sources.size} 个规范来源 · ${[...sources][0]}` : '来源将在规则生成后显示'
-})
 const visibleError = computed(() => localError.value || (!preparing.value ? rules.error : null))
 const canStart = computed(() => Boolean(project.activeRevisionId && rules.ruleSet && enabledCount.value && !preparing.value && !inspection.starting && !rules.approving && !submitting.value))
 
@@ -91,10 +87,8 @@ async function approveAndStart(): Promise<void> {
 <template>
   <section class="inspection-setup" aria-labelledby="setup-title">
     <div class="setup-intro">
-      <span class="eyebrow">Before inspection</span>
       <h2 id="setup-title">确认本次检查</h2>
-      <p>先确认文档与规范，再查看问题证据。此处不会修改原稿。</p>
-      <div class="setup-source"><BookOpenCheck :size="17" aria-hidden="true" /><span>{{ sourceSummary }}</span></div>
+      <p>核对文档与规范，即可开始。</p>
       <RouterLink class="button button-ghost button-small" :to="`/projects/${projectId}/rules`">查看或编辑完整规则 <ArrowRight :size="14" aria-hidden="true" /></RouterLink>
     </div>
     <div class="setup-action">
@@ -110,7 +104,7 @@ async function approveAndStart(): Promise<void> {
           <div><dt><ShieldCheck :size="15" aria-hidden="true" /> 规则</dt><dd>{{ enabledCount }} 项启用 <span class="setup-status" :class="{ approved: rules.isApproved && !needsApproval }">{{ needsApproval ? '待确认' : '已批准' }}</span></dd></div>
         </dl>
         <ErrorNotice v-if="visibleError" :message="visibleError ?? ''" retry-label="重新读取规范" @retry="rules.load(projectId)" />
-        <div class="setup-consent"><CheckCircle2 :size="16" aria-hidden="true" /><p>{{ needsApproval ? '批准当前规范后立即开始检查；修复计划与执行仍需单独批准。' : '当前规范已批准，可以直接开始检查。' }}</p></div>
+
         <button type="button" class="button button-primary setup-start" :disabled="!canStart" @click="requestStart">{{ needsApproval ? '批准规范并开始检查' : '开始检查' }}<ArrowRight :size="17" aria-hidden="true" /></button>
       </template>
     </div>
@@ -121,27 +115,27 @@ async function approveAndStart(): Promise<void> {
 </template>
 
 <style scoped>
-.inspection-setup { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); margin: clamp(20px, 4vw, 48px) auto; max-width: 1100px; overflow: hidden; background: #fff; border: 1px solid #cfd5de; border-radius: 12px; box-shadow: 0 18px 44px rgba(39, 52, 73, .06); }
-.setup-intro { padding: clamp(26px, 4vw, 44px); background: linear-gradient(145deg, #f1f4f8, #f8fafc); border-right: 1px solid #d8dde5; }
+.inspection-setup { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); margin: clamp(20px, 4vw, 48px) auto; max-width: 1100px; overflow: hidden; background: #fff; border: 1px solid #d9e0d6; border-radius: 12px;  }
+.setup-intro { padding: clamp(26px, 4vw, 44px); background: #f4f6f0; border-right: 1px solid #dfe3dc; }
 .setup-intro h2 { margin-bottom: 14px; font-size: clamp(1.7rem, 1.4rem + 1vw, 2.35rem); }
-.setup-intro > p { max-width: 34ch; color: #5e6979; line-height: 1.8; }
-.setup-source { display: flex; align-items: flex-start; gap: 8px; margin: 26px 0 14px; color: #5675a8; font-size: .75rem; line-height: 1.65; }
+.setup-intro > p { max-width: 34ch; color: #6b756d; line-height: 1.8; }
+.setup-source { display: flex; align-items: flex-start; gap: 8px; margin: 26px 0 14px; color: #456653; font-size: .75rem; line-height: 1.65; }
 .setup-source svg { flex-shrink: 0; margin-top: 3px; }
 .setup-action { align-self: center; padding: clamp(24px, 3.5vw, 38px); }
 .setup-facts { display: grid; gap: 18px; margin: 0 0 22px; }
-.setup-facts dt { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; color: #6b7482; font-size: .72rem; }
-.setup-facts dd { margin: 0; color: #273449; font-size: .875rem; overflow-wrap: anywhere; }
+.setup-facts dt { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; color: #737c73; font-size: .72rem; }
+.setup-facts dd { margin: 0; color: #25352e; font-size: .875rem; overflow-wrap: anywhere; }
 .setup-status { display: inline-block; margin-left: 6px; padding: 1px 6px; color: #76501c; background: #fff7e9; border-radius: 4px; font-size: .7rem; }
 .setup-status.approved { color: #1d6c55; background: #edf7f2; }
-.setup-consent { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 20px; color: #536174; }
+.setup-consent { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 20px; color: #667467; }
 .setup-consent svg { flex-shrink: 0; margin-top: 3px; color: #278267; }
 .setup-consent p { margin: 0; font-size: .75rem; line-height: 1.7; }
 .setup-start { width: 100%; min-height: 48px; }
-.setup-preparing > p { color: #6b7482; font-size: .8rem; }
+.setup-preparing > p { color: #737c73; font-size: .8rem; }
 .setup-preparing .job-progress { margin-top: 20px; }
 @media (max-width: 800px) {
   .inspection-setup { grid-template-columns: 1fr; margin: 16px 12px 28px; }
-  .setup-intro { padding: 24px; border-right: 0; border-bottom: 1px solid #d8dde5; }
+  .setup-intro { padding: 24px; border-right: 0; border-bottom: 1px solid #dfe3dc; }
   .setup-intro > p { max-width: none; }
   .setup-source { margin-top: 18px; }
 }

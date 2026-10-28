@@ -17,7 +17,7 @@ const icons: Record<ToastKind, typeof CheckCircle2> = {
     <TransitionGroup name="toast-list" tag="div" class="toast-list">
       <article v-for="item in toast.items" :key="item.id" class="toast" :class="`toast-${item.kind}`" :role="item.kind === 'error' ? 'alert' : 'status'">
         <component :is="icons[item.kind]" :size="19" aria-hidden="true" />
-        <div class="toast-content"><strong>{{ item.title }}</strong><p>{{ item.message }}</p></div>
+        <div class="toast-content"><strong>{{ item.title }}</strong><p v-if="item.message">{{ item.message }}</p></div>
         <button type="button" class="toast-close" aria-label="关闭通知" @click="toast.dismiss(item.id)"><X :size="15" aria-hidden="true" /></button>
       </article>
     </TransitionGroup>

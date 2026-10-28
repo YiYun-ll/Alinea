@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import type { CSSProperties } from 'vue'
 import { TextLayer } from 'pdfjs-dist'
 import type { PDFDocumentProxy, PDFPageProxy, RenderTask } from 'pdfjs-dist'
 import { CircleAlert } from 'lucide-vue-next'
@@ -11,6 +12,7 @@ const props = defineProps<{
   pageNumber: number
   scale: number
   rotation: number
+  dimensions?: { width: number; height: number }
   overlays: IssueOverlay[]
   issueNumbers: Record<string, number>
   focusedIssueId: string | null
@@ -22,7 +24,11 @@ const textContainer = ref<HTMLDivElement | null>(null)
 const rendered = ref(false)
 const rendering = ref(false)
 const renderError = ref<string | null>(null)
-const pageStyle = ref<Record<string, string>>({ aspectRatio: '210 / 297' })
+const measuredSize = ref<{ width: number; height: number } | null>(null)
+const pageStyle = computed<CSSProperties>(() => {
+  const size = props.dimensions ?? measuredSize.value
+  return size ? { width: `${Math.floor(size.width)}px`, height: `${Math.floor(size.height)}px`, aspectRatio: 'auto' } : { aspectRatio: '210 / 297' }
+})
 const overlayBoxes = ref<Array<{ overlay: IssueOverlay; box: ViewportRect }>>([])
 let observer: IntersectionObserver | null = null
 let visible = false
@@ -87,7 +93,7 @@ async function renderPage(): Promise<void> {
     targetCanvas.style.height = `${Math.floor(viewport.height)}px`
     targetRoot.style.setProperty('--scale-factor', String(viewport.scale))
     targetRoot.style.setProperty('--user-unit', String(pdfPage.userUnit))
-    pageStyle.value = { width: `${Math.floor(viewport.width)}px`, height: `${Math.floor(viewport.height)}px`, aspectRatio: 'auto' }
+    measuredSize.value = { width: viewport.width, height: viewport.height }
     targetText.replaceChildren()
     const adapter = new PageCoordinateAdapter(pdfPage.view, viewport)
     overlayBoxes.value = props.overlays.flatMap((overlay) => {
@@ -171,9 +177,12 @@ onBeforeUnmount(() => {
 .pdf-text-layer { position: absolute; inset: 0; z-index: 2; overflow: hidden; }
 .issue-overlay-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
 .issue-overlay { position: absolute; min-width: 8px; min-height: 8px; padding: 0; pointer-events: auto; background: rgba(217, 139, 39, .16); border: 2px solid #b56c10; border-radius: 2px; }
-.issue-overlay:hover, .issue-overlay.focused { background: rgba(217, 139, 39, .25); border-style: dashed; outline: 2px solid #273449; outline-offset: 2px; }
-.issue-overlay > span { position: absolute; top: -23px; left: -2px; min-width: 30px; padding: 1px 4px; color: #fff; background: #273449; border: 1px solid #fff; border-radius: 3px; font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif; font-size: .65rem; font-weight: 700; line-height: 17px; }
-.page-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: #8793a4; background: #fdfdfe; font-size: .8rem; }
+.issue-overlay:hover, .issue-overlay.focused { background: rgba(217, 139, 39, .25); border-style: dashed; outline: 2px solid #25352e; outline-offset: 2px; }
+.issue-overlay.focused { z-index: 2; }
+.issue-overlay > span { opacity: 0; }
+.issue-overlay:hover > span, .issue-overlay:focus-visible > span, .issue-overlay.focused > span { opacity: 1; }
+.issue-overlay > span { position: absolute; top: -23px; left: -2px; min-width: 30px; padding: 1px 4px; color: #fff; background: #25352e; border: 1px solid #fff; border-radius: 3px; font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif; font-size: .65rem; font-weight: 700; line-height: 17px; }
+.page-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: #8a958b; background: #fdfdfe; font-size: .8rem; }
 .page-error { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; color: #9e3636; background: #fff5f5; text-align: center; }
 @media print { .issue-overlay { display: none; } }
 </style>

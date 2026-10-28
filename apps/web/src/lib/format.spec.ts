@@ -1,9 +1,15 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { api, ApiError } from './api'
-import { errorMessage } from './format'
+import { errorMessage, formatValue } from './format'
 
 afterEach(() => {
   vi.unstubAllGlobals()
+})
+
+it('presents typed formatting values without raw enums or JSON', () => {
+  expect(formatValue('justify')).toBe('两端对齐')
+  expect(formatValue({ type: 'MULTIPLE', value: 1.5 })).toBe('1.5 倍')
+  expect(formatValue({ type: 'EXACT', value: 18 })).toBe('固定 18 pt')
 })
 
 describe('errorMessage', () => {

@@ -22,7 +22,6 @@ watch(() => route.fullPath, async () => {
       <span class="brand-mark" aria-hidden="true"><AlignLeft :size="21" /></span>
       <span>
         <span class="brand-word">Alinea</span>
-        <span class="brand-subtitle block">DOCUMENT FORMATTING, MADE VERIFIABLE</span>
       </span>
     </RouterLink>
     <nav class="header-nav" aria-label="主导航">
@@ -33,7 +32,7 @@ watch(() => route.fullPath, async () => {
   <main id="main-content" tabindex="-1">
     <RouterView v-slot="{ Component }">
       <Transition name="route" mode="out-in">
-        <component :is="Component" :key="route.fullPath" />
+        <component :is="Component" :key="projectId ?? route.name ?? route.path" />
       </Transition>
     </RouterView>
   </main>
