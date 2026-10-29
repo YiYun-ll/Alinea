@@ -32,7 +32,7 @@ Errors have `{error:{code,message,request_id,retryable,details}}`. Long operatio
 | GET | `/projects/{id}/jobs` | Project job history |
 | GET | `/projects/{id}/audit-events` | Redacted audit events |
 | GET | `/projects/{id}/revisions` | Immutable revision history |
-| GET | `/revisions/{id}/preview` | Authenticated revision-specific PDF |
+| GET | `/revisions/{id}/preview[?sha256={pdf_sha256}]` | Authenticated revision-specific PDF, optionally pinned to inspection evidence |
 | GET | `/revisions/{id}/report[?format=markdown]` | JSON or Markdown verification report |
 | GET | `/revisions/{id}/download` | Authorized original/published DOCX |
 | GET | `/revisions/{id}/artifacts` | Real downloadable artifact links |
@@ -44,6 +44,10 @@ Errors have `{error:{code,message,request_id,retryable,details}}`. Long operatio
 The Idempotency-Key's request digest is always checked. A matching active job or successful Inspection is reused without rewriting its issues, summary, preview, warnings or any RepairPlan evidence. Mapping capability must be compatible with the request, otherwise a 409 is returned. Failed jobs retain the explicit retry path; cancelled unfinished work can be resubmitted safely. New records use nested transactions and the unique constraint as a fallback, with matching validation before any reuse. Repeating a completed retry returns the existing retry Job before any entity reset.
 
 Project job history reads Jobs once and their events once more, grouped in memory. It preserves the single-Job response shape and avoids one event query per listed Job.
+
+PDF previews are selected from successful inspections that actually have a stored PDF. A later structural-only inspection does not remove access to an earlier preview. `sha256` accepts the lowercase 64-character PDF SHA-256 from the inspection response; when supplied, only that exact preview is returned, or 404 if unavailable. Clients rendering issue overlays must use this fingerprint rather than silently loading a newer PDF for the same DOCX revision.
+
+Hard integrity failures retain a blocked candidate's diagnostic JSON/Markdown report and its job result reference; the active revision remains unchanged and candidate DOCX download remains forbidden. If a selected target becomes UNKNOWN or POSSIBLE_VIOLATION during reinspection, it counts as remaining rather than resolved, and the report cannot be PASS.
 
 ## SSE
 

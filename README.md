@@ -91,7 +91,7 @@ ALINEA_RUN_LO_SMOKE=1 .venv/Scripts/python -m pytest -q tests/unit/alinea_mappin
 .venv/Scripts/python scripts/benchmark_iteration2.py
 ```
 
-实测指标、机器/渲染环境和未验证项见 `reports/benchmark.md`、`reports/iteration-2.md`、`reports/iteration-3.md` 与 `reports/iteration-4.md`。目标值不得当作实测结果。`.venv/Scripts/python -m mypy .` 可检查当前 Python 类型债务，但目前仍有未解决的类型错误，不能列为通过的验收项。
+实测指标、机器/渲染环境和未验证项见 `reports/benchmark.md`、`reports/iteration-2.md`、`reports/iteration-3.md`、`reports/iteration-4.md` 与 `reports/iteration-5.md`。目标值不得当作实测结果。`.venv/Scripts/python -m mypy .` 可检查当前 Python 类型债务，但目前仍有未解决的类型错误，不能列为通过的验收项。
 
 ## Docker Compose（可选）
 

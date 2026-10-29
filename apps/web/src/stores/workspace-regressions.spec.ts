@@ -5,6 +5,7 @@ import { useProjectStore } from './project'
 import { useInspectionStore } from './inspection'
 import { useRulesStore } from './rules'
 import { useJobStore } from './job'
+import { usePreviewStore } from './preview'
 import type { InspectionResult, Issue, Job, RuleSet } from '../types/contracts'
 
 beforeEach(() => {
@@ -20,6 +21,27 @@ function issue(id: string, property: Issue['property']): Issue {
 }
 
 describe('workspace regressions', () => {
+  it('keeps the PDF bound to the latest requested fingerprint for the same revision', async () => {
+    const preview = usePreviewStore()
+    let resolveOld!: (bytes: ArrayBuffer) => void
+    let resolveNew!: (bytes: ArrayBuffer) => void
+    vi.spyOn(api, 'getPreview').mockImplementation((_project, _revision, digest) => new Promise((resolve) => {
+      if (digest === 'old-sha') resolveOld = resolve
+      else resolveNew = resolve
+    }))
+    const old = preview.load('project', 'revision', 'old-sha')
+    const current = preview.load('project', 'revision', 'new-sha')
+    const bytes = new ArrayBuffer(3)
+    resolveNew(bytes)
+    await current
+    resolveOld(new ArrayBuffer(1))
+    await old
+    expect(preview.pdfData).toBe(bytes)
+    expect(preview.pdfSha256).toBe('new-sha')
+    preview.clear()
+    expect(preview.pdfSha256).toBeNull()
+  })
+
   it('preserves selection and focus only when the refreshed evidence identity is unchanged', async () => {
     const inspection = useInspectionStore()
     const items = [issue('font', 'font.size_pt'), issue('paragraph', 'paragraph.alignment')]

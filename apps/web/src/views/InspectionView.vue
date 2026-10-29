@@ -60,16 +60,25 @@ async function loadExisting(id: string, revision: string): Promise<void> {
   try {
     await inspection.load(projectId, id, revision)
     localStorage.setItem(storageKey(revision), id)
-    if (!preview.pdfData || preview.revisionId !== revision) await preview.load(projectId, revision)
+    await loadInspectionPreview(revision)
   } catch (error) {
     localError.value = errorMessage(error, '检查结果恢复失败，请重试。')
   }
 }
 
+async function loadInspectionPreview(revision: string): Promise<void> {
+  const sha256 = inspection.result?.preview?.pdf_sha256
+  if (!sha256) {
+    preview.clear()
+    return
+  }
+  if (!preview.pdfData || preview.revisionId !== revision || preview.pdfSha256 !== sha256) await preview.load(projectId, revision, sha256)
+}
+
 onMounted(async () => {
   if (!rules.ruleSet) await rules.load(projectId)
   if (inspection.result && inspection.result.revision_id === revisionId.value && revisionId.value) {
-    if (!preview.pdfData || preview.revisionId !== revisionId.value) await preview.load(projectId, revisionId.value)
+    await loadInspectionPreview(revisionId.value)
     return
   }
   if (inspection.result) inspection.reset()
@@ -286,24 +295,24 @@ async function createPlan(): Promise<void> {
 .inspection-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
 .inspection-heading h1 { margin: 0; font-size: clamp(1.7rem, 1.4rem + 1vw, 2.25rem); }
 .inspection-heading .eyebrow { margin-bottom: 5px; }
-.inspection-heading p:not(.eyebrow) { margin: 6px 0 0; color: #737c73; font-size: .8rem; }
+.inspection-heading p:not(.eyebrow) { margin: 6px 0 0; color: #748095; font-size: .8rem; }
 .inspection-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
-.rules-chip { display: inline-flex; align-items: center; gap: 6px; max-width: 300px; padding: 7px 10px; overflow: hidden; background: #fff; border: 1px solid #dfe3dc; border-radius: 6px; font-size: .75rem; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
-.rules-chip span { flex-shrink: 0; color: #737c73; }
+.rules-chip { display: inline-flex; align-items: center; gap: 6px; max-width: 300px; padding: 7px 10px; overflow: hidden; background: #fff; border: 1px solid #dce2eb; border-radius: 6px; font-size: .75rem; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+.rules-chip span { flex-shrink: 0; color: #748095; }
 .revision-select { display: flex; align-items: center; gap: 6px; font-size: .72rem; }
 .revision-select .field { width: 130px; min-height: 34px; padding: 4px 7px; }
-.job-banner { display: flex; align-items: center; gap: 12px; padding: 14px 18px; margin-bottom: 18px; color: #456653; background: #f0f4ee; border: 1px solid #bdc9dd; border-radius: 8px; }
+.job-banner { display: flex; align-items: center; gap: 12px; padding: 14px 18px; margin-bottom: 18px; color: #4b6588; background: #f0f4fa; border: 1px solid #bdc9dd; border-radius: 8px; }
 .job-banner > svg { flex-shrink: 0; }
 .job-banner-content { flex: 1; min-width: 0; }
 .job-banner-content > strong { display: block; margin-bottom: 7px; }
 .job-banner > .button { flex-shrink: 0; }
 .job-banner.is-error { color: #9e3636; background: #fff5f5; border-color: #ddb0b0; }
 .inspection-metrics { margin-bottom: 14px; }
-.inspection-workspace { height: max(640px, calc(100dvh - 300px)); display: grid; grid-template-columns: 280px minmax(0, 1fr) 320px; overflow: hidden; background: #fff; border: 1px solid #d9e0d6; border-radius: 8px; }
+.inspection-workspace { height: max(640px, calc(100dvh - 300px)); display: grid; grid-template-columns: 280px minmax(0, 1fr) 320px; overflow: hidden; background: #fff; border: 1px solid #d9e0ea; border-radius: 8px; }
 .workspace-pane { min-width: 0; min-height: 0; }
-.issues-pane { border-right: 1px solid #dfe3dc; }
-.document-pane { background: #edf0e9; }
-.detail-pane { border-left: 1px solid #dfe3dc; }
+.issues-pane { border-right: 1px solid #dce2eb; }
+.document-pane { background: #e9edf3; }
+.detail-pane { border-left: 1px solid #dce2eb; }
 .inspection-empty { display: flex; align-items: center; gap: 10px; padding: 16px; margin-top: 16px; color: #1d6c55; background: #f0f8f4; border: 1px solid #a7cec0; border-radius: 8px; }
 .inspection-empty > span { flex: 1; }
 .mobile-plan-bar { display: none; }
@@ -320,7 +329,7 @@ async function createPlan(): Promise<void> {
   .mobile-plan-bar { position: fixed; inset-inline: 12px; inset-block-end: calc(12px + env(safe-area-inset-bottom)); z-index: 45; display: flex; align-items: center; justify-content: space-between; gap: 14px; max-width: 580px; padding: 12px 14px; margin-inline: auto; background: rgba(255, 255, 255, .97); border: 1px solid #cfd7e2; border-radius: 12px; box-shadow: 0 14px 40px rgba(39, 52, 73, .15); backdrop-filter: blur(14px); animation: motion-fade-up var(--motion-base) var(--motion-ease-out) both; }
   .mobile-plan-bar > span { min-width: 0; }
   .mobile-plan-bar strong, .mobile-plan-bar small { display: block; }
-  .mobile-plan-bar small { margin-top: 3px; color: #737c73; font-size: .66rem; }
+  .mobile-plan-bar small { margin-top: 3px; color: #748095; font-size: .66rem; }
   .mobile-plan-bar .button { flex-shrink: 0; min-height: 46px; }
 }
 @media (max-width: 600px) { .job-banner { align-items: flex-start; flex-wrap: wrap; } .job-banner > .button { margin-left: 32px; } }

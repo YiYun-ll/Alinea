@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 from typing import Any
 
 from alinea_contracts import (
@@ -311,10 +312,14 @@ def render_revision_preview(
             project.id,
             "previews",
             revision.id,
-            "preview.pdf",
+            f"{artifact.pdf_sha256}.pdf",
             profile_id=artifact.render_profile_id,
         )
-        storage().copy_from(artifact.pdf_path, key)
+        try:
+            storage().copy_from(artifact.pdf_path, key)
+        except FileExistsError:
+            if hashlib.sha256(storage().read(key)).hexdigest() != artifact.pdf_sha256:
+                raise AlineaError("PREVIEW_INTEGRITY_ERROR", "The stored preview digest does not match") from None
         mapped = locate_issues(
             snapshot,
             issues,

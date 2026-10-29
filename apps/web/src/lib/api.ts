@@ -193,8 +193,9 @@ export const api = {
   getIssues(projectId: string, inspectionId: string, page = 1, pageSize = 200): Promise<IssuePage> {
     return request<IssuePage>(`/inspections/${id(inspectionId)}/issues?page=${page}&page_size=${pageSize}`, { projectId })
   },
-  async getPreview(projectId: string, revisionId: string): Promise<ArrayBuffer> {
-    const response = await fetchResponse(`/revisions/${id(revisionId)}/preview`, { projectId })
+  async getPreview(projectId: string, revisionId: string, sha256?: string | null): Promise<ArrayBuffer> {
+    const query = sha256 ? `?sha256=${id(sha256)}` : ''
+    const response = await fetchResponse(`/revisions/${id(revisionId)}/preview${query}`, { projectId })
     return response.arrayBuffer()
   },
   createRepairPlan(projectId: string, baseRevisionId: string, inspectionId: string, selectedIssueIds: string[]): Promise<RepairPlan> {

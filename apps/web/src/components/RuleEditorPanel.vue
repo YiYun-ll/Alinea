@@ -100,9 +100,9 @@ function applyExpected(): void {
 .rule-editor { padding: 20px; }
 .editor-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
 .editor-heading h2 { margin: 0; font-size: 1.35rem; }
-.editor-heading > .mono { max-width: 130px; color: #737c73; font-size: .68rem; }
+.editor-heading > .mono { max-width: 130px; color: #748095; font-size: .68rem; }
 .editor-two-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.source-evidence { padding: 14px; margin: 4px 0 18px; border: 1px solid #dfe3dc; border-radius: 7px; }
+.source-evidence { padding: 14px; margin: 4px 0 18px; border: 1px solid #dce2eb; border-radius: 7px; }
 .source-evidence legend { padding-inline: 5px; font-size: .8rem; font-weight: 700; }
 .source-evidence textarea { min-height: 100px; }
 .exclusions { min-height: 82px; }

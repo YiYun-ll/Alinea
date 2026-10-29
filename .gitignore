@@ -4,7 +4,7 @@
 .venv/
 .tools/
 .data/
-storage/
+/storage/
 node_modules/
 dist/
 *.log

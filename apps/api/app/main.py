@@ -13,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError
 
-from app.config import Settings, get_settings
+from app.config import Settings, configure_runtime_settings, get_settings
 from app.db.database import init_db
 from app.jobs.runner import initialize_dispatcher, shutdown_dispatcher
 from app.routers import documents, inspections, projects, repairs, resources, rules
@@ -57,17 +57,23 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @asynccontextmanager
     async def lifespan(_: FastAPI) -> AsyncIterator[None]:
-        init_db(settings.database_url)
-        initialize_dispatcher(settings)
-        recover_jobs(settings)
-        maintenance_task = start_maintenance(settings)
+        previous_settings = configure_runtime_settings(settings)
+        maintenance_task = None
         try:
+            init_db(settings.database_url)
+            initialize_dispatcher(settings)
+            recover_jobs(settings)
+            maintenance_task = start_maintenance(settings)
             yield
         finally:
-            maintenance_task.cancel()
-            with suppress(asyncio.CancelledError):
-                await maintenance_task
-            shutdown_dispatcher()
+            if maintenance_task is not None:
+                maintenance_task.cancel()
+                with suppress(asyncio.CancelledError):
+                    await maintenance_task
+            try:
+                await asyncio.to_thread(shutdown_dispatcher)
+            finally:
+                configure_runtime_settings(previous_settings)
 
     application = FastAPI(
         title="Alinea API",

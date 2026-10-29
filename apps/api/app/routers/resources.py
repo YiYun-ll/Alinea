@@ -7,7 +7,7 @@ from collections.abc import AsyncIterator
 from pathlib import Path
 
 from alinea_contracts import AlineaError
-from fastapi import APIRouter, Request, status
+from fastapi import APIRouter, Query, Request, status
 from fastapi.responses import FileResponse, StreamingResponse
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -37,10 +37,16 @@ def _downloadable(revision: Revision) -> None:
         raise AlineaError("REPAIR_VALIDATION_FAILED", "This candidate is not published", status_code=403)
 
 
-def _latest_preview(db: Session, revision_id: str) -> InspectionRecord | None:
+def _latest_preview(db: Session, revision_id: str, sha256: str | None = None) -> InspectionRecord | None:
+    query = select(InspectionRecord).where(
+        InspectionRecord.revision_id == revision_id,
+        InspectionRecord.status == "SUCCEEDED",
+        InspectionRecord.preview_json["storage_key"].as_string().is_not(None),
+    )
+    if sha256 is not None:
+        query = query.where(InspectionRecord.preview_json["pdf_sha256"].as_string() == sha256)
     return db.scalar(
-        select(InspectionRecord)
-        .where(InspectionRecord.revision_id == revision_id)
+        query
         .order_by(InspectionRecord.created_at.desc(), InspectionRecord.id.desc())
         .limit(1)
     )
@@ -188,9 +194,10 @@ def download(
 def preview(
     revision_id: str,
     project: ProjectAuth, db: Database,
+    sha256: str | None = Query(default=None, pattern=r"^[0-9a-f]{64}$"),
 ) -> FileResponse:
     revision = require_revision(db, project, revision_id)
-    inspection = _latest_preview(db, revision.id)
+    inspection = _latest_preview(db, revision.id, sha256)
     key = inspection.preview_json.get("storage_key") if inspection and inspection.preview_json else None
     if not key:
         raise AlineaError("PREVIEW_NOT_READY", "No PDF preview is available for this revision", status_code=404)

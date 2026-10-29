@@ -78,16 +78,16 @@ function target(step: WorkflowStep): string {
 </template>
 
 <style scoped>
-.workflow-rail { position: sticky; inset-block-start: 0; z-index: 20; padding: 10px clamp(14px, 3vw, 40px); background: var(--white); border-bottom: 1px solid #e7ebe3;  }
+.workflow-rail { position: sticky; inset-block-start: 0; z-index: 20; padding: 10px clamp(14px, 3vw, 40px); background: var(--white); border-bottom: 1px solid #e5eaf1;  }
 .workflow-rail ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 1040px; padding: 0; margin: 0 auto; list-style: none; }
 .workflow-rail li { position: relative; min-width: 0; }
 .workflow-rail li:not(:last-child)::after { position: absolute; inset-block-start: 50%; inset-inline-end: -5px; width: 10px; height: 1px; content: ''; background: #cfd7e2; }
-.workflow-step { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; min-height: 44px; padding: 7px 10px; color: #737c73; background: transparent; border: 1px solid transparent; border-radius: 7px; font-size: .8125rem; text-decoration: none; transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease, border-color var(--motion-fast) ease, translate var(--motion-fast) var(--motion-ease-out); }
-.workflow-step:hover:not(.is-disabled) { color: #25352e; background: #f2f5f9; translate: 0 -1px; }
-.workflow-marker { display: grid; place-items: center; flex: 0 0 26px; width: 26px; height: 26px; color: #737c73; border: 1px solid #d9e0d6; border-radius: 50%; font-family: ui-monospace, monospace; font-size: .65rem; transition: color var(--motion-base) ease, background-color var(--motion-base) ease, border-color var(--motion-base) ease; }
+.workflow-step { display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; min-height: 44px; padding: 7px 10px; color: #748095; background: transparent; border: 1px solid transparent; border-radius: 7px; font-size: .8125rem; text-decoration: none; transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease, border-color var(--motion-fast) ease, translate var(--motion-fast) var(--motion-ease-out); }
+.workflow-step:hover:not(.is-disabled) { color: #29394e; background: #f2f5f9; translate: 0 -1px; }
+.workflow-marker { display: grid; place-items: center; flex: 0 0 26px; width: 26px; height: 26px; color: #748095; border: 1px solid #d9e0ea; border-radius: 50%; font-family: ui-monospace, monospace; font-size: .65rem; transition: color var(--motion-base) ease, background-color var(--motion-base) ease, border-color var(--motion-base) ease; }
 .workflow-label-short { display: none; }
-.workflow-rail li.is-current .workflow-step { color: #25352e; background: transparent; border-color: transparent; font-weight: 500; }
-.workflow-rail li.is-current .workflow-marker { color: #fff; background: #456653; border-color: #456653; }
+.workflow-rail li.is-current .workflow-step { color: #29394e; background: transparent; border-color: transparent; font-weight: 500; }
+.workflow-rail li.is-current .workflow-marker { color: #fff; background: #4b6588; border-color: #4b6588; }
 .workflow-rail li.is-complete:not(.is-current) .workflow-marker { color: #1d6c55; background: #edf7f2; border-color: #a7cec0; }
 .workflow-step.is-disabled { cursor: not-allowed; opacity: .55; }
 @media (max-width: 640px) {

@@ -31,3 +31,10 @@
 - [x] 20. Fix drag submission, upload limit mismatch, selection refresh, filtered selection, project isolation, read recovery and stale polling. _Requirements: 1, 4, 11, 12_
 - [x] 21. Restore repair plans after refresh, preserve typed line spacing, fix PDF focus and scroll positioning, and require integrity evidence for revised downloads. _Requirements: 5, 6, 7, 8, 10_
 - [x] 22. Verify unit regressions, real desktop/mobile browser flows, downloads and narrow layouts; record results and screenshots in `reports/iteration-4.md`. _Requirements: 13_
+
+## Iteration 5 — slate blue theme and backend correctness
+
+- [x] 23. Replace the green interface palette with slate blue while preserving semantic status colors. _Requirements: 2, 4, 5, 10_
+- [x] 24. Restore storage source inclusion, repair chained retries and blocked diagnostics, and stop unverifiable selected targets from being reported as resolved. _Requirements: 6, 7, 8, 9, 11, 13_
+- [x] 25. Store immutable PDF outputs by fingerprint, select available previews correctly, bind client previews to inspection evidence, and apply explicit API settings consistently. _Requirements: 1, 5, 11, 12_
+- [x] 26. Verify backend regressions, full backend/frontend suites, browser flows and source export; record results in `reports/iteration-5.md`. _Requirements: 13_

@@ -24,12 +24,12 @@ const panelId = useId()
 
 <style scoped>
 .disclosure-panel { min-width: 0; }
-.disclosure-trigger { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 48px; padding: 10px 2px; color: #667467; background: transparent; border: 0; text-align: left; }
-.disclosure-trigger strong { display: block; color: #25352e; font-size: .85rem; font-weight: 650; }
-.disclosure-trigger small { display: block; margin-top: 3px; color: #737c73; font-size: .74rem; line-height: 1.55; }
-.disclosure-action { display: inline-flex; align-items: center; flex-shrink: 0; gap: 5px; color: #456653; font-size: .75rem; }
+.disclosure-trigger { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 48px; padding: 10px 2px; color: #647186; background: transparent; border: 0; text-align: left; }
+.disclosure-trigger strong { display: block; color: #29394e; font-size: .85rem; font-weight: 650; }
+.disclosure-trigger small { display: block; margin-top: 3px; color: #748095; font-size: .74rem; line-height: 1.55; }
+.disclosure-action { display: inline-flex; align-items: center; flex-shrink: 0; gap: 5px; color: #4b6588; font-size: .75rem; }
 .disclosure-icon { transition: transform var(--motion-fast) var(--motion-ease-out); }
 .disclosure-trigger[aria-expanded='true'] .disclosure-icon { transform: rotate(180deg); }
-.disclosure-trigger:hover strong { color: #456653; }
+.disclosure-trigger:hover strong { color: #4b6588; }
 .disclosure-region { padding-block: 6px 18px; }
 </style>

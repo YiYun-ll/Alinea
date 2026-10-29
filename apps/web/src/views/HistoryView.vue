@@ -160,17 +160,17 @@ onMounted(loadHistory)
 <style scoped>
 .history-page { max-width: 1360px; }
 .history-tabs { display: flex; gap: 4px; margin-bottom: 16px; padding: 4px; background: #e9edf2; border-radius: 8px; width: fit-content; }
-.history-tabs button { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 8px 16px; color: #667467; background: transparent; border: 0; border-radius: 6px; }
-.history-tabs button[aria-pressed='true'] { color: #25352e; background: #fff; box-shadow: 0 1px 3px rgba(39, 52, 73, .14); font-weight: 700; }
+.history-tabs button { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 8px 16px; color: #647186; background: transparent; border: 0; border-radius: 6px; }
+.history-tabs button[aria-pressed='true'] { color: #29394e; background: #fff; box-shadow: 0 1px 3px rgba(39, 52, 73, .14); font-weight: 700; }
 .history-tabs button span { padding: 1px 6px; background: #e5e9ef; border-radius: 999px; font-size: .68rem; }
 .history-panel { min-height: 360px; }
 .history-panel > .notice { margin: 16px; }
 .history-panel .table-scroll { max-height: 64dvh; }
-.history-subline { display: block; margin-top: 4px; color: #737c73; font-size: .68rem; overflow-wrap: anywhere; }
+.history-subline { display: block; margin-top: 4px; color: #748095; font-size: .68rem; overflow-wrap: anywhere; }
 .history-progress { min-width: 120px; margin-top: 10px; }
 .job-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .error-code { display: inline-block; padding: 2px 5px; color: #9e3636; background: #fff1f1; border: 1px solid #ddb0b0; border-radius: 3px; font-family: ui-monospace, monospace; font-size: .68rem; }
 .audit-details { max-width: 400px; max-height: 150px; margin: 0; overflow: auto; font-size: .68rem; white-space: pre-wrap; }
-.history-note { color: #737c73; font-size: .72rem; }
+.history-note { color: #748095; font-size: .72rem; }
 @media (max-width: 600px) { .history-tabs { width: 100%; } .history-tabs button { flex: 1; justify-content: center; padding-inline: 7px; } }
 </style>

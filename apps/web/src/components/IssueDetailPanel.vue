@@ -53,12 +53,12 @@ function selectForRepair(): void {
 .value-comparison span { display: block; color: var(--muted); font-size: .68rem; margin-bottom: 6px; }
 .value-comparison strong { font-size: .94rem; font-weight: 500; overflow-wrap: anywhere; }
 .value-comparison > div:last-child strong { color: var(--accent); }
-.value-comparison > svg { color: #a4afa2; }
+.value-comparison > svg { color: #9fadc0; }
 .issue-detail section { padding-block: 20px; border-top: 1px solid var(--line); }
 .issue-detail h3 { margin: 0 0 12px; font-family: inherit; font-size: .75rem; font-weight: 500; }
 .detail-section-heading { display: flex; justify-content: space-between; align-items: baseline; }
 .locate-link { padding: 0; border: 0; background: transparent; font-size: .7rem; }
-.excerpt { padding: 12px 14px; border-left-width: 2px; border-left-color: #cad5c7; font-size: .8rem; line-height: 1.9; }
+.excerpt { padding: 12px 14px; border-left-width: 2px; border-left-color: #cbd6e5; font-size: .8rem; line-height: 1.9; }
 .source-name { margin-bottom: 8px; font-size: .75rem; }
 .source-reference { margin: 10px 0 0; color: var(--muted); font-size: .68rem; overflow-wrap: anywhere; }
 .technical-evidence { border-top: 1px solid var(--line); font-size: .75rem; }

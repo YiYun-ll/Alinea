@@ -177,12 +177,12 @@ onBeforeUnmount(() => {
 .pdf-text-layer { position: absolute; inset: 0; z-index: 2; overflow: hidden; }
 .issue-overlay-layer { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
 .issue-overlay { position: absolute; min-width: 8px; min-height: 8px; padding: 0; pointer-events: auto; background: rgba(217, 139, 39, .16); border: 2px solid #b56c10; border-radius: 2px; }
-.issue-overlay:hover, .issue-overlay.focused { background: rgba(217, 139, 39, .25); border-style: dashed; outline: 2px solid #25352e; outline-offset: 2px; }
+.issue-overlay:hover, .issue-overlay.focused { background: rgba(217, 139, 39, .25); border-style: dashed; outline: 2px solid #29394e; outline-offset: 2px; }
 .issue-overlay.focused { z-index: 2; }
 .issue-overlay > span { opacity: 0; }
 .issue-overlay:hover > span, .issue-overlay:focus-visible > span, .issue-overlay.focused > span { opacity: 1; }
-.issue-overlay > span { position: absolute; top: -23px; left: -2px; min-width: 30px; padding: 1px 4px; color: #fff; background: #25352e; border: 1px solid #fff; border-radius: 3px; font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif; font-size: .65rem; font-weight: 700; line-height: 17px; }
-.page-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: #8a958b; background: #fdfdfe; font-size: .8rem; }
+.issue-overlay > span { position: absolute; top: -23px; left: -2px; min-width: 30px; padding: 1px 4px; color: #fff; background: #29394e; border: 1px solid #fff; border-radius: 3px; font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif; font-size: .65rem; font-weight: 700; line-height: 17px; }
+.page-placeholder { position: absolute; inset: 0; display: grid; place-items: center; color: #8794a8; background: #fdfdfe; font-size: .8rem; }
 .page-error { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; color: #9e3636; background: #fff5f5; text-align: center; }
 @media print { .issue-overlay { display: none; } }
 </style>

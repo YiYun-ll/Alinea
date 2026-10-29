@@ -228,12 +228,7 @@ def mark_job_failed(db: Session, job: Job, error: AlineaError) -> None:
         if inspection is not None and inspection.status != "SUCCEEDED":
             inspection.status = "FAILED"
     if job.job_type == "repair":
-        plan = db.scalar(
-            select(RepairPlanRecord).where(
-                RepairPlanRecord.project_id == job.project_id,
-                RepairPlanRecord.execution_key == job.idempotency_key,
-            )
-        )
+        plan = _repair_plan_for_job(db, job)
         if plan is not None and plan.status not in {"SUCCEEDED", "FAILED"}:
             plan.status = "FAILED"
     emit_job_event(
@@ -263,6 +258,15 @@ def _request_payload(db: Session, job_id: str) -> dict[str, Any]:
     )
     payload = event.payload_json.get("request_payload") if event else None
     return dict(payload) if isinstance(payload, dict) else {}
+
+
+def _repair_plan_for_job(db: Session, job: Job) -> RepairPlanRecord | None:
+    request = _request_payload(db, job.id)
+    plan_id = request.get("plan_id")
+    plan = db.get(RepairPlanRecord, plan_id) if isinstance(plan_id, str) else None
+    if plan is None or plan.project_id != job.project_id or plan.plan_digest != request.get("plan_digest"):
+        return None
+    return plan
 
 
 def retry_job(db: Session, project: Project, job: Job) -> Job:
@@ -296,12 +300,7 @@ def retry_job(db: Session, project: Project, job: Job) -> Job:
         }
         inspection.warnings_json = []
     elif job.job_type == "repair":
-        plan = db.scalar(
-            select(RepairPlanRecord).where(
-                RepairPlanRecord.project_id == job.project_id,
-                RepairPlanRecord.execution_key == job.idempotency_key,
-            )
-        )
+        plan = _repair_plan_for_job(db, job)
         if plan is None:
             raise AlineaError("REPAIR_PLAN_NOT_FOUND", "The plan no longer exists", status_code=404)
         if project.active_revision_id != plan.base_revision_id:

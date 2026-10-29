@@ -288,6 +288,8 @@ def execute_repair(job_id: str) -> str:
             )
             record.status = "FAILED"
             job.result_id = blocked.id
+            # Keep the diagnostic candidate and report when the worker records the failure.
+            db.commit()
             raise AlineaError(
                 "REPAIR_VALIDATION_FAILED", "A hard integrity gate blocked publication", status_code=422
             )
@@ -323,6 +325,12 @@ def execute_repair(job_id: str) -> str:
             if issue.detection_status == "CONFIRMED_VIOLATION"
         }
         unresolved = selected_keys & new_confirmed
+        unverifiable = selected_keys & {
+            _target_key(issue)
+            for issue in after_result.issues
+            if issue.detection_status in {"UNKNOWN", "POSSIBLE_VIOLATION"}
+        }
+        remaining = unresolved | unverifiable
         introduced = new_confirmed - old_confirmed
         report_progress(job_id, "RENDERING", 72, "Rendering and mapping the candidate revision")
         revision = Revision(
@@ -363,13 +371,18 @@ def execute_repair(job_id: str) -> str:
             warnings_json=warnings,
             created_at=utc_now(),
         )
-        static_pass = not unresolved and not introduced
-        status = "PASS" if static_pass and preview else ("PARTIAL" if not static_pass else "INDETERMINATE")
+        if unresolved or introduced:
+            status = "PARTIAL"
+        elif unverifiable or not preview:
+            status = "INDETERMINATE"
+        else:
+            status = "PASS"
         g5 = QualityGateResult(
             gate="G5",
             status="PASS" if status == "PASS" else "WARN",
             details={
                 "selected_unresolved": len(unresolved),
+                "selected_unverifiable": len(unverifiable),
                 "introduced_violations": len(introduced),
                 "after_inspection_id": after_id,
                 "rendered": preview is not None,
@@ -382,8 +395,8 @@ def execute_repair(job_id: str) -> str:
             before_inspection_id=before.id,
             status=status,
             selected_count=len(selected_keys),
-            resolved_count=len(selected_keys) - len(unresolved),
-            remaining_count=len(unresolved),
+            resolved_count=len(selected_keys) - len(remaining),
+            remaining_count=len(remaining),
             gates=[*result.gates, g5],
             operations=plan.operations,
             warnings=warnings,

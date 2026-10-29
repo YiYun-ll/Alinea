@@ -22,6 +22,10 @@ The API lifespan initializes the dispatcher, recovers unfinished local jobs and 
 
 Render cache keys cover DOCX SHA-256, profile and exporter configuration. Renderer version and font hashes are cached by file metadata within a worker process. Cache hits return the same PDF bytes and regenerate revision-bound location mappings rather than reusing stale coordinates. Project cleanup removes private project files; it does not bypass job or revision authorization.
 
+Published preview storage keys also include the actual PDF SHA-256. Repeated identical exports reuse immutable bytes; different output from the same renderer profile receives a separate key. Inspection overlays request their exact PDF fingerprint, and preview lookup excludes inspections without a stored PDF.
+
+An explicit `create_app(settings)` configuration is installed for the application's lifespan so service storage, document limits, model calls and dispatcher use the same settings as the API. Shutdown waits for running local tasks and cancels pending executor futures, leaving their queued database records available for startup recovery, before restoring the previous runtime settings. The current API process continues to use one shared database and runtime configuration.
+
 ## Inspection reuse and evidence identity
 
 An Inspection is the immutable evidence input of an approved RepairPlan, not a disposable preview to overwrite on every click. Creation first validates the idempotency request digest, then reuses a matching active Job or successful Inspection by project, revision, ruleset digest and inspector version. Successful records and their issues, previews and warnings are not rebound or cleared by a repeat request or a repeated retry. A successful after-inspection without an inspection Job receives a real completed `CACHED` Job and status URL without dispatching work.

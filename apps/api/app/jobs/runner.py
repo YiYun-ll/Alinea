@@ -45,4 +45,4 @@ def shutdown_dispatcher() -> None:
         executor = _executor
         _executor = None
     if executor is not None:
-        executor.shutdown(wait=False, cancel_futures=False)
+        executor.shutdown(wait=True, cancel_futures=True)

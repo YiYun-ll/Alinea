@@ -95,7 +95,7 @@
   align-items: center;
   gap: 12px;
   padding: 14px 14px 14px 16px;
-  color: #25352e;
+  color: #29394e;
   background: rgba(252, 253, 254, .98);
   border: 1px solid #cfd7e2;
   border-radius: 8px;
@@ -104,15 +104,15 @@
 }
 .toast-content { min-width: 0; }
 .toast-content strong { display: block; margin-bottom: 3px; font-size: .85rem; }
-.toast-content p { margin: 0; color: #6b756d; font-size: .76rem; line-height: 1.6; }
+.toast-content p { margin: 0; color: #657184; font-size: .76rem; line-height: 1.6; }
 .toast-success { border-inline-start-color: #278267; }
 .toast-success > svg { color: #278267; }
 .toast-warning { border-inline-start-color: #d98b27; }
 .toast-warning > svg { color: #a56616; }
 .toast-error { border-inline-start-color: #c14f4f; }
 .toast-error > svg { color: #c14f4f; }
-.toast-close { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; color: #737c73; background: transparent; border: 0; border-radius: 5px; }
-.toast-close:hover { color: #25352e; background: #f0f3ed; }
+.toast-close { display: grid; place-items: center; width: 28px; height: 28px; padding: 0; color: #748095; background: transparent; border: 0; border-radius: 5px; }
+.toast-close:hover { color: #29394e; background: #f0f3f8; }
 .toast-list-enter-active { transition: opacity var(--motion-base) var(--motion-ease-out), transform var(--motion-base) var(--motion-ease-spring); }
 .toast-list-leave-active { transition: opacity var(--motion-fast) ease, transform var(--motion-fast) ease; }
 .toast-list-enter-from { opacity: 0; transform: translate(24px, -8px) scale(.97); }
@@ -120,9 +120,9 @@
 .toast-list-move { transition: transform var(--motion-base) var(--motion-ease-out); }
 
 .job-progress { display: grid; gap: 7px; inline-size: 100%; }
-.job-progress-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #667467; font-size: .75rem; }
-.job-progress-value { color: #456653; font-family: 'Noto Serif SC', serif; font-size: .9rem; font-variant-numeric: tabular-nums; }
-.job-progress-message { color: #737c73; font-size: .72rem; line-height: 1.55; }
+.job-progress-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #647186; font-size: .75rem; }
+.job-progress-value { color: #4b6588; font-family: 'Noto Serif SC', serif; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.job-progress-message { color: #748095; font-size: .72rem; line-height: 1.55; }
 .job-progress progress {
   --progress-animation: none;
   --progress-duration: 1.6s;
@@ -140,13 +140,13 @@
 .job-progress progress:indeterminate { --progress-animation: progress-slide var(--progress-duration) linear infinite; }
 .job-progress progress::-webkit-progress-bar { background: transparent; }
 .job-progress progress::-webkit-progress-value {
-  background: #456653;
+  background: #4b6588;
   border-radius: 999px;
   transition: inline-size var(--motion-base) var(--motion-ease-out);
   animation: var(--progress-animation);
 }
 .job-progress progress::-moz-progress-bar {
-  background: #456653;
+  background: #4b6588;
   border-radius: 999px;
   transition: inline-size var(--motion-base) var(--motion-ease-out);
   animation: var(--progress-animation);
@@ -155,7 +155,7 @@
 
 .skeleton {
   color: transparent !important;
-  background: linear-gradient(100deg, #f0f3ed 24%, #f8fafc 42%, #f0f3ed 66%);
+  background: linear-gradient(100deg, #f0f3f8 24%, #f8fafc 42%, #f0f3f8 66%);
   background-size: 220% 100%;
   border-radius: 6px;
   animation: motion-shimmer 1.8s ease-in-out infinite;

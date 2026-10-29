@@ -195,15 +195,15 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.pdf-viewer { min-width: 0; height: 100%; display: flex; flex-direction: column; background: #edf0e9; }
-.pdf-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 8px 12px; background: #fff; border-bottom: 1px solid #dfe3dc; }
-.page-input, .scale-select { min-height: 34px; color: #25352e; background: #fff; border: 1px solid #cbd4c8; border-radius: 5px; text-align: center; }
+.pdf-viewer { min-width: 0; height: 100%; display: flex; flex-direction: column; background: #e9edf3; }
+.pdf-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 8px 12px; background: #fff; border-bottom: 1px solid #dce2eb; }
+.page-input, .scale-select { min-height: 34px; color: #29394e; background: #fff; border: 1px solid #cbd4e1; border-radius: 5px; text-align: center; }
 .page-input { width: 56px; }
 .scale-select { width: 70px; }
-.page-count { min-width: 38px; color: #6b756d; font-size: .8rem; }
-.pdf-render-note { padding: 5px 12px; color: #6b756d; background: #f4f5f7; border-bottom: 1px solid #dfe3dc; font-size: .68rem; text-align: center; }
+.page-count { min-width: 38px; color: #657184; font-size: .8rem; }
+.pdf-render-note { padding: 5px 12px; color: #657184; background: #f4f5f7; border-bottom: 1px solid #dce2eb; font-size: .68rem; text-align: center; }
 .pdf-scroll { min-height: 0; flex: 1; overflow: auto; padding: 30px clamp(12px, 4vw, 48px) 80px; scroll-behavior: smooth; scrollbar-gutter: stable; }
-.pdf-loading { min-height: 240px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #6b756d; }
+.pdf-loading { min-height: 240px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #657184; }
 .compact .pdf-render-note { display: none; }
 .compact .pdf-scroll { padding: 20px 12px 48px; }
 @media (max-width: 600px) { .pdf-toolbar { justify-content: center; } .pdf-scroll { padding-inline: 8px; } }

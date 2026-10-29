@@ -65,6 +65,17 @@ def _resolve_path(value: Any) -> Path:
     return path.resolve(strict=False)
 
 
+_runtime_settings: Settings | None = None
+
+
 @lru_cache
 def get_settings() -> Settings:
-    return Settings()
+    return _runtime_settings if _runtime_settings is not None else Settings()
+
+
+def configure_runtime_settings(settings: Settings | None) -> Settings | None:
+    global _runtime_settings
+    previous = _runtime_settings
+    _runtime_settings = settings
+    get_settings.cache_clear()
+    return previous

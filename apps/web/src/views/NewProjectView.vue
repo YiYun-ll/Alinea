@@ -222,8 +222,8 @@ async function submit(): Promise<void> {
 .wizard-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 20px; }
 .document-card { align-self: start; }
 .guideline-card { min-height: 370px; }
-.dropzone { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 184px; justify-content: center; padding: 24px; color: #667467; background: #f7f8fa; border: 1px dashed #8f9bad; border-radius: 8px; text-align: center; cursor: pointer; transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease, border-color var(--motion-fast) ease; }
-.dropzone:hover, .dropzone.dragging { color: #34513f; background: #eef3ec; border-color: #456653; }
+.dropzone { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 184px; justify-content: center; padding: 24px; color: #647186; background: #f7f8fa; border: 1px dashed #8f9bad; border-radius: 8px; text-align: center; cursor: pointer; transition: color var(--motion-fast) ease, background-color var(--motion-fast) ease, border-color var(--motion-fast) ease; }
+.dropzone:hover, .dropzone.dragging { color: #354e72; background: #edf2f8; border-color: #4b6588; }
 .dropzone:focus-within { outline: 3px solid #d98b27; outline-offset: 3px; }
 .dropzone.has-file { color: #1d6c55; background: #f0f8f4; border-style: solid; }
 .dropzone.is-disabled { cursor: wait; opacity: .65; }
@@ -233,22 +233,22 @@ async function submit(): Promise<void> {
 .source-picker { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 0; margin: 0 0 20px; border: 0; }
 .source-picker { min-width: 0; }
 .preset-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.preset-option { display: flex; align-items: flex-start; gap: 9px; min-height: 82px; padding: 14px; background: #f8fafc; border: 1px solid #dfe3dc; border-radius: 7px; cursor: pointer; transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease, translate var(--motion-fast) var(--motion-ease-out); }
-.preset-option:has(input:checked) { background: #eef3ec; border-color: #456653; }
+.preset-option { display: flex; align-items: flex-start; gap: 9px; min-height: 82px; padding: 14px; background: #f8fafc; border: 1px solid #dce2eb; border-radius: 7px; cursor: pointer; transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease, translate var(--motion-fast) var(--motion-ease-out); }
+.preset-option:has(input:checked) { background: #edf2f8; border-color: #4b6588; }
 .preset-option:hover { translate: 0 -1px; border-color: #8fa2bf; }
 .preset-option:focus-within { outline: 3px solid #d98b27; outline-offset: 2px; }
-.preset-option input { flex-shrink: 0; margin-top: 3px; accent-color: #456653; }
+.preset-option input { flex-shrink: 0; margin-top: 3px; accent-color: #4b6588; }
 .preset-option strong, .preset-option small { display: block; }
 .preset-option strong { font-size: .875rem; }
-.preset-option small { margin-top: 5px; color: #737c73; font-size: .72rem; line-height: 1.55; }
+.preset-option small { margin-top: 5px; color: #748095; font-size: .72rem; line-height: 1.55; }
 .guideline-text { min-height: 170px; }
 .pdf-input { padding: 7px; }
-.support-box { margin-block: 14px; padding: 12px 14px; color: #465268; background: #f7f8f5; border-left: 3px solid #456653; font-size: .8rem; }
+.support-box { margin-block: 14px; padding: 12px 14px; color: #465268; background: #f7f8fa; border-left: 3px solid #4b6588; font-size: .8rem; }
 .support-box p { margin: 4px 0 0; }
-.advanced-settings { border-top: 1px solid #e7ebe3; }
-.wizard-submit { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 24px; background: #fff; border: 1px solid #dfe3dc; border-top: 1px solid var(--line); border-radius: 8px; }
+.advanced-settings { border-top: 1px solid #e5eaf1; }
+.wizard-submit { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 24px; background: #fff; border: 1px solid #dce2eb; border-top: 1px solid var(--line); border-radius: 8px; }
 .submit-context { flex: 1; }
-.submit-context > p { margin: 5px 0 0; color: #737c73; font-size: .78rem; }
+.submit-context > p { margin: 5px 0 0; color: #748095; font-size: .78rem; }
 .submit-context .job-progress { max-width: 400px; margin-top: 14px; }
 .submit-button { min-height: 48px; }
 @media (max-width: 800px) {
