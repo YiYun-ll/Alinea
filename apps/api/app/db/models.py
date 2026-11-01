@@ -232,3 +232,48 @@ class AuditEvent(Base):
     event_type: Mapped[str] = mapped_column(String(128))
     details_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class AgentRun(Base):
+    __tablename__ = "agent_runs"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_uuid)
+    project_id: Mapped[str] = mapped_column(
+        ForeignKey("projects.id", ondelete="CASCADE"), index=True
+    )
+    status: Mapped[str] = mapped_column(String(32), default="QUEUED", index=True)
+    objective: Mapped[str] = mapped_column(Text)
+    input_digest: Mapped[str] = mapped_column(String(64))
+    context_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    result_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    clarification_json: Mapped[list[dict[str, Any]]] = mapped_column(JSON, default=list)
+    model: Mapped[str] = mapped_column(String(128))
+    step_count: Mapped[int] = mapped_column(Integer, default=0)
+    tool_call_count: Mapped[int] = mapped_column(Integer, default=0)
+    input_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    output_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    duration_ms: Mapped[int] = mapped_column(Integer, default=0)
+    error_code: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utc_now, onupdate=utc_now
+    )
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class AgentEvent(Base):
+    __tablename__ = "agent_events"
+    __table_args__ = (UniqueConstraint("run_id", "sequence", name="agent_run_sequence"),)
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    run_id: Mapped[str] = mapped_column(
+        ForeignKey("agent_runs.id", ondelete="CASCADE"), index=True
+    )
+    sequence: Mapped[int] = mapped_column(Integer)
+    event_type: Mapped[str] = mapped_column(String(64))
+    tool_name: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    status: Mapped[str] = mapped_column(String(32))
+    duration_ms: Mapped[int] = mapped_column(Integer, default=0)
+    payload_json: Mapped[dict[str, Any]] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)

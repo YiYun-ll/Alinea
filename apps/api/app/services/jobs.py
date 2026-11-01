@@ -231,6 +231,15 @@ def mark_job_failed(db: Session, job: Job, error: AlineaError) -> None:
         plan = _repair_plan_for_job(db, job)
         if plan is not None and plan.status not in {"SUCCEEDED", "FAILED"}:
             plan.status = "FAILED"
+    if job.job_type == "agent_run" and job.result_id:
+        from app.db.models import AgentRun
+
+        run = db.get(AgentRun, job.result_id)
+        if run is not None and run.status not in {"SUCCEEDED", "NEEDS_CLARIFICATION"}:
+            run.status = "FAILED"
+            run.error_code = error.code
+            run.error_message = error.message
+            run.finished_at = utc_now()
     emit_job_event(
         db,
         job,

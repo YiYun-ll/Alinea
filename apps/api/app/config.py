@@ -25,10 +25,14 @@ class Settings(BaseSettings):
     max_file_mb: int = Field(default=15, gt=0)
     max_pages: int = Field(default=60, ge=1)
     project_ttl_hours: int = Field(default=24, gt=0)
-    llm_base_url: str = "https://api.kimi.com/coding/"
+    llm_base_url: str = "https://api.deepseek.com"
     llm_api_key: SecretStr = SecretStr("")
-    llm_model: str = "kimi-for-coding"
+    llm_model: str = "deepseek-flash"
     llm_timeout_seconds: int = Field(default=180, gt=0)
+    agent_max_steps: int = Field(default=10, ge=1, le=20)
+    agent_max_tool_calls: int = Field(default=12, ge=1, le=30)
+    agent_max_characters: int = Field(default=4000, ge=100, le=32000)
+    agent_max_paragraph_candidates: int = Field(default=20, ge=1, le=50)
     web_origins: Annotated[list[str], NoDecode] = [
         "http://127.0.0.1:5173",
         "http://localhost:5173",

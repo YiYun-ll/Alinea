@@ -2,7 +2,7 @@
 
 ## Trust and data flow
 
-Browser → FastAPI → private storage/SQL database → background job → OOXML parser/inspector → LibreOffice renderer → pdfplumber locator → browser PDF.js. Repair follows a separate approved path: selected Issues → digest-bound RepairPlan → package patch → G0–G4 integrity gates → candidate reparse/reinspect/render → G5 report → published Revision.
+Browser → FastAPI → private storage/SQL database → background job → OOXML parser/inspector → LibreOffice renderer → pdfplumber locator → browser PDF.js. The Agent adds a bounded decision layer: AgentRun → model-selected project-scoped tools → the same rules/inspection/plan services. Repair follows a separate approved path: selected Issues → digest-bound RepairPlan → user approval → package patch → G0–G4 integrity gates → candidate reparse/reinspect/render → G5 report → published Revision.
 
 The original source and all revisions use opaque project-scoped storage keys and are never mounted as public static files. The bearer token is returned only when a project is created and stored server-side as SHA-256.
 
@@ -12,9 +12,9 @@ The original source and all revisions use opaque project-scoped storage keys and
 - `alinea_docx`: safe ZIP/OPC reads, story-part ElementRef index, effective style resolver, Rule DSL and Inspector.
 - `alinea_mapping`: isolated LibreOffice conversion, render profiles and explicit-confidence PDF location mappings.
 - `alinea_repair`: plan digests, preconditions, part-level OOXML patches and independent integrity diff.
-- `alinea_agent`: bounded Agents SDK extraction with tracing disabled and deterministic evidence validation.
-- `apps/api`: scoped REST/SSE, SQL persistence, local/RQ task dispatch, reports and audit.
-- `apps/web`: Vue/Pinia workspaces and PDF.js viewport-based overlays.
+- `alinea_agent`: bounded Agents SDK tool orchestration, JSON/Pydantic output validation and deterministic evidence checks, with tracing disabled.
+- `apps/api`: scoped REST/SSE, SQL persistence, AgentRun/AgentEvent, local/RQ task dispatch, domain tool facade, reports and audit.
+- `apps/web`: Vue/Pinia workspaces, responsive Agent panel and PDF.js viewport-based overlays.
 
 ## Lifecycle and rendering caches
 

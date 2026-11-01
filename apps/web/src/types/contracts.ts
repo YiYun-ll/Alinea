@@ -383,3 +383,79 @@ export interface ApiErrorBody {
   retryable: boolean
   details?: Record<string, JsonValue>
 }
+
+export type AgentRunStatus = 'QUEUED' | 'RUNNING' | 'NEEDS_CLARIFICATION' | 'SUCCEEDED' | 'FAILED'
+export type AgentAction = 'NONE' | 'REVIEW_RULES' | 'REVIEW_INSPECTION' | 'REVIEW_REPAIR' | 'REVIEW_RESULTS'
+
+export interface AgentClarification {
+  question_id: string
+  question: string
+  context: string
+}
+
+export interface AgentRoleSuggestion {
+  target: string
+  role: SemanticRole
+  confidence: number
+  evidence: string
+}
+
+export interface AgentResult {
+  message: string
+  rules?: FormatRule[]
+  uncertainties?: string[]
+  role_suggestions?: AgentRoleSuggestion[]
+  recommended_action: AgentAction
+  rule_set_id?: string
+  inspection_id?: string
+  repair_plan_id?: string
+  role_revision_id?: string
+}
+
+export interface AgentEvent {
+  sequence: number
+  event_type: string
+  tool_name: string | null
+  status: string
+  duration_ms: number
+  payload: Record<string, JsonValue>
+  created_at: string
+}
+
+export interface AgentRun {
+  run_id: string
+  project_id: string
+  status: AgentRunStatus
+  objective: string
+  context: {
+    guideline_id?: string
+    revision_id?: string
+    rule_set_id?: string
+    rule_set_version?: number
+    inspection_id?: string
+    messages?: string[]
+  }
+  result: AgentResult | Record<string, never>
+  clarifications: AgentClarification[]
+  model: string
+  step_count: number
+  tool_call_count: number
+  input_tokens: number
+  output_tokens: number
+  duration_ms: number
+  error_code: string | null
+  error_message: string | null
+  job_id: string | null
+  created_at: string
+  updated_at: string
+  completed_at: string | null
+  events: AgentEvent[]
+}
+
+export interface AgentRunInput {
+  objective: string
+  guideline_id?: string
+  revision_id?: string
+  rule_set_id?: string
+  inspection_id?: string
+}

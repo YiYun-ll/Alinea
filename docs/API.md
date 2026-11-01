@@ -11,6 +11,10 @@ Errors have `{error:{code,message,request_id,retryable,details}}`. Long operatio
 | POST | `/projects` | Create a 24-hour anonymous project |
 | GET/DELETE | `/projects/{id}` | Read or delete a project and its derived files |
 | POST | `/demo` | Create a real example DOCX/preset workspace |
+| POST | `/projects/{id}/agent/runs` | Start a bounded model/tool run; 202 |
+| GET | `/projects/{id}/agent/runs` | List recent AgentRuns and redacted tool events |
+| GET | `/projects/{id}/agent/runs/{run}` | Read authoritative run status, clarification and result |
+| POST | `/projects/{id}/agent/runs/{run}/messages` | Answer a clarification or resume a terminal run; 202 |
 | POST | `/projects/{id}/documents` | Multipart DOCX validation and immutable original |
 | POST | `/projects/{id}/guidelines` | Preset/text JSON or text-PDF multipart |
 | POST | `/projects/{id}/rules/extract` | Queue preset or bounded-Agent extraction |
@@ -36,6 +40,12 @@ Errors have `{error:{code,message,request_id,retryable,details}}`. Long operatio
 | GET | `/revisions/{id}/report[?format=markdown]` | JSON or Markdown verification report |
 | GET | `/revisions/{id}/download` | Authorized original/published DOCX |
 | GET | `/revisions/{id}/artifacts` | Real downloadable artifact links |
+
+## Agent runs
+
+An AgentRun is a persisted decision session; its associated `agent_run` Job is only the execution mechanism. Status is `QUEUED`, `RUNNING`, `NEEDS_CLARIFICATION`, `SUCCEEDED` or `FAILED`. Events contain sequence, tool name, status, duration and redacted summaries. Model output is parsed as JSON and validated with Pydantic because some OpenAI-compatible providers do not support `json_schema` response format.
+
+Tools recheck project ownership and resource versions. Inspection requires an approved ruleset. Repair planning only accepts confirmed safe Issues and creates a DRAFT plan. No Agent endpoint approves a ruleset/plan or executes a repair; use the existing authenticated approval routes. Runs have model-step, tool-call, context-character and paragraph-candidate limits. Local unfinished Jobs recover at startup, while repeated inspection/plan operations reuse their existing evidence where supported.
 
 ## Inspection reuse and job history
 

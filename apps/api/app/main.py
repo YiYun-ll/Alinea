@@ -16,7 +16,7 @@ from pydantic import ValidationError
 from app.config import Settings, configure_runtime_settings, get_settings
 from app.db.database import init_db
 from app.jobs.runner import initialize_dispatcher, shutdown_dispatcher
-from app.routers import documents, inspections, projects, repairs, resources, rules
+from app.routers import agent, documents, inspections, projects, repairs, resources, rules
 from app.services.common import isoformat, utc_now, validated_request_id
 from app.services.jobs import recover_jobs
 from app.services.maintenance import start_maintenance
@@ -197,6 +197,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application.include_router(inspections.router, prefix="/api/v1")
     application.include_router(repairs.router, prefix="/api/v1")
     application.include_router(resources.router, prefix="/api/v1")
+    application.include_router(agent.router, prefix="/api/v1")
     return application
 
 

@@ -65,3 +65,15 @@ class RepairPlanCreate(RequestModel):
 
 class RepairPlanApprove(RequestModel):
     plan_digest: str = Field(min_length=64, max_length=64, pattern=r"^[0-9a-f]{64}$")
+
+
+class AgentRunCreate(RequestModel):
+    objective: str = Field(min_length=1, max_length=4000)
+    guideline_id: str | None = None
+    revision_id: str | None = None
+    rule_set_id: str | None = None
+    inspection_id: str | None = None
+
+
+class AgentRunMessage(RequestModel):
+    message: str = Field(min_length=1, max_length=4000)

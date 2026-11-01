@@ -104,6 +104,12 @@ def repair_plan_job(job_id: str) -> str | None:
     return _run_job(job_id, "repair", execute_repair)
 
 
+def agent_run_job(job_id: str) -> str | None:
+    from app.services.agent_runs import execute_agent_run
+
+    return _run_job(job_id, "agent_run", execute_agent_run)
+
+
 def execute_job(job_id: str) -> str | None:
     with session_scope() as db:
         job = db.get(Job, job_id)
@@ -114,6 +120,7 @@ def execute_job(job_id: str) -> str | None:
         "rule_extraction": rule_extraction_job,
         "inspection": inspect_document_job,
         "repair": repair_plan_job,
+        "agent_run": agent_run_job,
     }
     handler = handlers.get(job_type)
     if handler is None:

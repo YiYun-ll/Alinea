@@ -1,4 +1,6 @@
 from .requests import (
+    AgentRunCreate,
+    AgentRunMessage,
     ExtractRulesRequest,
     GuidelineCreate,
     InspectionCreate,
@@ -10,6 +12,8 @@ from .requests import (
 )
 
 __all__ = [
+    "AgentRunCreate",
+    "AgentRunMessage",
     "ExtractRulesRequest",
     "GuidelineCreate",
     "InspectionCreate",

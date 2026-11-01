@@ -9,6 +9,7 @@ from alinea_contracts import AlineaError, FormatRule
 from openai import AsyncOpenAI
 from pydantic import ValidationError
 
+from alinea_agent.contracts import parse_model_json
 from alinea_agent.schemas import (
     AgentRunMetadata,
     ExtractionOutcome,
@@ -114,7 +115,6 @@ class RuleInterpreter:
                 name="Alinea rule interpreter",
                 instructions=_INSTRUCTIONS,
                 model=self._model,
-                output_type=RuleExtractionResult,
             )
             user_input = prompt if not validation_error else (
                 f"{prompt}\nThe previous candidate failed schema validation: {validation_error}\n"
@@ -128,7 +128,7 @@ class RuleInterpreter:
                     max_turns=2,
                     run_config=RunConfig(tracing_disabled=True),
                 )
-                extraction = result.final_output
+                extraction = parse_model_json(result.final_output, RuleExtractionResult)
                 for response in result.raw_responses:
                     usage = getattr(response, "usage", None)
                     input_tokens += int(getattr(usage, "input_tokens", 0) or 0)
@@ -197,4 +197,8 @@ class RuleInterpreter:
             )
         else:
             content = f"[source={guideline.reference}]\n{guideline.text}"
-        return f"Extract formatting rules from this guideline:\n\n{content}"
+        schema = RuleExtractionResult.model_json_schema()
+        return (
+            f"Extract formatting rules from this guideline. Return only JSON matching this "
+            f"JSON Schema, without Markdown fences: {schema}\n\n{content}"
+        )

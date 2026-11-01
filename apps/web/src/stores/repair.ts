@@ -103,6 +103,32 @@ export const useRepairStore = defineStore('repair', {
         if (serial === this.requestSerial) this.creating = false
       }
     },
+    async loadPlan(projectId: string, planId: string): Promise<RepairPlan> {
+      if (this.plan?.plan_id === planId) return this.plan
+      const serial = ++this.requestSerial
+      this.restoring = true
+      this.error = null
+      try {
+        const plan = await api.getRepairPlan(projectId, planId)
+        if (serial !== this.requestSerial) throw new Error('项目已切换，请在当前项目重试。')
+        const rules = useRulesStore()
+        if (!rules.ruleSet) await rules.load(projectId)
+        if (['DRAFT', 'APPROVED'].includes(plan.status)) {
+          useProjectStore().setActiveRevision(plan.base_revision_id)
+          await useInspectionStore().load(projectId, plan.inspection_id, plan.base_revision_id)
+        }
+        if (serial !== this.requestSerial) throw new Error('项目已切换，请在当前项目重试。')
+        this.plan = plan
+        this.executionKey = plan.execution_key
+        this.remember(projectId)
+        return plan
+      } catch (error) {
+        if (serial === this.requestSerial) this.error = errorMessage(error, '修复计划读取失败，请重试。')
+        throw error
+      } finally {
+        if (serial === this.requestSerial) this.restoring = false
+      }
+    },
     async approve(projectId: string): Promise<RepairPlan> {
       if (this.approving) throw new Error('修复计划正在批准，请稍候。')
       if (!this.plan || this.plan.status !== 'DRAFT') throw new Error('只有草案状态的修复计划可以批准。')

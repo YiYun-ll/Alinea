@@ -137,6 +137,14 @@ test('real demo inspection, approved repair, verification and downloads', async 
   await markdown.saveAs(path.join(testInfo.outputDir, 'verification.md'))
   expect((await stat(path.join(testInfo.outputDir, 'verification.md'))).size).toBeGreaterThan(500)
 
+  await page.locator('.artifact-details summary').click()
+  const pdfDownload = page.waitForEvent('download')
+  await page.locator('.artifact-table tr').filter({ hasText: 'PDF 预览' }).getByRole('button', { name: '下载文件' }).click()
+  const pdf = await pdfDownload
+  const pdfPath = testInfo.outputPath('verification.pdf')
+  await pdf.saveAs(pdfPath)
+  expect((await stat(pdfPath)).size).toBeGreaterThan(1_000)
+
   await expect(page.getByRole('button', { name: '减少动效' })).toHaveCount(0)
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await expect(page.locator('.motion-page')).toHaveCSS('animation-name', 'none')

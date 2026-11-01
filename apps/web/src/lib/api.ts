@@ -1,5 +1,7 @@
 import { getProjectToken } from './auth'
 import type {
+  AgentRun,
+  AgentRunInput,
   Artifact,
   AuditEvent,
   DemoResponse,
@@ -249,12 +251,33 @@ export const api = {
   },
   async downloadArtifact(projectId: string, artifact: Artifact): Promise<{ blob: Blob; filename: string | null }> {
     const target = new URL(artifact.url, window.location.origin)
-    if (target.origin === window.location.origin) {
+    const apiBase = new URL(API_BASE, window.location.origin)
+    const basePath = apiBase.pathname.replace(/\/$/, '')
+    if (target.origin === apiBase.origin && target.pathname.startsWith(`${basePath}/`)) {
+      return requestBlob(`${target.pathname.slice(basePath.length)}${target.search}`, { projectId })
+    }
+    if (target.origin === window.location.origin && API_BASE.startsWith('/')) {
       return requestBlob(`${target.pathname}${target.search}`, { projectId })
     }
     const response = await fetch(target)
     if (!response.ok) throw await errorFromResponse(response)
     return { blob: await response.blob(), filename: null }
+  },
+  createAgentRun(projectId: string, input: AgentRunInput): Promise<AgentRun> {
+    return request<AgentRun>(projectPath(projectId, '/agent/runs'), {
+      method: 'POST', projectId, json: input as unknown as JsonValue,
+    })
+  },
+  listAgentRuns(projectId: string): Promise<{ runs: AgentRun[] }> {
+    return request<{ runs: AgentRun[] }>(projectPath(projectId, '/agent/runs'), { projectId })
+  },
+  getAgentRun(projectId: string, runId: string): Promise<AgentRun> {
+    return request<AgentRun>(projectPath(projectId, `/agent/runs/${id(runId)}`), { projectId })
+  },
+  answerAgentRun(projectId: string, runId: string, message: string): Promise<AgentRun> {
+    return request<AgentRun>(projectPath(projectId, `/agent/runs/${id(runId)}/messages`), {
+      method: 'POST', projectId, json: { message },
+    })
   },
 }
 
