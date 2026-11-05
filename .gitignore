@@ -18,4 +18,5 @@ htmlcov/
 .playwright/
 playwright-report/
 test-results/
+specs/alinea-mvp/
 .DS_Store

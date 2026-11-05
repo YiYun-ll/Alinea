@@ -312,7 +312,6 @@ ALINEA_RUN_LO_SMOKE=1 .venv/Scripts/python -m pytest -q tests/unit/alinea_mappin
 | [BENCHMARK.md](docs/BENCHMARK.md) | 评测集与指标口径 |
 | [examples/README.md](examples/README.md) | 演示数据、受控目标与使用边界 |
 | [reports/SBOM.json](reports/SBOM.json) | 实际安装依赖与许可证清单 |
-| [specs/alinea-mvp/](specs/alinea-mvp/) | 需求、设计与任务追踪 |
 
 ## 项目状态与贡献
 
