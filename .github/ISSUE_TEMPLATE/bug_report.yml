@@ -1,0 +1,54 @@
+name: Bug 报告
+description: 报告可复现的问题或异常行为
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请仅使用虚构或脱敏数据，不要上传真实论文、密钥或个人数据。安全漏洞请通过 Security Advisory 私密报告。
+  - type: textarea
+    id: description
+    attributes:
+      label: 问题描述
+      description: 发生了什么？你原本预期是什么结果？
+      placeholder: 请说明实际结果与预期结果。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 启动……
+        2. 上传……
+        3. 点击……
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Alinea 版本
+      description: 请填写发布版本、commit SHA 或 main 分支日期。
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 运行环境
+      placeholder: Windows 11 / Python 3.12 / Node.js 22 / LibreOffice 版本 / 本地或 Docker
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关日志或截图
+      description: 请先移除令牌、路径中的用户名、文档正文及其他敏感信息。
+      render: text
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 提交前检查
+      options:
+        - label: 我已搜索现有 Issues，并确认提交内容不含敏感数据。
+          required: true

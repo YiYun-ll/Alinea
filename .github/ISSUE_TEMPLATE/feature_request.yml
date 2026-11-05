@@ -1,0 +1,29 @@
+name: 功能建议
+description: 提议新能力或改进现有工作流
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 要解决的问题
+      description: 请描述使用场景、当前限制和影响，而不只是想要的实现。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案
+      description: 你期望怎样的行为或交互？
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 备选方案
+      description: 是否考虑过其他实现或临时方案？
+  - type: textarea
+    id: context
+    attributes:
+      label: 补充信息
+      description: 可附脱敏示例、相关规则或参考链接。

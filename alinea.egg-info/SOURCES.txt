@@ -1,3 +1,4 @@
+LICENSE
 README.md
 pyproject.toml
 alinea.egg-info/PKG-INFO
@@ -8,6 +9,7 @@ alinea.egg-info/top_level.txt
 apps/api/app/__init__.py
 apps/api/app/auth.py
 apps/api/app/config.py
+apps/api/app/dependencies.py
 apps/api/app/main.py
 apps/api/app/worker.py
 apps/api/app/db/__init__.py
@@ -17,6 +19,7 @@ apps/api/app/jobs/__init__.py
 apps/api/app/jobs/runner.py
 apps/api/app/jobs/tasks.py
 apps/api/app/routers/__init__.py
+apps/api/app/routers/agent.py
 apps/api/app/routers/documents.py
 apps/api/app/routers/inspections.py
 apps/api/app/routers/projects.py
@@ -26,10 +29,13 @@ apps/api/app/routers/rules.py
 apps/api/app/schemas/__init__.py
 apps/api/app/schemas/requests.py
 apps/api/app/services/__init__.py
+apps/api/app/services/agent_runs.py
+apps/api/app/services/agent_tools.py
 apps/api/app/services/common.py
 apps/api/app/services/documents.py
 apps/api/app/services/inspections.py
 apps/api/app/services/jobs.py
+apps/api/app/services/maintenance.py
 apps/api/app/services/projects.py
 apps/api/app/services/repairs.py
 apps/api/app/services/rules.py
@@ -37,7 +43,9 @@ apps/api/app/services/serializers.py
 apps/api/app/storage/__init__.py
 apps/api/app/storage/local.py
 packages/alinea_agent/__init__.py
+packages/alinea_agent/contracts.py
 packages/alinea_agent/interpreter.py
+packages/alinea_agent/orchestrator.py
 packages/alinea_agent/schemas.py
 packages/alinea_contracts/__init__.py
 packages/alinea_contracts/errors.py

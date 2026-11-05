@@ -1,11 +1,14 @@
 [build-system]
-requires = ["setuptools>=75", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "alinea"
 version = "0.2.0"
 description = "Verifiable DOCX formatting inspection and repair"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
   "fastapi>=0.115,<1",
@@ -26,6 +29,11 @@ dependencies = [
   "rq>=2,<3",
   "psycopg[binary]>=3.2,<4",
 ]
+
+[project.urls]
+Homepage = "https://github.com/YiYun-ll/Alinea"
+Repository = "https://github.com/YiYun-ll/Alinea.git"
+Issues = "https://github.com/YiYun-ll/Alinea/issues"
 
 [project.optional-dependencies]
 dev = [

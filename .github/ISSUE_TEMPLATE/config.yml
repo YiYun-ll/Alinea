@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 项目文档
+    url: https://github.com/YiYun-ll/Alinea#项目文档
+    about: 使用问题请先查阅 README、架构、API 与支持范围文档。
+  - name: 安全漏洞私密报告
+    url: https://github.com/YiYun-ll/Alinea/security/advisories/new
+    about: 请勿通过公开 Issue 报告安全漏洞。

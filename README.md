@@ -3,6 +3,8 @@
 **Document Formatting, Made Verifiable. 让每一处排版都有依据。**
 
 [![CI](https://github.com/YiYun-ll/Alinea/actions/workflows/ci.yml/badge.svg)](https://github.com/YiYun-ll/Alinea/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![Issues](https://img.shields.io/github/issues/YiYun-ll/Alinea)](https://github.com/YiYun-ll/Alinea/issues)
 ![Python 3.12+](https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white)
 ![Node.js 22+](https://img.shields.io/badge/Node.js-22%2B-339933?logo=node.js&logoColor=white)
 ![Vue 3](https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js&logoColor=white)
@@ -104,8 +106,6 @@ AgentRun 持久化运行上下文与 AgentEvent。单 Agent 在预算内调用 9
 git clone https://github.com/YiYun-ll/Alinea.git
 cd Alinea
 ```
-
-当前仓库为私有仓库，克隆前需要获得访问权限。
 
 ### 2. 安装依赖
 
@@ -277,8 +277,12 @@ ALINEA_RUN_LO_SMOKE=1 .venv/Scripts/python -m pytest -q tests/unit/alinea_mappin
 
 ## 项目状态与贡献
 
-Alinea 当前处于私有开发和持续验证阶段，暂未开放外部贡献。内部变更应同步更新相关文档，并在提交前完成上述测试及真实浏览器流程验收。
+Alinea 处于早期活跃开发阶段，接口、规则 DSL 和支持范围仍可能调整，使用前请查阅文档并验证目标文档类型。
 
-## License
+欢迎通过 [Bug 报告](https://github.com/YiYun-ll/Alinea/issues/new?template=bug_report.yml)、[功能建议](https://github.com/YiYun-ll/Alinea/issues/new?template=feature_request.yml) 和 Pull Request 参与贡献。开发环境、验证要求与提交流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，社区参与规范见 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)。安全漏洞请按照 [SECURITY.md](SECURITY.md) 私密报告。
 
-当前仓库**尚未指定开源许可证**。在添加明确的 `LICENSE` 前，README 的开源项目排版不代表已授予复制、修改或再分发许可；仓库仍保持私有。
+## 许可证
+
+本项目采用 [Apache License 2.0](LICENSE)。你可以使用、修改、分发和商用本项目，但需保留版权与许可证声明，并标明对源文件所做的修改；许可证同时包含明确的专利授权及责任限制条款。
+
+第三方依赖、字体、LibreOffice 和演示材料仍适用各自许可证。依赖清单见 [SBOM](reports/SBOM.json)，分发时不要将第三方许可证替换为本项目许可证。
